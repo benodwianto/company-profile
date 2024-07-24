@@ -82,10 +82,10 @@ function updateAdmin($id, $username, $password)
     $conn->close();
 }
 
-function updateLayanan($id, $investasi, $fotoFileInputName)
+function updateLayanan($id, $kelebihan, $investasi, $fotoFileInputName)
 {
     global $conn;
-    $targetDirectory = __DIR__ . "/../asset/image/layanan/";
+    $targetDirectory = __DIR__ . "/../assets/images/layanan/";
     $oldFotoPath = null;
 
     // Ambil path foto lama dari database
@@ -110,9 +110,9 @@ function updateLayanan($id, $investasi, $fotoFileInputName)
     }
 
     // Update data di database
-    $sql = "UPDATE layanan SET investasi=?, foto=? WHERE id=?";
+    $sql = "UPDATE layanan SET kelebihan=?, investasi=?, foto=? WHERE id=?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('ssi', $investasi, $newFotoPath, $id);
+    $stmt->bind_param('sssi', $kelebihan, $investasi, $newFotoPath, $id);
     if ($stmt->execute()) {
         return "Record updated successfully";
     } else {
@@ -120,8 +120,6 @@ function updateLayanan($id, $investasi, $fotoFileInputName)
     }
     $stmt->close();
 }
-
-
 
 
 function updateLegalitas($id, $legalitas)
