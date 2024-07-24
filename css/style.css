@@ -5,10 +5,41 @@
     --base-light: #FEF5EA;
 }
 
-html, body {
+html{
     padding: 0;
     margin: 0;
-    overflow-x: hidden;
+overflow-x: hidden; /* Menghilangkan scroll horizontal */
+     /* Menghilangkan scroll vertikal */
+}
+
+
+
+/* Opsional: Menambahkan gaya untuk konten lain agar tidak tertutup */
+body {
+    position: relative;
+    z-index: 0;
+}
+
+
+/* Menghilangkan scrollbar di Chrome, Safari, dan Edge */
+body::-webkit-scrollbar, body::-webkit-scrollbar {
+    display: none;
+}
+
+/* Menghilangkan scrollbar di Firefox */
+ body {
+    scrollbar-width: none; /* "none" atau "thin" */
+}
+
+/* Menghilangkan scrollbar di Internet Explorer dan Edge */
+body {
+    -ms-overflow-style: none; /* Menghilangkan scrollbar */
+}
+
+p {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
 }
 
 nav {
@@ -27,6 +58,15 @@ nav {
     z-index: 100;
     
    
+}
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+.nav-text {
+    margin-left: 10px;
+    font-weight: bold;
+    color: #FFFFFF;
 }
 
 nav ul {
@@ -49,9 +89,11 @@ header nav  li {
     /* padding: 10px; */
     
 }
-nav li a img.logo {
+.logo {
     margin-right: 20px;
-    margin-left: 20px; /* Menambahkan jarak antara logo dan tulisan */
+    margin-left: 20px; 
+    width: 50px;
+    height: 50px;/* Menambahkan jarak antara logo dan tulisan */
 }
 
 nav ul li a {
@@ -102,6 +144,8 @@ header {
     flex-direction: column;
     align-items: center;
 }
+
+/* awal jumbotron */
 .jumbotron-content {
     display: flex;
     flex-direction: column;
@@ -170,14 +214,10 @@ header {
  
 }
 
+/* akhir jumbotron  */
 
 
-/* Gaya untuk judul di header */
-h1[name="welcome"] {
-    text-align: center;
-    margin: 0;
-    color: #343a40;
-}
+
 
 /* Mengatur gaya untuk main dan section */
 main {
@@ -200,6 +240,7 @@ section .content-section {
    
 }
 
+/* awal section tentang kami */
 .tentangkami {
     height: fit-content;
     display: flex;
@@ -210,13 +251,13 @@ section .content-section {
 .tentangkami .content-section-visimisi {
 display: flex;
 flex-direction: row;
+height: 356px;
 
 
 }
 .tentangkami .content-section-visimisi .right-visimisi {
 display: flex;
 flex-direction: row;
-
 width: 100dvw;
 }
 
@@ -224,13 +265,14 @@ width: 100dvw;
 display: flex;
 flex-direction: row;
 background-color:#951C11;
-width: 50dvw;
+width: 85dvw;
 }
 .tentangkami .content-section-visimisi .left-visimisi .left-visimisi-content {
 padding: 20px;
-padding-left: 40px;
+padding-left: 80px;
 text-align: left;
 color: var(--base-light);
+width: 400px;
 }
 
 section .content-section-1 {
@@ -249,6 +291,10 @@ section .content-section-1 .right-tentangkami h2{
   text-align: left;
    
 }
+section .content-section-1 .right-tentangkami .line.tentangkami {
+    margin-left: -30px !important;
+    height: 10px;
+}
 section .content-section-1 .left-tentangkami {
     width: 40%;
    
@@ -257,7 +303,7 @@ section .content-section-1 .left-tentangkami .gambar-tentangkami {
     z-index: 1;
     position: absolute;
     padding-top: 12%;
-    height: 62dvh;
+    height: 90dvh;
     width: 25dvw;
     left: 11%;
   
@@ -266,17 +312,116 @@ section .content-section-1 .left-tentangkami .background {
     position: absolute;
     background-color: #951C11 !important;
     width: 30dvw;
-    
     height: 80dvh;
     
-    
-
-   
 }
+
+h1, h2, h3 {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+h1.animate, h2.animate, h3.animate{
+    opacity: 1;
+    transform: translateY(0);
+}
+/* akhir section tentang kami */
 
 h2, h3 {
     color: #343a40;
 }
+p.animate {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+p {
+    opacity: 0;
+    transform: translateY(20px); /* Menggeser elemen sedikit ke bawah saat tersembunyi */
+}
+
+
+/* awal Produk kami */
+.produk-kami {
+    height: fit-content;
+    min-height: 100dvh;
+}
+section .content-section-produk-kami {
+    padding-top: 15dvh;
+   
+}
+.content-section-produk-kami-card {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto; /* Menambahkan scroll horizontal */
+    padding: 30px; /* Opsional: menambahkan padding di sekitar konten */
+    gap: 20px; /* Opsional: menambahkan jarak antara card */
+}
+
+/* Menghilangkan scrollbar di Chrome, Safari, dan Edge */
+.content-section-produk-kami-card::-webkit-scrollbar {
+    display: none;
+}
+
+/* Menghilangkan scrollbar di Firefox */
+.content-section-produk-kami-card {
+    scrollbar-width: none; /* "none" atau "thin" */
+    -ms-overflow-style: none; /* Untuk Internet Explorer dan Edge */
+}
+.card {
+    flex: 0 0 auto; /* Menghindari card untuk menyusut atau membesar */
+    width: 20rem; /* Lebar card yang telah ditentukan */
+    padding: 20px;
+}
+/* akhir produk kami */
+
+/* line style */
+section .line {
+    display: flex;
+    justify-content: center !important;
+    margin: auto;
+    background-color: var(--primary-color);
+    width: 10dvw;
+    height: 10px;
+    border-radius: 20px;
+    transition: width 1s ease, transform 1s ease; /* Transisi untuk animasi */
+}
+
+/* Animasi saat elemen terlihat */
+section .line.animate {
+    width: 20dvw;
+    animation: pulsate 1.5s , colorChange 3s ;
+}
+
+/* Keyframes untuk efek pulsate (berdenyut) */
+@keyframes pulsate {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Keyframes untuk perubahan warna */
+@keyframes colorChange {
+    0% {
+        background-color: var(--primary-color);
+    }
+    50% {
+        background-color: var(--secondary-color);
+    }
+    100% {
+        background-color: var(--primary-color);
+    }
+}
+
+/* akhir line style */
 
 /* Mengatur gaya untuk footer */
 footer {
@@ -295,16 +440,160 @@ footer p {
 /* Responsif untuk tampilan mobile */
 @media (max-width: 768px) {
     nav {
-        flex-direction: column;
-        align-items: center;
+        flex-direction: row;
+        align-items: left;
+    }
+    navbar {
+        position: relative;
     }
 
     nav ul {
         flex-direction: column;
         align-items: center;
+        /* background-color: var(--secondary-color); */
+        width: 40dvw;
     }
 
     nav ul li {
         margin: 10px 0;
     }
+    nav ul li a:hover {
+        background-color: transparent;
+    border-radius: 1px !important;
+        width: 100% !important;
+         color: var(--primary-color)!important;
+         transition: none !important;
+         transition: none !important;
+         text-align: center !important;
+     }
+   
+   
+    .nav-text {
+        font-size: 12px;
+        width: 147px;
+    }
+    .logo {
+        width: 29px;
+        height: 29px;
+        border-radius: 50%;
+        margin-right: 3px;
+        margin-left: 20px; 
+    }
+    .navbar-toggler {
+        border: none !important;
+        padding: 1px !important; 
+        color:transparent !important;
+        padding: 20px;
+        font-size: 3rem;
+        margin-right: 20px;
+        z-index: 1060;
+        transition: transform 0.3s ease; 
+    }
+    .navbar-collapse {
+        transition: transform 0.3s ease;
+        transform: translateX(100%); /* Menu berada di luar tampilan dari kanan secara default */
+        position: fixed;
+        top: 0;
+        right: 0;
+        overflow-x: hidden;
+        width: 200px;
+        text-align: center; /* Atur lebar menu sesuai kebutuhan */
+        background-color: var(--base-light); /* Sesuaikan dengan warna latar belakang navbar Anda */
+        z-index: 1050; 
+       /* Pastikan menu berada di atas konten lainnya */
+    }
+       /* Menampilkan menu saat toggle diklik */
+       .navbar-collapse.show {
+        transform: translateX(0); /* Menu muncul dari samping kanan */
+    }
+    
+    .navbar-nav {
+        display: none;
+        margin-top: 40px;
+        transition: transform 0.3s ease-in-out; /* Transisi untuk menu */
+        transform: translateX(0);
+    
+    }
+
+    .navbar-toggler {
+        display: flex;
+    }
+   
+    .navbar-toggler.active .fa-times {
+        transform: translateX(-100px); /* Geser ikon ke kiri */
+        
+    }
+    .navbar-toggler.active .fa-bars.d-none {
+        display: inline;
+       
+    }
+    .navbar-toggler.active .fa-times.d-none {
+        display: inline;
+       
+    }
+
+    .navbar-toggler.active + .navbar-nav {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .navbar-nav .nav-item {
+        margin: 10px 0px;
+        
+    }
+    .navbar-nav .nav-item .nav-link {
+        padding: 10px 20px;
+        width: 100%;
+        text-align: center;
+    }
+  
+    .dark-icon {
+        font-size: 24px;
+        color: #333; /* Warna ikon gelap */
+        margin-left: 10px;
+        transition: transform 0.1s ease-in-out !important;
+        border: 1px solid black;
+        border-radius: 5px;
+        padding: 10px;
+        padding-top: 0;
+        padding-bottom: 0;
+        
+    }
+    .light-icon {
+        font-size: 24px;
+        color: var(--base-light); /* Warna ikon gelap */
+        margin-left: 10px;
+        transition: transform 3s ease-in-out;
+        transition-delay: 3s;
+        transition: margin-left 0.3s ease;
+    }
+    .collapse-icon {
+        font-size: 24px;
+        color: black; /* Ganti warna sesuai keinginan */
+        transition: margin-left 0.5s ease;
+    }
+    
+    /* Transisi pada navbar-collapse */
+   
+    .navbar-toggler-ikon {
+        font-size: 24px;
+        color: var(--base-light); /* Adjust the color if needed */
+        transition: transform 0.3s ease, margin-left 0.3s ease;
+    }
+    
+    .navbar-toggler-ikon .dark-icon,
+    .navbar-toggler-ikon .light-icon {
+        display: none;
+    }
+    
+    .navbar-toggler.active .navbar-toggler-ikon .dark-icon {
+        display: inline;
+    }
+    
+    .navbar-toggler:not(.active) .navbar-toggler-ikon .light-icon {
+        display: inline;
+    }
+
 }
+    
