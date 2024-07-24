@@ -1,0 +1,310 @@
+:root {
+    --primary-color: #951C11;
+    --secondary-color: #F1F1D5;
+    --base-dark: #262020;
+    --base-light: #FEF5EA;
+}
+
+html, body {
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+nav {
+    background-color:#951C11;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 20px;
+    margin-bottom: 0px;
+    position: fixed;
+    height: 15dvh;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    z-index: 100;
+    
+   
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 20px;
+}
+
+
+nav ul li {
+    display: flex;
+    flex-direction: row;
+    margin: 0 15px;
+   
+}
+header nav  li {
+    text-decoration: none;
+    margin: 0 5px;
+    /* padding: 10px; */
+    
+}
+nav li a img.logo {
+    margin-right: 20px;
+    margin-left: 20px; /* Menambahkan jarak antara logo dan tulisan */
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #FEF5EA;
+    font-weight: bold;
+    transition: color 0.3s;
+    vertical-align: middle;
+    padding: 6px 12px;
+    
+    
+   
+}
+header nav li a {
+    text-decoration: none;
+    color: #FEF5EA;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 16px;
+    font-weight: 700;
+    vertical-align: middle;
+    padding: 10px;
+    margin-left: 10px;
+  
+}
+
+nav ul li a:hover {
+    background-color: #F1F1D5; /* Warna saat hover */
+    border-radius: 21px;
+    color: black;
+    transition: color 0.3s;
+    transition: all 1s;
+}
+
+
+nav li a .logo {
+    height: 50px;
+     /* Atur tinggi logo sesuai kebutuhan */
+    vertical-align: middle;
+    border-radius:50%;
+   
+}
+
+
+header {
+    background-color: #951C11; /* Warna latar belakang header */
+    padding: 0px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.jumbotron-content {
+    display: flex;
+    flex-direction: column;
+    margin-top: 15dvh;
+    height: 100dvh;
+    padding: 30px;
+    padding-left: 100px;
+    
+}
+
+.jumbotron-content h1 {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    height: 225px;
+    width: 450px;
+    font-weight:700; 
+    font-size: 64px; 
+    color: #FFFFFF;
+    margin: 10px;
+    margin-top: 15dvh;
+   
+    
+}
+.jumbotron-content p {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    height: 28px;
+    width: 516px;
+    font-weight:700; 
+    font-size: 24px;
+    color: #FFFFFF;
+    margin: 10px;
+   
+   
+}
+.jumbotron-content p:nth-of-type(2) {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    height: 95px; 
+    width: 50%; 
+    font-weight:400; 
+    font-size: 16px;
+    color: #FFFFFF;
+    margin: 10px;
+  
+ 
+}
+.jumbotron-content button {
+    width: 10dvw; 
+    margin: 10px;
+    background-color: #F1F1D5;
+    border: none;
+    height: 53px;
+    border-radius: 36px;
+    margin-top: 80px;
+   
+ 
+}
+.jumbotron-content button a {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    width: 10dvw; 
+    font-weight:400; 
+    font-size: 16px;
+    color: black;
+    margin: 10px;
+    
+    text-decoration: none;
+   
+ 
+}
+
+
+
+/* Gaya untuk judul di header */
+h1[name="welcome"] {
+    text-align: center;
+    margin: 0;
+    color: #343a40;
+}
+
+/* Mengatur gaya untuk main dan section */
+main {
+    max-width: 100dvw;
+    margin: 0 auto;
+}
+
+section {
+    margin-bottom: 40px;
+    height: 100dvh;
+    background-color: #F1F1D5;
+    text-align: center;
+    
+}
+
+section .content-section {
+    padding: 15%;
+
+  
+   
+}
+
+.tentangkami {
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    width: 100dvw;
+
+}
+.tentangkami .content-section-visimisi {
+display: flex;
+flex-direction: row;
+
+
+}
+.tentangkami .content-section-visimisi .right-visimisi {
+display: flex;
+flex-direction: row;
+
+width: 100dvw;
+}
+
+.tentangkami .content-section-visimisi .left-visimisi {
+display: flex;
+flex-direction: row;
+background-color:#951C11;
+width: 50dvw;
+}
+.tentangkami .content-section-visimisi .left-visimisi .left-visimisi-content {
+padding: 20px;
+padding-left: 40px;
+text-align: left;
+color: var(--base-light);
+}
+
+section .content-section-1 {
+   
+    display: flex;
+    flex-direction: row;
+   
+}
+section .content-section-1 .right-tentangkami {
+    width: 60%;
+    padding-top: 10%;
+    padding-left: 10%;
+   
+}
+section .content-section-1 .right-tentangkami h2{
+  text-align: left;
+   
+}
+section .content-section-1 .left-tentangkami {
+    width: 40%;
+   
+}
+section .content-section-1 .left-tentangkami .gambar-tentangkami {
+    z-index: 1;
+    position: absolute;
+    padding-top: 12%;
+    height: 62dvh;
+    width: 25dvw;
+    left: 11%;
+  
+}
+section .content-section-1 .left-tentangkami .background {
+    position: absolute;
+    background-color: #951C11 !important;
+    width: 30dvw;
+    
+    height: 80dvh;
+    
+    
+
+   
+}
+
+h2, h3 {
+    color: #343a40;
+}
+
+/* Mengatur gaya untuk footer */
+footer {
+    background-color: #343a40;
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    bottom: 0;
+    width: 100%;
+}
+
+footer p {
+    margin: 0;
+}
+
+/* Responsif untuk tampilan mobile */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul li {
+        margin: 10px 0;
+    }
+}
