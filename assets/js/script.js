@@ -21,6 +21,44 @@
 //   });
 // });
 
+// animasi gambar tentang kami
+document.addEventListener('DOMContentLoaded', function() {
+  const image = document.querySelector('.gambar-tentangkami');
+
+  const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+          if (entry.isIntersecting) {
+              image.classList.add('animate');
+          } else {
+              image.classList.remove('animate');
+          }
+      });
+  }, {
+      threshold: 0.1 // Adjust this value as needed
+  });
+
+  observer.observe(image);
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  var showMoreBtn = document.querySelector('.show-more-btn');
+  var dots = document.querySelector('.dots');
+  var moreText = document.querySelector('.more-text');
+
+  showMoreBtn.addEventListener('click', function() {
+      if (moreText.style.display === 'none') {
+          moreText.style.display = 'inline';
+          dots.style.display = 'none';
+          showMoreBtn.textContent = 'lebih sedikit';
+      } else {
+          moreText.style.display = 'none';
+          dots.style.display = 'inline';
+          showMoreBtn.textContent = 'selengkapnya';
+      }
+  });
+});
+
 // ini untuk heading
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -48,26 +86,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
 document.addEventListener("DOMContentLoaded", function () {
   const paragraphsToAnimate = document.querySelectorAll("p");
+  const hasAnimated = localStorage.getItem("hasAnimated");
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("animate");
-        } else {
-          entry.target.classList.remove("animate");
-        }
-      });
-    },
-    {
-      threshold: 0.5,
-    }
-  );
+  if (!hasAnimated) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate");
+            localStorage.setItem("hasAnimated", "true");
+          }
+        });
+      },
+      {
+        threshold: 0.5,
+      }
+    );
 
-  paragraphsToAnimate.forEach((paragraph) => {
-    observer.observe(paragraph);
-  });
+    paragraphsToAnimate.forEach((paragraph) => {
+      observer.observe(paragraph);
+    });
+  } else {
+    paragraphsToAnimate.forEach((paragraph) => {
+      paragraph.classList.add("animate");
+    });
+  }
 });
+
 
 // ini untuk navigasi mobile
 document.addEventListener("DOMContentLoaded", function () {

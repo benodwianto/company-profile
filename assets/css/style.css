@@ -90,15 +90,16 @@ header nav  li {
     
 }
 .logo {
-    margin-right: 20px;
-    margin-left: 20px; 
+    margin-right: 10px;
+    margin-left: 40px; 
     width: 50px;
     height: 50px;/* Menambahkan jarak antara logo dan tulisan */
+    border-radius: 50%;
 }
 
 nav ul li a {
     text-decoration: none;
-    color: #FEF5EA;
+    color: #FEF5EA !important;
     font-weight: bold;
     transition: color 0.3s;
     vertical-align: middle;
@@ -107,7 +108,26 @@ nav ul li a {
     
    
 }
-header nav li a {
+
+.nav-link {
+    text-decoration: none !important;
+    color: #FEF5EA !important;
+    font-weight: bold!important;
+    transition: color 0.3s !important;
+    vertical-align: middle !important;
+    padding: 6px 12px !important;
+    
+}
+
+.nav-link:hover {
+    background-color: #F1F1D5 !important; /* Warna saat hover */
+    border-radius: 21px !important;
+    color: black !important;
+    transition: color 0.3s !important;
+    transition: all 1s !important;
+}
+
+header nav li a  {
     text-decoration: none;
     color: #FEF5EA;
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -119,13 +139,13 @@ header nav li a {
   
 }
 
-nav ul li a:hover {
-    background-color: #F1F1D5; /* Warna saat hover */
+/* nav ul li a:hover {
+    background-color: #F1F1D5;
     border-radius: 21px;
     color: black;
     transition: color 0.3s;
     transition: all 1s;
-}
+} */
 
 
 nav li a .logo {
@@ -142,6 +162,7 @@ header {
     padding: 0px 20px;
     display: flex;
     flex-direction: column;
+    width: 100dvw;
     align-items: center;
 }
 
@@ -151,6 +172,7 @@ header {
     flex-direction: column;
     margin-top: 15dvh;
     height: 100dvh;
+    
     padding: 30px;
     padding-left: 100px;
     
@@ -316,30 +338,58 @@ section .content-section-1 .left-tentangkami .background {
     
 }
 
+
+/* animasi gambar tentang kami */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.gambar-tentangkami {
+    opacity: 0;
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.gambar-tentangkami.animate {
+    animation: fadeIn 1s forwards;
+}
+
+
+
+
+/* akhir section tentang kami */
 h1, h2, h3 {
     opacity: 0;
     transform: translateY(50px);
     transition: opacity 1s ease, transform 1s ease;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
+
 }
 
 h1.animate, h2.animate, h3.animate{
     opacity: 1;
     transform: translateY(0);
 }
-/* akhir section tentang kami */
 
 h2, h3 {
     color: #343a40;
 }
 p.animate {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
     transition: opacity 1s ease, transform 1s ease;
 }
 
 p {
     opacity: 0;
-    transform: translateY(20px); /* Menggeser elemen sedikit ke bawah saat tersembunyi */
+    transform: translateX(10px); /* Menggeser elemen sedikit ke bawah saat tersembunyi */
 }
 
 
@@ -374,8 +424,104 @@ section .content-section-produk-kami {
     flex: 0 0 auto; /* Menghindari card untuk menyusut atau membesar */
     width: 20rem; /* Lebar card yang telah ditentukan */
     padding: 20px;
+    overflow: hidden;
+}
+
+.card-img-top {
+    transition: transform 0.5s ease;
+}
+
+.card-img-top:hover {
+    transform: scale(1.1); /* Mengatur efek zoom */
 }
 /* akhir produk kami */
+
+/* awal layanan kami */
+
+.content-section-layanan {
+    padding-top:15dvh;
+ 
+}
+
+.content-section-layanan-kami {
+    display: flex;
+    flex-direction: row;
+ 
+}
+.layanan {
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    width: 100dvw;
+
+}
+
+
+.left-layanan, .right-layanan {
+    
+    margin: 10px 0;
+    width: 50dvw;
+}
+
+.right-layanan {
+   padding: 5%;
+    text-align: start;
+}
+
+.left-layanan .gambar-layanan{ 
+z-index: 1;
+position: relative;
+padding: 10%;
+height: 616px;
+width: 616px;
+
+}
+/* akhir layanan kami */
+
+/* awal legalitas */
+.legalitas {
+    height: fit-content;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    width: 100dvw;
+
+}
+.content-section-legalitas {
+    padding-top:15dvh;
+ 
+}
+.unduh-legalitas{
+   
+   width: fit-content;
+   margin: auto;
+   padding: 20px;
+    
+}
+.unduh-legalitas  .list-group{
+    display: flex;
+    flex-direction: row; 
+    
+}
+.unduh-legalitas  .list-group .btn-download{
+    display: inline;
+    border-radius: 25px;
+    background-color: var(--base-light);
+    gap: 10px; 
+    
+}
+.unduh-legalitas  .list-group .btn-download:hover,
+.unduh-legalitas  .list-group .btn-download:hover i {
+            color: var(--base-light);
+            background-color: var(--primary-color);
+        }
+.unduh-legalitas .fa-download {
+    color: var(--primary-color);
+    padding: 10px;
+    font-size: 1.5rem;
+    justify-content: center;
+}
+/* akhir legalitas */
 
 /* line style */
 section .line {
@@ -423,6 +569,7 @@ section .line.animate {
 
 /* akhir line style */
 
+
 /* Mengatur gaya untuk footer */
 footer {
     background-color: #343a40;
@@ -437,11 +584,28 @@ footer p {
     margin: 0;
 }
 
+
 /* Responsif untuk tampilan mobile */
 @media (max-width: 768px) {
+    section {
+    padding: 20px;
+
+    }
     nav {
         flex-direction: row;
         align-items: left;
+        background-color:#951C11;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 20px 20px;
+        margin-bottom: 0px;
+        position: fixed;
+        height: 10dvh;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        z-index: 100;
     }
     navbar {
         position: relative;
@@ -457,24 +621,38 @@ footer p {
     nav ul li {
         margin: 10px 0;
     }
-    nav ul li a:hover {
-        background-color: transparent;
-    border-radius: 1px !important;
-        width: 100% !important;
-         color: var(--primary-color)!important;
-         transition: none !important;
-         transition: none !important;
-         text-align: center !important;
-     }
+  
+
+    .nav-link {
+        text-decoration: none !important;
+        color:var(--base-dark) !important;
+        font-weight: 500!important;
+        transition: color 0.3s !important;
+        vertical-align: middle !important;
+        text-align: center;
+        width: 200px !important;
+        
+        
+    }
+    
+    .nav-link:hover {
+        background-color: var(--secondary-color) !important; /* Warna saat hover */
+        border-radius: 1px !important;
+        color: var(--primary-color) !important;
+        transition: color 0.3s !important;
+        transition: all 1s !important;
+        width: 200px !important;
+    }
+
    
    
     .nav-text {
-        font-size: 12px;
+        font-size: 18px;
         width: 147px;
     }
     .logo {
-        width: 29px;
-        height: 29px;
+        width: 39px;
+        height: 39px;
         border-radius: 50%;
         margin-right: 3px;
         margin-left: 20px; 
@@ -485,8 +663,10 @@ footer p {
         color:transparent !important;
         padding: 20px;
         font-size: 3rem;
-        margin-right: 20px;
+        margin-right: 10px;
         z-index: 1060;
+        position: fixed;
+        right: 20px;
         transition: transform 0.3s ease; 
     }
     .navbar-collapse {
@@ -497,6 +677,7 @@ footer p {
         right: 0;
         overflow-x: hidden;
         width: 200px;
+        height: 100dvh;
         text-align: center; /* Atur lebar menu sesuai kebutuhan */
         background-color: var(--base-light); /* Sesuaikan dengan warna latar belakang navbar Anda */
         z-index: 1050; 
@@ -509,7 +690,7 @@ footer p {
     
     .navbar-nav {
         display: none;
-        margin-top: 40px;
+        margin-top: 50px;
         transition: transform 0.3s ease-in-out; /* Transisi untuk menu */
         transform: translateX(0);
     
@@ -595,5 +776,207 @@ footer p {
         display: inline;
     }
 
+    /* untuk tentang kami */
+    
+    /* jumbotron */
+    .jumbotron-content {
+        display: flex;
+        flex-direction: column;
+        margin-top: 8dvh !important;
+        height: 100dvh;
+        padding: 10px;
+       text-align:center;
+        
+    }
+    .jumbotron-content h1 {
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        height: 20px;
+        width: 450px;
+        font-weight:700; 
+        font-size: 36px; 
+        color: #FFFFFF;
+        margin-top: 15dvh;
+        margin: auto;
+       
+        
+    }
+    .jumbotron-content p {
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        height: 20px !important;
+        width: 70%px;
+        font-weight:700; 
+        font-size: 24px;
+        margin: auto;
+        margin-top: -20px;
+ 
+      
+       
+       
+    }
+    .jumbotron-content p:nth-of-type(2) {
+        font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+       
+        width: 80%; 
+        font-weight:400; 
+        font-size: 16px;
+        margin: auto;
+        margin-top: -100px;
+        padding: 20px;
+        
+      
+     
+    }
+    .jumbotron-content button {
+        width: fit-content; 
+        margin: auto;
+        border: none;
+        border-radius: 36px;
+       
+
+       
+     
+    }
+    .jumbotron-content button a {
+        font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        width: 20dvw; 
+        font-weight:400; 
+        font-size: 16px;
+        color: black;
+        margin: 10px;
+        text-decoration: none;
+        margin-top: 30px;
+        padding: 40px;
+       
+     
+    }.dots {
+        display: inline;
+    }
+    /* more text */
+.more-text {
+    display: none;
 }
+.show-more-btn {
+    color: var(--secondary-color);
+    cursor: pointer;
+}
+
+/* awal section tentang kami */
+.tentangkami {
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    width: 100dvw;
+
+}
+
+
+section .content-section-1 {
+    padding-top:15dvh;
+    display: flex;
+    flex-direction: column;
+    
+   
+}
+section .content-section-1 .right-tentangkami {
+    width: 100%;
+    padding-left: 0;
+   
+    
+   
+}
+section .content-section-1 .right-tentangkami h2{
+  text-align: center;
+   
+}
+section .content-section-1 .right-tentangkami .line.tentangkami {
+    justify-content: center;
+    margin: auto !important;
+    height: 10px;
+}
+section .content-section-1 .left-tentangkami {
+    width: 100%;
+ 
+  
+
+   
+}
+section .content-section-1 .left-tentangkami .gambar-tentangkami {
+    z-index: 1;
+    position: relative;
+    padding-top: 12%;
+    height: 50dvh;
+    width: 80dvw;
+    left: 0;
+    margin:auto;
+  
+}
+section .content-section-1 .left-tentangkami .background {
+    visibility: hidden;
+    
+}
+.tentangkami .content-section-visimisi {
+    display: flex;
+    flex-direction: row;
+    height: 356px;
+    
+    
+    }
+    .tentangkami .content-section-visimisi .right-visimisi {
+    display: flex;
+    flex-direction: row;
+    width: 100dvw;
+    }
+    
+    .tentangkami .content-section-visimisi .left-visimisi {
+    display: flex;
+    flex-direction: row;
+    background-color:#951C11;
+    width: 85dvw;
+    }
+    .tentangkami .content-section-visimisi .left-visimisi .left-visimisi-content {
+    padding: 20px;
+    padding-left: 80px;
+    text-align: left;
+    color: var(--base-light);
+    width: 400px;
+    }
+
+
+/* animasi gambar tentang kami */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.gambar-tentangkami {
+    opacity: 0;
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.gambar-tentangkami.animate {
+    animation: fadeIn 1s forwards;
+}
+
+}
+/* Untuk tampilan di atas 768px, sembunyikan tombol "selengkapnya" */
+@media (min-width: 769px) {
+    .dots {
+        display: none;
+    }
+    .more-text {
+        display: inline;
+    }
+    .show-more-btn {
+        display: none;
+    }
+}
+
+
     
