@@ -553,6 +553,82 @@ width: 616px;
 }
 /* akhir legalitas */
 
+/* awal kerjasama */
+.kerjasama {
+    height: 100dvh;
+}
+.content-section-kerjasama {
+    padding-top:15dvh;
+}
+
+.marquee-wrapper {
+    position: relative;
+    padding-top: 15dvh;
+    width: 100%;
+    overflow: hidden;
+    
+  }
+  
+  .marquee {
+    display: flex;
+    white-space: nowrap;
+  }
+  .marquee:hover {
+    animation-play-state: paused;
+  }
+  
+  .marquee-content {
+    display: flex;
+    white-space: nowrap;
+  }
+  
+  .marquee-content img {
+    height: 190px;
+    width: 190px; /* Sesuaikan dengan ukuran gambar Anda */
+    margin-right: 20px; /* Jarak antar gambar */
+    border-radius: 25px;
+    aspect-ratio: 3/3;
+    object-fit: contain;
+    mix-blend-mode:darken;
+  }
+  
+  /* Gradient efek di awal dan akhir marquee */
+  .marquee-wrapper::before,
+  .marquee-wrapper::after {
+   
+    content: '';
+    position: absolute;
+    top: 0;
+    height: 190px;
+    width: 10%; /* Lebar gradient, sesuaikan sesuai kebutuhan */
+ 
+    pointer-events: none;
+    
+  }
+  
+  .marquee-wrapper::after {
+    top: 15dvh;
+    right: 0px;
+    background: linear-gradient(to left,var(--secondary-color), rgba(255, 255, 255, 0));
+  }
+  .marquee-wrapper::before {
+    top: 15dvh;
+    left: 0px;
+    background: linear-gradient(to right, var(--secondary-color), rgba(255, 255, 255, 0));
+   
+  }
+  
+
+
+
+
+
+
+
+
+/* akhir kerjasama */
+
+
 /* line style */
 section .line {
     display: flex;
@@ -819,7 +895,7 @@ footer p {
         display: inline;
     }
 
-    /* untuk tentang kami */
+    
     
     /* jumbotron */
     .jumbotron-content {
@@ -931,6 +1007,10 @@ section .content-section-1 .right-tentangkami h2{
   text-align: center;
    
 }
+section .content-section-1 .right-tentangkami p{
+  width: 100% !important;
+   
+}
 section .content-section-1 .right-tentangkami .line.tentangkami {
     justify-content: center;
     margin: auto !important;
@@ -1006,6 +1086,75 @@ section .content-section-1 .left-tentangkami .background {
 .gambar-tentangkami.animate {
     animation: fadeIn 1s forwards;
 }
+/* awal kerjasama mobile */
+.kerjasama {
+    height: 100dvh;
+    padding-left: 0 !important
+}
+.content-section-kerjasama {
+    padding-top:15dvh;
+}
+
+.marquee-wrapper {
+    position: relative;
+    padding-top: 15dvh;
+    width: 100%;
+    overflow: hidden;
+    
+  }
+  
+  .marquee {
+    display: flex;
+    white-space: nowrap;
+    cursor:grab;
+  }
+  .marquee:active {
+    cursor: grabbing;
+  }
+  .marquee:hover {
+    animation-play-state: paused;
+  }
+  
+  .marquee-content {
+    display: flex;
+    white-space: nowrap;
+  }
+  
+  .marquee-content img {
+    height: 100px;
+    width: 100px; /* Sesuaikan dengan ukuran gambar Anda */
+    margin-right: 20px; /* Jarak antar gambar */
+    aspect-ratio: 3/2;
+    object-fit: contain;
+    mix-blend-mode:darken;
+  }
+  
+  /* Gradient efek di awal dan akhir marquee */
+  .marquee-wrapper::before,
+  .marquee-wrapper::after {
+   
+    content: '';
+    position: absolute;
+    top: 0;
+    height: 190px;
+    width: 10%; /* Lebar gradient, sesuaikan sesuai kebutuhan */
+ 
+    pointer-events: none;
+    
+  }
+  
+  .marquee-wrapper::after {
+    top: 15dvh;
+    right: 0px;
+    background: linear-gradient(to left,var(--secondary-color), rgba(255, 255, 255, 0));
+  }
+  .marquee-wrapper::before {
+    top: 15dvh;
+    left: 0px;
+    background: linear-gradient(to right, var(--secondary-color), rgba(255, 255, 255, 0));
+   
+  }
+  
 
 }
 /* Untuk tampilan di atas 768px, sembunyikan tombol "selengkapnya" */
