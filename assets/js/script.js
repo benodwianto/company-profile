@@ -121,11 +121,27 @@ document.addEventListener("DOMContentLoaded", function () {
   const timesIcon = document.querySelector(".fa-times");
   const nav = document.querySelector(".navbar-nav");
 
+  let isToggling = false; // Flag to avoid inconsistent toggling
+
   toggler.addEventListener("click", function () {
+    if (isToggling) return; // Do nothing if already toggling
+
+    isToggling = true; // Mark as toggling
+
+    // Add a class to prevent toggling while animation is running
+    toggler.classList.add("no-toggle");
+
+    // Toggle classes
     toggler.classList.toggle("active");
     barsIcon.classList.toggle("d-none");
     timesIcon.classList.toggle("d-none");
     nav.classList.toggle("active");
+
+    // Remove the no-toggle class after animation duration
+    setTimeout(() => {
+      isToggling = false;
+      toggler.classList.remove("no-toggle");
+    }, 300); // Adjust according to your animation duration
   });
 });
 
@@ -137,8 +153,8 @@ function Marquee(selector, speed) {
   const firstElement = parentSelector.children[0];
   let i = 0;
   console.log(firstElement);
-  parentSelector.insertAdjacentHTML('beforeend', clone);
-  parentSelector.insertAdjacentHTML('beforeend', clone);
+  parentSelector.insertAdjacentHTML("beforeend", clone);
+  parentSelector.insertAdjacentHTML("beforeend", clone);
 
   setInterval(function () {
     firstElement.style.marginLeft = `-${i}px`;
@@ -152,5 +168,59 @@ function Marquee(selector, speed) {
 //after window is completed load
 //1 class selector for marquee
 //2 marquee speed 0.2
-window.addEventListener('load', Marquee('.marquee', 0.2))
+window.addEventListener("load", Marquee(".marquee", 0.2));
 
+// dropdown
+function toggleDropdown(event) {
+  event.preventDefault();
+  const dropdown = event.target.closest(".dropdown");
+  const dropdownMenu = dropdown.querySelector(".dropdown-menu");
+  const dropdownIcon = dropdown.querySelector(".dropdown-icon");
+
+  // Toggle current dropdown
+  if (dropdown.classList.contains("open")) {
+    dropdown.classList.remove("open");
+    dropdownMenu.style.display = "none";
+  } else {
+    document.querySelectorAll(".dropdown").forEach((item) => {
+      item.classList.remove("open");
+      item.querySelector(".dropdown-menu").style.display = "none";
+    });
+    dropdown.classList.add("open");
+    dropdownMenu.style.display = "block";
+  }
+}
+
+window.onclick = function (event) {
+  if (
+    !event.target.matches(".nav-link") &&
+    !event.target.matches(".dropdown-icon")
+  ) {
+    document.querySelectorAll(".dropdown").forEach((item) => {
+      item.classList.remove("open");
+      item.querySelector(".dropdown-menu").style.display = "none";
+    });
+  }
+};
+
+// validasi inut pesan landing page footer
+function validateForm() {
+  var pesan = document.getElementById("pesan").value;
+  var email = document.getElementById("email").value;
+
+  // Basic XSS protection by sanitizing input
+  var regex = /<\/?[^>]+(>|$)/g;
+  if (regex.test(pesan)) {
+    alert("Pesan mengandung karakter tidak valid.");
+    return false;
+  }
+
+  // Basic email format validation
+  var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailPattern.test(email)) {
+    alert("Format email tidak valid.");
+    return false;
+  }
+
+  return true;
+}

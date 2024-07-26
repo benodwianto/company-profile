@@ -158,6 +158,67 @@ nav li a .logo {
     border-radius:50%;
    
 }
+.navbar-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.nav-item {
+    position: relative;
+    flex-direction: column;
+}
+
+.nav-link {
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #000;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--base-light) !important;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    border: none !important; /* Menghilangkan border dengan prioritas tinggi */
+    box-shadow: none !important; /* Menghilangkan shadow dengan prioritas tinggi */
+   
+}
+.dropdown.open .dropdown-icon{
+    margin-left: 10px;
+    text-transform: rotate(180deg);
+}
+.dropdown-item {
+    padding: 0;
+    text-decoration: none;
+    color: #000;
+    display: block;
+    text-align: center;
+    align-items: center;
+    
+    padding: 10px 10px!important;
+}
+.navbar-nav li a {
+  
+    text-align: center;
+   
+}
+
+.dropdown-item:hover {
+    background-color: #F1F1D5 !important; /* Warna saat hover */
+    border-radius: 21px !important;
+    color: black !important;
+    transition: color 0.3s !important;
+    transition: all 1s !important;
+}
+
 
 
 header {
@@ -277,6 +338,7 @@ section .content-section {
 display: flex;
 flex-direction: row;
 height: 356px;
+margin-top:15dvh;
 
 
 }
@@ -425,7 +487,7 @@ section .content-section-produk-kami {
 }
 .card {
     flex: 0 0 auto; /* Menghindari card untuk menyusut atau membesar */
-    width: 20rem; /* Lebar card yang telah ditentukan */
+    width: 300px; /* Lebar card yang telah ditentukan */
     padding: 20px;
     overflow: hidden;
 }
@@ -555,7 +617,7 @@ width: 616px;
 
 /* awal kerjasama */
 .kerjasama {
-    height: 100dvh;
+    height: 70dvh;
 }
 .content-section-kerjasama {
     padding-top:15dvh;
@@ -583,10 +645,10 @@ width: 616px;
   }
   
   .marquee-content img {
-    height: 190px;
-    width: 190px; /* Sesuaikan dengan ukuran gambar Anda */
+    height: 100px;
+    width: 100px; /* Sesuaikan dengan ukuran gambar Anda */
     margin-right: 20px; /* Jarak antar gambar */
-    border-radius: 25px;
+    border-radius: 10px;
     aspect-ratio: 3/3;
     object-fit: contain;
     mix-blend-mode:darken;
@@ -678,21 +740,143 @@ section .line.animate {
 
 /* Mengatur gaya untuk footer */
 footer {
-    background-color: #343a40;
+    background-color: var(--primary-color);
     color: #fff;
     text-align: center;
     padding: 10px 20px;
     bottom: 0;
-    width: 100%;
+    width: 100dvw;
+   
+
+}
+.footer {
+    display: flex;
+    flex-direction: row;
+    padding: 2rem;
+    
+
 }
 
 footer p {
     margin: 0;
 }
 
+.left-footer {
+    width: 50%;
+    border-right: 1px solid var(--base-dark);
+    
+}
+
+.left-footer .kontak {
+    width: 50%;
+    padding: 20px;
+    padding-bottom: 10px;
+   
+}
+.kontak table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px auto;
+    margin-bottom: 0;
+    font-family: Arial, sans-serif;
+}
+.kontak caption {
+    caption-side: top;
+    font-size: 1.5em;
+    padding-left: 8px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: var(--base-light);
+}
+.kontak td {
+    padding: 8px;
+    text-align: left;
+}
+
+.kontak .icon {
+    border: 1px solid var(--primary-color);
+    padding: 10px;
+    border-radius: 50%;
+    color: var(--primary-color);
+    font-weight: bold;
+    font-size: large;
+    background-color: var(--base-light);
+}
+.kontak .icon:hover {
+    border: 1px solid var(--base-light);
+    padding: 10px;
+    border-radius: 50%;
+    color: var(--base-light);
+    font-weight: bold;
+   
+    background-color: var(--primary-color);
+}
+.view-map {
+    margin-left: 0;
+    width: fit-content;
+}
+
+
+.menu ul {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    margin: 0;
+    padding: 20px;
+    padding-top: 0!important;
+    z-index: 100;
+   
+}
+.form form {
+    display:flex;
+    flex-direction: column;
+    padding: 20px;
+    padding-top: none !important;
+}
+.form {
+    width: 620px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 20px;
+}
+.form input {
+    padding: 0.5em;
+    border: 1px solid var(--secondary-color);
+    border-radius: 20px;
+    width: 520px;
+    height: 54px;
+    margin-top: 10px;
+    padding: 1em;
+    
+}
+.form input:focus {
+    outline: none !important;
+}
+.form textarea {
+    height: 240px;
+    width: 520px;
+    border-radius: 20px;
+    resize: none;
+    padding: 1em;
+   
+   
+}
+.form textarea:focus {
+   outline: none !important;
+}
+.form input[type="submit"] {
+    background-color: var(--base-dark);
+    color: white;
+    cursor: pointer;
+    height: 39px;
+    width: 114px;
+    border-radius: 9px;
+    border: none !important;
+    padding: 10px;
+}
 
 /* Responsif untuk tampilan mobile */
-@media (max-width: 768px) {
+@media (max-width: 991px) {
     section {
     padding: 20px;
 
@@ -773,21 +957,23 @@ footer p {
         z-index: 1060;
         position: fixed;
         right: 20px;
-        transition: transform 0.3s ease; 
+        /* transition: transform 0.3s ease;  */
     }
+  
     .navbar-collapse {
-        transition: transform 0.3s ease;
-        transform: translateX(100%); 
+        transition: transform 1s ease;
+        transform: translateYX(100%); 
         position: fixed;
-        top: 0;
+        top: 75px;
         right: 0;
         overflow-x: hidden;
         width: fit-content;
-        min-width: 50dvw;
-        height: 100dvh;
+        height: fit-content;
         text-align: center; 
         background-color: var(--base-light); 
         z-index: 1050; 
+        border-bottom-left-radius: 25px;
+       
     }
     
     .navbar-collapse.show {
@@ -1170,5 +1356,10 @@ section .content-section-1 .left-tentangkami .background {
     }
 }
 
+/* Untuk layar dengan lebar antara 992px dan 1101px */
+@media (min-width: 992px) and (max-width: 1101px) {
+    a.nav-link {
+        font-size: 0.8rem;
+}
 
-    
+} 

@@ -33,20 +33,26 @@
                     </span>
                 </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <button class="navbar-toggler  navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-ikon" role="button">
-                        <i class="fa fa-bars light-icon" aria-hidden="true"></i>
-                        <i class="fa fa-times dark-icon d-none"></i>
-                    </span>
-                </button>
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#header">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#tentang-kami">Tentang Kami</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#produk-kami">Produk</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#layanan">Layanan</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#legalitas">Legalitas</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#footer">Hubungi Kami</a></li>
-                </ul>
+               
+               <ul class="navbar-nav ms-auto">
+    <li class="nav-item"><a class="nav-link" href="#header">Home</a></li>
+    <li class="nav-item dropdown">
+        <a class="nav-link" href="#tentang-kami" onclick="toggleDropdown(event)">
+            Tentang Kami <span class="dropdown-icon">&#10095;</span>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#tentang-kami">Tentang Kami</a></li>
+            <li><a class="dropdown-item" href="#visi-misi">Visi & Misi</a></li>
+            
+        </ul>
+    </li>
+    <li class="nav-item"><a class="nav-link" href="#produk-kami">Produk</a></li>
+    <li class="nav-item"><a class="nav-link" href="#layanan">Layanan</a></li>
+    <li class="nav-item"><a class="nav-link" href="#legalitas">Legalitas</a></li>
+    <li class="nav-item"><a class="nav-link" href="#footer">Hubungi Kami</a></li>
+</ul>
+
+                
             </div>
         </nav>
         <!-- ini bagian konten header -->
@@ -79,7 +85,7 @@
             </p>
             </div>
             </div>
-            <div class="content-section-visimisi">
+            <div class="content-section-visimisi" id="visi-misi">
                 <div class="left-visimisi">
                     <div class="left-visimisi-content">
                     <h2 style="color: #FEF5EA;">Visi Misi</h2>
@@ -243,14 +249,67 @@
                   </div>
                 </div>
               </div>
-              
-
-           
         </div>
         </section>
     </main>
-    <footer id="footer">
-        <p name="footer">&copy; 2024 PT Ghaffar Farm Bersaudara. Semua hak dilindungi undang-undang.</p>
+    <footer id="footer" >
+        <div class="footer">
+        <div class="left-footer">
+            <div class="kontak">
+                <table>
+                    <caption>Hubungi Kami</caption>
+                    <tbody>
+                        <tr>
+                            <td><i class="fas fa-phone icon"></i></td>
+                            <td>+62 812-3456-7890</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fab fa-whatsapp icon"></i></td>
+                            <td>+62 812-3456-7890</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fab fa-instagram icon"></i></td>
+                            <td>@username_ig</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fab fa-facebook icon"></i></td>
+                            <td>Nama FB</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="view-map">
+
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.796557337123!2d100.65034387435526!3d-0.18924338540971586!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e2ab31ac2dc3b05%3A0x23c5173ad15bb109!2sCV.GHAFFAR%20FARM%20BERSAUDARA!5e0!3m2!1sid!2sid!4v1721993524153!5m2!1sid!2sid" width="447" height="295" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <p style="text-align: left; width: 447px;">OFFICE CV. Ghaffar Farm Bersaudara 
+                    Komplek Ruko OTS Tanjung Onau Jalan Raya Sumbar-Riau, Batas Kota Payakumbuh-Tanjung Pati Payakumbuh, Sumbar 26271</p>
+            </div>
+        </div>
+        <div class="right-footer">
+            <h2 style="text-align: left; padding: 28px; margin: 20px auto; padding-bottom: 5px !important;">Company</h2>
+            <div class="menu">
+                <ul>
+                    <li class="nav-item"><a class="nav-link" href="#header">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#produk-kami">Produk</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#layanan">Layanan</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#legalitas">Legalitas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#footer">Hubungi Kami</a></li>
+                </ul>
+            </div>
+            <div class="feedback">
+                <div class="form">
+                    <form action="#" method="POST" onsubmit="return validateForm()">
+                        <label style="text-align: left; ">Punya pertanyaan atau saran? silahkan kirimkan pesan anda....</label>
+                        <textarea name="pesan" id="pesan" rows="5" placeholder="Tuliskan Pesan anda disini.." required></textarea>
+                        <input type="email" name="email" id="email" placeholder="Email" required>
+                        <input type="submit" value="Kirim">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+        <p name="footer">&copy; 2024 PT Ghaffar Farm Bersaudara. All rights reserved.</p>
     </footer>
 
     
