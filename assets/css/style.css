@@ -119,6 +119,9 @@ nav ul li a {
     
 }
 
+.dropdown-item {
+    color: var(--base-dark) !important;
+}
 .nav-link:hover {
     background-color: #F1F1D5 !important; /* Warna saat hover */
     border-radius: 21px !important;
@@ -476,6 +479,33 @@ height: 616px;
 width: 616px;
 
 }
+
+.layanan .content-section-jangka-investasi {
+    display: flex;
+    flex-direction: row;
+    height: 356px;
+    
+    
+    }
+    .layanan .content-section-jangka-investasi .right-jangka-investasi {
+    display: flex;
+    flex-direction: row;
+    width: 100dvw;
+    }
+    
+    .layanan .content-section-jangka-investasi .left-jangka-investasi {
+    display: flex;
+    flex-direction: row;
+    background-color:#951C11;
+    width: 85dvw;
+    }
+    .layanan .content-section-jangka-investasi .left-jangka-investasi .left-jangka-investasi-content {
+    padding: 20px;
+    padding-left: 80px;
+    text-align: left;
+    color: var(--base-light);
+    width: 400px;
+    }
 /* akhir layanan kami */
 
 /* awal legalitas */
@@ -671,21 +701,33 @@ footer p {
     }
     .navbar-collapse {
         transition: transform 0.3s ease;
-        transform: translateX(100%); /* Menu berada di luar tampilan dari kanan secara default */
+        transform: translateX(100%); 
         position: fixed;
         top: 0;
         right: 0;
         overflow-x: hidden;
-        width: 200px;
+        width: fit-content;
+        min-width: 50dvw;
         height: 100dvh;
-        text-align: center; /* Atur lebar menu sesuai kebutuhan */
-        background-color: var(--base-light); /* Sesuaikan dengan warna latar belakang navbar Anda */
+        text-align: center; 
+        background-color: var(--base-light); 
         z-index: 1050; 
-       /* Pastikan menu berada di atas konten lainnya */
     }
-       /* Menampilkan menu saat toggle diklik */
-       .navbar-collapse.show {
-        transform: translateX(0); /* Menu muncul dari samping kanan */
+    
+    .navbar-collapse.show {
+        transform: translateX(0);
+    }
+    .navbar-collapse.show {
+        transform: translateX(0);
+    }
+
+    .close-collapse {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
     }
     
     .navbar-nav {
@@ -695,6 +737,7 @@ footer p {
         transform: translateX(0);
     
     }
+    
 
     .navbar-toggler {
         display: flex;
