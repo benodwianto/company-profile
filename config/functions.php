@@ -72,7 +72,7 @@ function insertAdmin($username, $password)
     global $conn;
 
     // Hash password sebelum menyimpannya ke database
-    $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
     // Insert data ke database
     $sql = "INSERT INTO admin (username, password) VALUES (?, ?)";
@@ -109,6 +109,46 @@ function updateAdmin($id, $username, $password = null)
         return "Error updating admin: " . $conn->error;
     }
     $stmt->close();
+}
+
+function recordLoginTime($id_admin)
+{
+    global $conn;
+
+    // Insert data login ke tabel login
+    $sql = "INSERT INTO login (id_admin) VALUES (?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i', $id_admin);
+
+    if ($stmt->execute()) {
+        return "Login time recorded successfully";
+    } else {
+        return "Error recording login time: " . $conn->error;
+    }
+    $stmt->close();
+}
+
+function login($username, $password)
+{
+    global $conn;
+
+    // Cari admin berdasarkan username
+    $sql = "SELECT id, password FROM admin WHERE username=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('s', $username);
+    $stmt->execute();
+    $stmt->bind_result($id, $hashedPassword);
+    $stmt->fetch();
+    $stmt->close();
+
+    // Verifikasi password
+    if (password_verify($password, $hashedPassword)) {
+        // Jika login berhasil, catat waktu login
+        recordLoginTime($id);
+        return $id; // Kembalikan ID admin sebagai tanda login berhasil
+    } else {
+        return false; // Kembalikan false jika login gagal
+    }
 }
 
 
@@ -351,6 +391,40 @@ function updateTentang($id, $deskripsi_tentang, $fotoFileInputName)
         return "Record updated successfully";
     } else {
         return "Error updating record: " . $conn->error;
+    }
+    $stmt->close();
+}
+
+function updateKontak($id, $no_hp, $no_wa, $ig, $fb, $alamat)
+{
+    global $conn;
+
+    // Update data di database
+    $sql = "UPDATE kontak SET no_hp=?, no_wa=?, ig=?, fb=?, alamat=? WHERE id=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('sssssi', $no_hp, $no_wa, $ig, $fb, $alamat, $id);
+
+    if ($stmt->execute()) {
+        return "Kontak updated successfully";
+    } else {
+        return "Error updating kontak: " . $conn->error;
+    }
+    $stmt->close();
+}
+
+function insertPesan($pesan_pengunjung, $email)
+{
+    global $conn;
+
+    // Insert data ke database
+    $sql = "INSERT INTO pesan (pesan_pengunjung, email, tanggal) VALUES (?, ?, NOW())";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('ss', $pesan_pengunjung, $email);
+
+    if ($stmt->execute()) {
+        return "Pesan added successfully";
+    } else {
+        return "Error adding pesan: " . $conn->error;
     }
     $stmt->close();
 }

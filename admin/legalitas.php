@@ -14,14 +14,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     exit();
 }
 
-$id = $_GET['id'];
-$sql = "SELECT id, legalitas FROM legalitas WHERE id=?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param('i', $id);
-$stmt->execute();
-$stmt->bind_result($id, $legalitas);
-$stmt->fetch();
-$stmt->close();
+mysqli_query($conn, "SELECT id, legalitas FROM legalitas");
+
+$sql = "SELECT id, legalitas FROM legalitas";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+$id = $row['id'];
+$legalitas = $row['legalitas'];
 ?>
 
 <!DOCTYPE html>
@@ -38,8 +37,9 @@ $stmt->close();
     <form action="" method="post" enctype="multipart/form-data">
         <input type="hidden" name="id" value="<?= htmlspecialchars($id); ?>">
         <label for="legalitas">Legalitas (PDF):</label>
-        <?php if ($legalitas) : ?>
-            <p>Current File: <a href="<?= htmlspecialchars($legalitas); ?>" target="_blank">View Current PDF</a></p>
+        <?php if (!empty($legalitas)) : ?>
+            <p>Current File: <a href="../assets/pdf/legalitas/<?= htmlspecialchars(basename($legalitas)); ?>" target="_blank">View Current PDF</a></p>
+            <iframe src="../assets/pdf/legalitas/<?= htmlspecialchars(basename($legalitas)); ?>" width="600" height="400"></iframe>
         <?php endif; ?>
         <input type="file" name="legalitas" id="legalitas" accept=".pdf"><br>
         <input type="submit" value="Update Legalitas">
