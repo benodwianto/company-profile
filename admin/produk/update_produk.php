@@ -1,5 +1,5 @@
 <?php
-include '../config/functions.php';
+include '../../config/functions.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id = $_POST['id'];
@@ -50,7 +50,7 @@ $result = $conn->query($sql);
                 <label for="foto">Foto:</label>
                 <input type="file" name="foto" id="foto">
                 <?php if (!empty($row['foto'])) : ?>
-                    <img src="../assets/images/tentang/<?= htmlspecialchars(basename($row['foto'])); ?>" alt="foto produk" width="50" height="50"><br>
+                    <img src="../../assets/images/tentang/<?= htmlspecialchars(basename($row['foto'])); ?>" alt="foto produk" width="50" height="50"><br>
                 <?php endif; ?>
                 <input type="submit" value="Update Produk">
             </form>
