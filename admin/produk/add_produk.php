@@ -1,5 +1,5 @@
 <?php
-include '../config/functions.php'; // Meng-include file fungsi
+include '../../config/functions.php'; // Meng-include file fungsi
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $jenis_sapi = $_POST['jenis_sapi'];

@@ -1,5 +1,5 @@
 <?php
-include '../config/functions.php';
+include '../../config/functions.php';
 
 if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
@@ -44,14 +44,14 @@ $result = $conn->query($sql);
                     <td><?= htmlspecialchars($row['deskripsi_produk']); ?></td>
                     <td>
                         <?php if (!empty($row['foto'])) : ?>
-                            <img src="../assets/images/tentang/<?= htmlspecialchars(basename($row['foto'])); ?>" alt="foto produk" width="50" height="50">
+                            <img src="../../assets/images/produk/<?= htmlspecialchars(basename($row['foto'])); ?>" alt="foto produk" width="50" height="50">
                         <?php else : ?>
                             Tidak ada foto
                         <?php endif; ?>
                     </td>
                     <td>
                         <a href="update_produk.php?id=<?= htmlspecialchars($row['id']); ?>">Update</a> |
-                        <a href="daftar_produk.php?delete=<?= htmlspecialchars($row['id']); ?>" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                        <a href="delete_produk.php?id=<?= htmlspecialchars($row['id']); ?>" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
                     </td>
                 </tr>
             <?php endwhile; ?>

@@ -51,6 +51,118 @@ function uploadImage($fileInputName, $targetDirectory, $oldFotoPath = null)
     }
 }
 
+function getAllData($tableName)
+{
+    global $conn;
+
+    $sql = "SELECT * FROM " . $tableName;
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        $data = [];
+        while ($row = $result->fetch_assoc()) {
+            $data[] = $row;
+        }
+        return $data;
+    } else {
+        return [];
+    }
+}
+
+function insertSponsor($sponsor, $fileInputName)
+{
+    global $conn;
+    $targetDirectory = __DIR__ . "/../assets/images/sponsor/";
+
+    // Handle file upload
+    $uploadResult = uploadImage($fileInputName, $targetDirectory);
+    if (strpos($uploadResult, 'Sorry') === 0) {
+        return $uploadResult; // Kembalikan pesan kesalahan jika ada
+    }
+
+    // Insert data ke database
+    $sql = "INSERT INTO sponsor (sponsor, foto) VALUES (?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('ss', $sponsor, $uploadResult);
+
+    if ($stmt->execute()) {
+        return "Sponsor added successfully";
+    } else {
+        return "Error adding sponsor: " . $conn->error;
+    }
+    $stmt->close();
+}
+
+
+function updateSponsor($id, $sponsor, $fileInputName)
+{
+    global $conn;
+    $targetDirectory = __DIR__ . "/../assets/images/sponsor/";
+    $oldFilePath = null;
+
+    // Ambil path foto lama dari database
+    $sql = "SELECT foto FROM sponsor WHERE id=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i', $id);
+    $stmt->execute();
+    $stmt->bind_result($oldFilePath);
+    $stmt->fetch();
+    $stmt->close();
+
+    // Handle file upload jika ada file
+    $newFilePath = $oldFilePath; // Gunakan path foto lama secara default
+    if (isset($_FILES[$fileInputName]) && $_FILES[$fileInputName]['error'] === UPLOAD_ERR_OK) {
+        $uploadResult = uploadImage($fileInputName, $targetDirectory, $oldFilePath);
+
+        if (strpos($uploadResult, 'Sorry') === 0) {
+            return $uploadResult; // Kembalikan pesan kesalahan jika ada
+        } else {
+            $newFilePath = $uploadResult;
+        }
+    }
+
+    // Update data di database
+    $sql = "UPDATE sponsor SET sponsor=?, foto=? WHERE id=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('ssi', $sponsor, $newFilePath, $id);
+    if ($stmt->execute()) {
+        return "Sponsor updated successfully";
+    } else {
+        return "Error updating sponsor: " . $conn->error;
+    }
+    $stmt->close();
+}
+
+function deleteSponsor($id)
+{
+    global $conn;
+
+    // Ambil path foto dari database
+    $sql = "SELECT foto FROM sponsor WHERE id=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i', $id);
+    $stmt->execute();
+    $stmt->bind_result($filePath);
+    $stmt->fetch();
+    $stmt->close();
+
+    // Hapus data dari database
+    $sql = "DELETE FROM sponsor WHERE id=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i', $id);
+
+    if ($stmt->execute()) {
+        // Hapus file dari server
+        if ($filePath && file_exists($filePath)) {
+            unlink($filePath);
+        }
+        return "Sponsor deleted successfully";
+    } else {
+        return "Error deleting sponsor: " . $conn->error;
+    }
+    $stmt->close();
+}
+
 
 function updateHome($id, $deskripsi_dashboard)
 {
@@ -194,7 +306,7 @@ function updateLayanan($id, $kelebihan, $investasi, $fotoFileInputName)
 function uploadLegalitas($fileInputName)
 {
     global $conn;
-    $targetDirectory = __DIR__ . "/../assets/pdf/legalitas/";
+    $targetDirectory =  __DIR__ . "/../assets/pdf/legalitas/";
     $filePath = null;
 
     if (isset($_FILES[$fileInputName]) && $_FILES[$fileInputName]['error'] === UPLOAD_ERR_OK) {
@@ -203,10 +315,11 @@ function uploadLegalitas($fileInputName)
             return "Sorry, only PDF files are allowed.";
         }
 
-        $filePath = $targetDirectory . basename($_FILES[$fileInputName]["name"]);
+        $fileName = basename($_FILES[$fileInputName]["name"]);
+        $filePath = $targetDirectory . $fileName;
 
         if (move_uploaded_file($_FILES[$fileInputName]["tmp_name"], $filePath)) {
-            return $filePath; // Return the path to be stored in database
+            return $fileName; // Return only the file name to be stored in database
         } else {
             return "Sorry, there was an error uploading your file.";
         }
@@ -215,7 +328,7 @@ function uploadLegalitas($fileInputName)
     return "No file uploaded or error occurred.";
 }
 
-function updateLegalitas($id, $fileInputName)
+function updateLegalitas($id, $fileInputName, $sertifikat)
 {
     global $conn;
     $targetDirectory = __DIR__ . "/../assets/pdf/legalitas/";
@@ -233,7 +346,7 @@ function updateLegalitas($id, $fileInputName)
     // Handle file upload jika ada file
     $newFilePath = $oldFilePath; // Gunakan path file lama secara default
     if (isset($_FILES[$fileInputName]) && $_FILES[$fileInputName]['error'] === UPLOAD_ERR_OK) {
-        $uploadResult = uploadLegalitas($fileInputName);
+        $uploadResult = uploadLegalitas($fileInputName, $targetDirectory);
 
         if (strpos($uploadResult, 'Sorry') === 0) {
             return $uploadResult; // Kembalikan pesan kesalahan jika ada
@@ -243,9 +356,9 @@ function updateLegalitas($id, $fileInputName)
     }
 
     // Update data di database
-    $sql = "UPDATE legalitas SET legalitas=? WHERE id=?";
+    $sql = "UPDATE legalitas SET sertifikat=?, legalitas=? WHERE id=?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('si', $newFilePath, $id);
+    $stmt->bind_param('ssi', $sertifikat, $newFilePath, $id);
     if ($stmt->execute()) {
         // Hapus file lama jika ada
         if ($oldFilePath && file_exists($oldFilePath) && $oldFilePath != $newFilePath) {
@@ -258,6 +371,64 @@ function updateLegalitas($id, $fileInputName)
     $stmt->close();
 }
 
+function insertLegalitas($fileInputNameLegalitas, $sertifikat)
+{
+    global $conn;
+    $targetDirectoryLegalitas = __DIR__ . "/../assets/pdf/legalitas/";
+
+    // Handle file upload untuk legalitas
+    $filePathLegalitas = null;
+    if (isset($_FILES[$fileInputNameLegalitas]) && $_FILES[$fileInputNameLegalitas]['error'] === UPLOAD_ERR_OK) {
+        $uploadResultLegalitas = uploadLegalitas($fileInputNameLegalitas, $targetDirectoryLegalitas);
+
+        if (strpos($uploadResultLegalitas, 'Sorry') === 0) {
+            return $uploadResultLegalitas; // Kembalikan pesan kesalahan jika ada
+        } else {
+            $filePathLegalitas = $uploadResultLegalitas;
+        }
+    }
+
+    // Insert data ke database
+    $sql = "INSERT INTO legalitas (legalitas, sertifikat) VALUES (?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('ss', $filePathLegalitas, $sertifikat);
+    if ($stmt->execute()) {
+        return "Record inserted successfully";
+    } else {
+        return "Error inserting record: " . $conn->error;
+    }
+    $stmt->close();
+}
+
+function deleteLegalitas($id)
+{
+    global $conn;
+
+    // Ambil path file dari database
+    $sql = "SELECT legalitas FROM legalitas WHERE id=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i', $id);
+    $stmt->execute();
+    $stmt->bind_result($filePath);
+    $stmt->fetch();
+    $stmt->close();
+
+    // Hapus data dari database
+    $sql = "DELETE FROM legalitas WHERE id=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i', $id);
+
+    if ($stmt->execute()) {
+        // Hapus file dari server
+        if ($filePath && file_exists($filePath)) {
+            unlink($filePath);
+        }
+        return "Record deleted successfully";
+    } else {
+        return "Error deleting record: " . $conn->error;
+    }
+    $stmt->close();
+}
 
 function insertProduk($jenis_sapi, $deskripsi_produk, $fotoFileInputName)
 {
