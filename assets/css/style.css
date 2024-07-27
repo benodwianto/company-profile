@@ -1,5 +1,6 @@
 :root {
     --primary-color: #951C11;
+    --primary-color-bl: rgba(149, 28, 17, 0);
     --secondary-color: #F1F1D5;
     --base-dark: #262020;
     --base-light: #FEF5EA;
@@ -9,7 +10,7 @@ html{
     padding: 0;
     margin: 0;
 overflow-x: hidden; /* Menghilangkan scroll horizontal */
-     /* Menghilangkan scroll vertikal */
+
 }
 
 
@@ -18,7 +19,9 @@ overflow-x: hidden; /* Menghilangkan scroll horizontal */
 body {
     position: relative;
     z-index: 0;
+
 }
+
 
 
 /* Menghilangkan scrollbar di Chrome, Safari, dan Edge */
@@ -43,7 +46,7 @@ p {
 }
 
 nav {
-    background-color:#951C11;
+    background-color: #951C11;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -54,11 +57,11 @@ nav {
     height: 15dvh;
     list-style: none;
     margin: 0;
-    padding: 0;
     z-index: 100;
-    
-   
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 
+                0 6px 20px rgba(0, 0, 0, 0.1); /* Menambahkan efek bayangan */
 }
+
 .navbar-brand {
     display: flex;
     align-items: center;
@@ -67,7 +70,9 @@ nav {
     margin-left: 10px;
     font-weight: bold;
     color: #FFFFFF;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Menambahkan efek bayangan pada teks */
 }
+
 
 nav ul {
     display: flex;
@@ -316,8 +321,10 @@ section {
     height: 100dvh;
     background-color: #F1F1D5;
     text-align: center;
-    
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 
+                0 6px 20px rgba(0, 0, 0, 0.1); /* Menambahkan efek bayangan */
 }
+
 
 section .content-section {
     padding: 15%;
@@ -487,18 +494,32 @@ section .content-section-produk-kami {
 }
 .card {
     flex: 0 0 auto; /* Menghindari card untuk menyusut atau membesar */
-    width: 300px; /* Lebar card yang telah ditentukan */
-    padding: 20px;
+    width: 350px;
+    height: 400px!important;
+    /* Lebar card yang telah ditentukan */
+    padding: 40px;
     overflow: hidden;
+    background-color: var(--primary-color-bl) !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 
+                0 6px 20px rgba(0, 0, 0, 0.1); /* Menambahkan efek bayangan */
 }
+
 
 .card-img-top {
     transition: transform 0.5s ease;
+    height: 200px;
+    width: 150px;
+}
+.card-body {
+    padding-left: 0!important;
+}
+.card-body .card-text {
+    text-align: left;
 }
 
-.card-img-top:hover {
-    transform: scale(1.1); /* Mengatur efek zoom */
-}
+/* .card-img-top:hover {
+    transform: scale(1.1);
+} */
 /* akhir produk kami */
 
 /* awal layanan kami */
