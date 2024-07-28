@@ -23,7 +23,7 @@
 
 // animasi gambar tentang kami
 document.addEventListener('DOMContentLoaded', function() {
-  const image = document.querySelector('.gambar-tentangkami');
+  const image = document.querySelector(".gambar-tentangkami");
 
   const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {

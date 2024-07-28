@@ -10,7 +10,7 @@ html{
     padding: 0;
     margin: 0;
 overflow-x: hidden; /* Menghilangkan scroll horizontal */
-
+     /* Menghilangkan scroll vertikal */
 }
 
 
@@ -19,9 +19,7 @@ overflow-x: hidden; /* Menghilangkan scroll horizontal */
 body {
     position: relative;
     z-index: 0;
-
 }
-
 
 
 /* Menghilangkan scrollbar di Chrome, Safari, dan Edge */
@@ -339,6 +337,7 @@ section .content-section {
     display: flex;
     flex-direction: column;
     width: 100dvw;
+    margin-top: 40px;
 
 }
 .tentangkami .content-section-visimisi {
@@ -353,6 +352,7 @@ margin-top:15dvh;
 display: flex;
 flex-direction: row;
 width: 100dvw;
+
 }
 
 .tentangkami .content-section-visimisi .left-visimisi {
@@ -367,10 +367,11 @@ padding-left: 80px;
 text-align: left;
 color: var(--base-light);
 width: 400px;
+
 }
 
 section .content-section-1 {
-   
+    
     display: flex;
     flex-direction: row;
    
@@ -389,29 +390,25 @@ section .content-section-1 .right-tentangkami .line.tentangkami {
     margin-left: -30px !important;
     height: 10px;
 }
-section .content-section-1 .left-tentangkami {
+.left-tentangkami {
     width: 40%;
-   
+    display: flex; /* Mengaktifkan Flexbox di dalam div ini */
+    justify-content: center; /* Mengatur konten di tengah secara horizontal */
+    align-items: center; /* Mengatur konten di tengah secara vertikal */
+    background-color: var(--primary-color);
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 
+                0 6px 20px rgba(0, 0, 0, 0.1); /* Menambahkan bayangan pada .left-tentangkami */
 }
-section .content-section-1 .left-tentangkami .gambar-tentangkami {
-    z-index: 1;
-    position: absolute;
-    padding-top: 12%;
-    height: 90dvh;
-    width: 25dvw;
-    left: 11%;
-  
-}
-section .content-section-1 .left-tentangkami .background {
-    position: absolute;
-    background-color: #951C11 !important;
-    width: 30dvw;
-    height: 80dvh;
+
+.left-tentangkami .gambar-tentangkami {
+    border-radius: 15px;
+    width: 450px;
+    height: 500px;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.253), 
+                0 10px 20px rgba(0, 0, 0, 0.253);
     
 }
-
-
-/* animasi gambar tentang kami */
 
 @keyframes fadeIn {
     from {
@@ -431,7 +428,10 @@ section .content-section-1 .left-tentangkami .background {
 
 .gambar-tentangkami.animate {
     animation: fadeIn 1s forwards;
+
 }
+
+
 
 
 
@@ -569,12 +569,12 @@ width: 616px;
     height: 356px;
     
     
-    }
+}
     .layanan .content-section-jangka-investasi .right-jangka-investasi {
     display: flex;
     flex-direction: row;
     width: 100dvw;
-    }
+}
     
     .layanan .content-section-jangka-investasi .left-jangka-investasi {
     display: flex;
@@ -784,7 +784,7 @@ footer p {
 
 .left-footer {
     width: 50%;
-    border-right: 1px solid var(--base-dark);
+   
     
 }
 
@@ -1233,39 +1233,42 @@ section .content-section-1 .left-tentangkami {
 section .content-section-1 .left-tentangkami .gambar-tentangkami {
     z-index: 1;
     position: relative;
-    padding-top: 12%;
     height: 50dvh;
     width: 80dvw;
     left: 0;
     margin:auto;
   
 }
-section .content-section-1 .left-tentangkami .background {
-    visibility: hidden;
-    
+section .content-section-1 .left-tentangkami {
+   width: 100dvw;
+   margin-left: -20px;
+   margin-top: -20dvh;
+  
 }
+
 .tentangkami .content-section-visimisi {
     display: flex;
-    flex-direction: row;
-    height: 356px;
+    flex-direction: column-reverse;
+    height: fit-content;
     
     
     }
     .tentangkami .content-section-visimisi .right-visimisi {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     width: 100dvw;
+    margin-left: -20px;
     }
     
     .tentangkami .content-section-visimisi .left-visimisi {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     background-color:#951C11;
-    width: 85dvw;
+    width: 100dvw;
+    margin-left: -20px;
     }
     .tentangkami .content-section-visimisi .left-visimisi .left-visimisi-content {
     padding: 20px;
-    padding-left: 80px;
     text-align: left;
     color: var(--base-light);
     width: 400px;
@@ -1293,9 +1296,53 @@ section .content-section-1 .left-tentangkami .background {
 .gambar-tentangkami.animate {
     animation: fadeIn 1s forwards;
 }
+
+/* awal layanan */
+.content-section-layanan-kami {
+    display: flex;
+    flex-direction: column;
+ 
+}
+.left-layanan, .right-layanan {
+    width: 100%;
+}
+.left-layanan .gambar-layanan{ 
+    margin: auto;
+    height: 300px;
+    width: 300px;
+}
+
+.layanan .content-section-jangka-investasi {
+    display: flex;
+    flex-direction: column-reverse;
+    height: fit-content;
+}
+    .layanan .content-section-jangka-investasi .right-jangka-investasi {
+        display: flex;
+        flex-direction: column;
+        width: 100dvw;
+        margin-left: -20px;
+    }
+    .layanan .content-section-jangka-investasi .left-jangka-investasi {
+        display: flex;
+        flex-direction: column;
+        background-color:#951C11;
+        width: 100dvw;
+        margin-left: -20px;
+        }
+        .layanan .content-section-jangka-investasi .left-jangka-investasi .left-jangka-investasi-content {
+            padding: 20px;
+           
+            text-align: left;
+            color: var(--base-light);
+            width: 400px;
+            }
+    
+/* akhir layanan */
+
 /* awal kerjasama mobile */
 .kerjasama {
-    height: 100dvh;
+    height: 80dvh;
     padding-left: 0 !important
 }
 .content-section-kerjasama {
@@ -1362,6 +1409,120 @@ section .content-section-1 .left-tentangkami .background {
    
   }
   
+  /* footer */
+  .footer {
+    display: flex;
+    flex-direction: column;
+    padding: 1px;
+    position: relative;
+    width: 100%;
+    
+}
+  footer {
+    position: relative;
+    width: 100dvw;
+
+    
+}
+.left-footer {
+    width: 100%;
+   
+    
+}
+.left-footer .kontak {
+    width: 100%;
+    padding: 20px;
+    padding-bottom: 10px;
+   
+}
+.kontak table {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+tr td:nth-child(2) {
+    display: none;
+    flex-direction: row;
+}
+tbody {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+.kontak caption {
+    caption-side: top;
+    font-size: 1.5em;
+    margin-left: -10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: var(--base-light);
+}
+.kontak td {
+    padding: 1px;
+    text-align: left;
+}
+.form form {
+    display:flex;
+    flex-direction: column;
+    padding: -20px;
+    width: 80%;
+    padding-top: none !important;
+}
+.form {
+    width:100%;
+    margin: 0 auto;
+    padding: 1px;
+    border-radius: 20px;
+}
+.form input {  
+    width: 325px;   
+}
+.form textarea {
+    height: 240px;
+    width: 325px;
+    border-radius: 20px;
+    resize: none;
+    padding: 1em; 
+}
+.map {
+    margin-left: 0!important;
+    width: 325px !important;
+    height: 178px !important;
+    padding: 1px!important;
+   margin-right: 100px;
+}
+.view-map p {
+    text-align: left;
+     width: 325px;
+}
+
+.right-footer .menu .nav-link {
+    text-decoration: none !important;
+    color: var(--base-light) !important;
+    font-weight: bold!important;
+    transition: color 0.3s !important;
+    vertical-align: middle !important;
+    padding: 10px !important;
+    width: 100px!important;
+    
+    
+}
+.right-footer .menu .nav-link:hover {
+   background-color: transparent!important;
+    
+    
+}
+.menu ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+    padding: 20px;
+    padding-top: 0!important;
+    z-index: 100;
+   
+}
+
+  /* akhir footer */
 
 }
 /* Untuk tampilan di atas 768px, sembunyikan tombol "selengkapnya" */
