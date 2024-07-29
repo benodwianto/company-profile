@@ -21,16 +21,19 @@
                   <tr>
                       <th>No</th>
                       <th>Username</th>
+                      <th>action</th>
                   </tr>
               </thead>
               <tbody>
                   <tr>
                       <td>1</td>
                       <td>user1</td>
+                      <td><i class="bi bi-trash"></i></td>
                   </tr>
                   <tr>
                       <td>2</td>
                       <td>user2</td>
+                      <td><a href=""><i class="bi bi-trash"></a></i></td>
                   </tr>
                   <!-- Tambahkan lebih banyak baris sesuai kebutuhan -->
               </tbody>

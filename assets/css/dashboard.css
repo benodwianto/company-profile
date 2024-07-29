@@ -21,10 +21,14 @@ body {
 /* aside start */
 aside {
     height: 100%;
-    transition: transform 0.3s ease;
+    transition: transform 1s ease;
     width: 191px;
     background-color: var(--base-light);
     box-shadow: 0 4px 8px var(--shadow-color, rgba(0, 0, 0, 0.2));
+    position: fixed; /* Posisi fixed jika diperlukan */
+    top: 104px;
+    transition: left 1s ease; /* Transisi halus untuk posisi aside */
+    z-index: 999;
 }
 aside.hidden {
     transform: translateX(-100%);
@@ -33,7 +37,7 @@ aside ul {
    
     height: 100%;
     padding: 0;
-    padding-top: 104px;
+    padding-top: 50px;
  
 
 }
@@ -94,7 +98,9 @@ article.contracted {
     margin-left: 0;
 }
 article nav {
-    height: 15dvh;
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 104px;
     display: flex;
@@ -103,6 +109,8 @@ article nav {
     align-items: center;
     background-color: #FEF5EA;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Pastikan di atas konten lain */
+    transition: margin-left 0.3s ease; /* Transisi halus untuk margin-left */
 }
 article nav ul {
     display: flex;
@@ -157,6 +165,10 @@ article nav ul li a{
 article .content {
     background-color: #FFFFF9;
     flex: 1;
+    padding-top: 104px;
+    padding-left: 191px;
+   
+ 
 }
 
 /* halaman dashboard */

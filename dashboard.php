@@ -20,12 +20,14 @@
         <div class="container mt-5">
             <!-- Content Div -->
             <div class="content">
-                <?php include 'HalamanDashboard.php';?>
-                <?php include 'HalamanTentang.php';?>
-                <?php include 'HalamanProduk.php';?>
-                <?php include 'HalamanLayanan.php';?>
-                <?php include 'HalamanLegalitas.php';?>
-                <?php include 'HalamanTambahAdmin.php'; ?>
+                <?php 
+                    include 'HalamanDashboard.php';
+                    include 'HalamanTentang.php';
+                    include 'HalamanProduk.php';
+                    include 'HalamanLayanan.php';
+                    include 'HalamanLegalitas.php';
+                    include 'HalamanTambahAdmin.php';
+                ?>
                 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
                 <script>
                 $(document).ready(function() {
