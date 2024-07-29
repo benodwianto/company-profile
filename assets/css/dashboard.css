@@ -1,0 +1,149 @@
+:root {
+    --primary-color: #951C11;
+    --primary-color-bl: rgba(149, 28, 17, 0);
+    --secondary-color: #F1F1D5;
+    --base-dark: #262020;
+    --base-light: #FEF5EA;
+}
+html {
+    margin: 0;
+    padding: 0;
+}
+body {
+    display: flex;
+    flex-direction: row;
+    width: 100dvw;
+    height: 100dvh;
+    margin: 0;
+    padding: 0;
+}
+
+/* aside start */
+aside {
+    height: 100%;
+    transition: transform 0.3s ease;
+    width: 191px;
+    background-color: var(--base-light);
+    box-shadow: 0 4px 8px var(--shadow-color, rgba(0, 0, 0, 0.2));
+}
+aside.hidden {
+    transform: translateX(-100%);
+}
+aside ul {
+   
+    height: 100%;
+    padding: 0;
+    padding-top: 104px;
+ 
+
+}
+aside ul li {
+    margin: 10px;
+    text-decoration: none;
+    list-style-type: none;
+   
+}
+aside li a {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    padding: 7px 7px 7px 7px;
+    gap: 5px;
+    margin: auto;
+    text-decoration: none;
+    border-radius: 15px;
+    color: var(--base-dark);
+    transition: background-color 0.3s ease-in-out, color 0.3s ease;
+}
+
+aside li a:hover {
+    background-color: var(--primary-color);
+    border-radius: 15px;
+    color: var(--secondary-color);
+}
+aside li a:hover i {
+    color: var(--secondary-color);
+}
+
+aside li a span {
+    font-size: 14px;
+    width: 66px;
+    text-align: center;
+}
+aside li i {
+    font-size: 25px;
+    margin: auto;
+    color: var(--base-dark);
+}
+/* aside end */
+
+/* aricle start */
+article {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    transition: margin-left 0.3s ease;
+}
+article.expanded {
+    margin-left: -191px;
+}
+article.contracted {
+    margin-left: 0;
+}
+article nav {
+    height: 15dvh;
+    width: 100%;
+    height: 104px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FEF5EA;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+article nav ul {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: flex-end;
+    padding: 20px;
+}
+
+article nav ul li {
+    padding: 20px;
+}
+
+/* judul dan button */
+.kiri-nav {
+    display: flex;
+    align-items: center; /* Menyelaraskan item secara vertikal di tengah */
+    justify-content: center; /* Menyelaraskan item secara horizontal di tengah, jika diperlukan */
+    height: 100px; /* Atur tinggi sesuai kebutuhan */
+
+  }
+  
+  .kiri-nav h3 {
+    margin: 0;
+    margin-left: 40px;
+  }
+
+.toggle-icon {
+    font-size: 40px;
+    font-weight: bolder;
+    cursor: pointer;
+    position: relative;
+    padding: 2px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 10px;
+    top: 1px;
+    background-color: var(--primary-color);
+    color: var(--base-light);
+  
+}
+/* akhir judul dan button */
+
+/* content */
+article .content {
+    background-color: #FFFFF9;
+    flex: 1;
+}
