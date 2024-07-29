@@ -64,9 +64,11 @@
             <h1>PT Ghaffar Farm Bersaudara</h1>
             <p>SYARIAH, BAROKAH SUKSES</p>
             <p>
-                <?php 
-                    $dataHome = getAllData('home');
-                    
+                <?php
+                $dataHome = getAllData('home');
+                foreach ($dataHome as $home) : ?>
+                    <?= $home['deskripsi_dashboard']; ?>
+                <?php endforeach;
                 ?>
                 <span class="dots">...</span>
                 <span class="more-text"></span>
@@ -80,15 +82,20 @@
         <section class="tentangkami" id="tentang-kami" name="tentang-kami">
             <div class="content-section-1">
                 <div class="left-tentangkami">
-                    <img src="assets/images/Tentang kami.png" class="gambar-tentangkami" alt="gambar tentang PT Ghaffar Farm Bersaudara" width="300px">
-                    <div class="background"></div>
+                    <?php
+                    $dataTentangKami = getAllData('tentang');
+                    foreach ($dataTentangKami as $tentang_kami) : ?>
+                        <img src="assets/images/tentang/<?= htmlspecialchars(basename($tentang_kami['foto'])); ?>" class="gambar-tentangkami" alt="gambar tentang PT Ghaffar Farm Bersaudara" width="300px">
+                        <div class="background"></div>
                 </div>
                 <div class="right-tentangkami">
                     <h2 name="judul-tentang-kami"> Tentang Kami<span class="line tentangkami"></span></h2>
 
-                    <p name="deskripsi-tentang-kami" style="text-align: left; width: 70%;">PT.GHAFFAR FARM BERSAUDARA adalah perusahaan yang bergerak dalam bidang penggemukan sapi dan pemasok daging untuk kebutuhan pemotongan harian, kebutuhan logistik usaha perhotelan, restoran, swalayan kebutuhan harian, toko daging (meat shop), minimarket, pesantren pendidikan bahkan rumah sakit.<br><br>
-                        PT. GHAFFAR FARM BERSAUDARA juga menyediakan stok sapi qurban jantan kualitas super dari berbagai jenis sapi lokal maupun impor. PT. GHAFFAR FARM BERSAUDARA berdiri pada tahun2010 di Jawa Barat, kemudian pada tahun 2012 mulai mengembangkan kepak bisnis di Sumatera Barat dan Riau.<br><br>
-                        PT. GHAFFAR FARM BERSAUDARA berdiri pada tahun2010 di Jawa Barat, kemudianpada tahun 2012 mulai mengembangkan kepak bisnis di Sumatera Barat dan Riau. Pendirian perusahaan berdasarkan akta notaris dan SK Kemenkumham yang sah secara hukum dengan notaris pribadi perusahaan kami adalah Notaris Mulyana, SH, MKn, Saat ini, perusahaan kami melakukan pembangunan farm secara progresif pada lahan seluas 12 Ha di daerahTanjung Balik, Pangkalan, Kabupaten Limapuluh Kota, Sumatera Barat dengan konsep Farm Integrasi Sawit dan Sapi. Kepemilikan lahanadalah milik perusahaan yang sah secara hukum berdasarkan akta notaris
+                    <p name="deskripsi-tentang-kami" style="text-align: left; width: 70%;">
+                        <?= $tentang_kami['deskripsi_tentang']; ?>
+                    <?php endforeach;
+                    ?>
+
                     </p>
                 </div>
             </div>
@@ -98,17 +105,21 @@
                         <h2 style="color: #FEF5EA;">Visi Misi</h2>
                         <h3 style="color: #FEF5EA;">VISI</h3>
                         <p name="deskripsi-visi">
-                            Menjadi sentra pemasok daging sapi lokal dan olahannya untuk kebutuhan dalam negeri dan komoditas ekport
+                            <?php $getAllData = getAllData('visi_misi');
+                            foreach ($getAllData as $visi_misi) :
+                                echo $visi_misi['visi'];
+                            ?>
                         </p>
 
                         <h3 style="color: #FEF5EA;">MISI</h3>
                         <p name="deskripsi-misi">
-                            Menghasilkan daging sapi lokal dan olahannya dengan kualitasterjamin serta layak ekportdan menerapkan konsep Aman, Sehat, Utuh dan Halal.
+                        <?php echo $visi_misi['misi'];
+                            endforeach; ?>
                         </p>
                     </div>
                 </div>
                 <div class="right-visimisi">
-                    <img src="assets/images/visimisi.png" class="gambar-visimisi" alt="gambar tentang PT Ghaffar Farm Bersaudara">
+                    <img src="assets/images/visi_misi/<?= htmlspecialchars(basename($visi_misi['foto'])); ?>" class="gambar-visimisi" alt="gambar tentang PT Ghaffar Farm Bersaudara">
                 </div>
             </div>
         </section>
@@ -120,35 +131,17 @@
                 <div class="line"></div>
                 <p style="opacity: 0.5;">Jenis Sapi yang Diternakkan</p>
                 <div class="content-section-produk-kami-card">
-                    <div class="card">
-                        <h1 style="text-align: start; font-size:x-large;">Sapi Bali</h1>
-                        <img src="assets/images/Tentang kami.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <?php
+                    $produks = getAllData('produk');
+                    foreach ($produks as $produk) : ?>
+                        <div class="card">
+                            <h1 style="text-align: center; font-size:x-large;"><?= htmlspecialchars($produk['jenis_sapi']); ?></h1>
+                            <img src="assets/images/produk/<?= htmlspecialchars(basename($produk['foto'])); ?>" class="card-img-top" alt="<?= $produk['jenis_sapi'] ?>">
+                            <div class="card-body">
+                                <p class="card-text"><?= htmlspecialchars($produk['deskripsi_produk']); ?></p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="card">
-                        <h1 style="text-align: start; font-size:x-large;">Sapi Pesisir</h1>
-                        <img src="assets/images/Tentang kami.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h1 style="text-align: start; font-size:x-large;">Sapi Sigmental</h1>
-                        <img src="assets/images/Tentang kami.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h1 style="text-align: start; font-size:x-large;">Sapi Limousin</h1>
-                        <img src="assets/images/logo.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                    </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </section>
@@ -158,48 +151,49 @@
                 <h2 id="judul-produk-kami">Layanan</h2>
                 <div class="line"></div>
                 <div class="content-section-layanan-kami">
-                    <div class="left-layanan">
-                        <img src="assets/images/logo.png" class="gambar-layanan" alt="gambar layanan PT Ghaffar Farm Bersaudara">
-                    </div>
-                    <div class="right-layanan">
-                        <h2>Mengapa Ghaffar Farm Bersaudara?</h2>
-                        <p>
-                            Berbeda dengan konsep bisnis lainnya, investasi di perusahaan kami menerapkan konsep syariah dengan sistem bagi hasil yang terjamin keamanannya. Segala akad perjanjian akan melalui akta notaris dengan kekuatan hukum yang kuat. Investor di perusahaan kami sangat tenang dan nyaman karena ternak sapinya diasuransikan sehingga sapi mati, sakit, dan cacat selama program menjadi tanggung jawab perusahaan.
-                        </p>
-                        <p>
-                            Pakan sapi peternakan kami 50% dari rumput yang ditanami di sekitar lahan farm, 50% berasal dari limbah pertanian dan limbah usaha makanan dengan biaya yang relatif kecil dan selalu tersedia sepanjang tahun. Sumber pakan tersebut berasal dari daerah sekitar lahan farm baik di farm sendiri ataupun farm mitra. Limbah pertanian tersebut berupa jerami, batang jagung, dedak, bungkil sawit yang selanjutnya diolah dengan proses fermentasi agar nilai gizinya meningkat.
-                        </p>
-                        <h2>Kelebihan Ghaffar Farm Bersaudara</h2>
-                        <p>
-                            Pasar daging sapi yang selalu terbuka dan menjanjikan dengan harga yang terjamin.
-                            Biaya investasi beragam, mulai dari 50 Juta rupiah hingga 16 Milyar dengan masa investasi yang dapat disesuaikan dengan keinginan investor.
-                            Investor dapat berkunjung langsung ke Farm dan menikmati suasana peternakan.
-                            Pasar ekspor yang sudah menunggu mulai dari tahun 2024.
-                            Rapat terbuka investor dengan perusahaan dan informasi yang up-to-date setiap bulannya.
-                        </p>
-                    </div>
+                    <?php
+                    $layanans = getAllData('layanan');
+                    foreach ($layanans as $layanan) : ?>
+                        <div class="left-layanan">
+                            <img src="assets/images/layanan/<?= htmlspecialchars(basename($layanan['foto'])); ?>" class="gambar-layanan" alt="gambar layanan PT Ghaffar Farm Bersaudara">
+                        </div>
+                        <div class="right-layanan">
+                            <h2>Mengapa Ghaffar Farm Bersaudara?</h2>
+                            <p>
+                                <?= $layanan['mengapa_ghaffar']; ?>
+                            </p>
+                            <p>
+
+                            </p>
+                            <h2>Kelebihan Ghaffar Farm Bersaudara</h2>
+                            <p>
+                                <?= $layanan['kelebihan']; ?>
+                            </p>
+                        <?php endforeach; ?>
+                        </div>
                 </div>
             </div>
             <div class="content-section-jangka-investasi">
                 <div class="left-jangka-investasi">
                     <div class="left-jangka-investasi-content">
-                        <h2 style="color: #FEF5EA; width: 100%;">JANGKA & NILAI INVESTASI</h2>
+                        <h2 style="color: #FEF5EA; width: 100%;">INVESTASI</h2>
                         <h3 style="color: #FEF5EA;">Jangka Investasi:</h3>
-                        <p name="deskripsi-investasi">
-                            Investor Musiman (6 Bulan)
-                            Investor Tetap (15 Tahun)
-                        </p>
+                        <?php $investasian = getAllData('investasi');
+                        foreach ($investasian as $investasi) : ?>
+                            <p name="deskripsi-investasi">
+                                <?= $investasi['jangka_investasi']; ?>
+                            </p>
 
-                        <h3 style="color: #FEF5EA;">Nilai Investasi:</h3>
-                        <p name="deskripsi-nilai">
-                            Minimal 50 juta rupiah
-                            Maksimal 16 Miliar Rupiah
-                        </p>
+                            <h3 style="color: #FEF5EA;">Nilai Investasi:</h3>
+                            <p name="deskripsi-nilai">
+                                <?= $investasi['jlh_investasi']; ?>
+                            </p>
                     </div>
                 </div>
                 <div class="right-jangka-investasi">
-                    <img src="assets/images/visimisi.png" class="gambar-jangka-investasi" alt="gambar tentang PT Ghaffar Farm Bersaudara">
+                    <img src="assets/images/investasi/<?= htmlspecialchars(basename($investasi['foto'])); ?>" class="gambar-jangka-investasi" alt="gambar tentang PT Ghaffar Farm Bersaudara">
                 </div>
+            <?php endforeach; ?>
             </div>
         </section>
 
@@ -259,22 +253,24 @@
                     <table>
                         <caption>Hubungi Kami</caption>
                         <tbody>
-                            <tr>
-                                <td><i class="fas fa-phone icon"></i></td>
-                                <td>+62 812-3456-7890</td>
-                            </tr>
-                            <tr>
-                                <td><i class="fab fa-whatsapp icon"></i></td>
-                                <td>+62 812-3456-7890</td>
-                            </tr>
-                            <tr>
-                                <td><i class="fab fa-instagram icon"></i></td>
-                                <td>@username_ig</td>
-                            </tr>
-                            <tr>
-                                <td><i class="fab fa-facebook icon"></i></td>
-                                <td>Nama FB</td>
-                            </tr>
+                            <?php $datakontak = getAllData('kontak');
+                            foreach ($datakontak as $kontak) : ?>
+                                <tr>
+                                    <td><i class="fas fa-phone icon"></i></td>
+                                    <td><?= $kontak['no_hp'] ?></td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fab fa-whatsapp icon"></i></td>
+                                    <td><?= $kontak['no_wa'] ?></td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fab fa-instagram icon"></i></td>
+                                    <td><?= $kontak['ig'] ?></td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fab fa-facebook icon"></i></td>
+                                    <td><?= $kontak['fb'] ?></td>
+                                </tr>
                         </tbody>
                     </table>
 
@@ -282,9 +278,9 @@
                 <div class="view-map">
 
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.796557337123!2d100.65034387435526!3d-0.18924338540971586!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e2ab31ac2dc3b05%3A0x23c5173ad15bb109!2sCV.GHAFFAR%20FARM%20BERSAUDARA!5e0!3m2!1sid!2sid!4v1721993524153!5m2!1sid!2sid" width="447" height="295" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    <p style="text-align: left; width: 447px;">OFFICE CV. Ghaffar Farm Bersaudara
-                        Komplek Ruko OTS Tanjung Onau Jalan Raya Sumbar-Riau, Batas Kota Payakumbuh-Tanjung Pati Payakumbuh, Sumbar 26271</p>
+                    <p style="text-align: left; width: 447px;"><?= $kontak['alamat'] ?></p>
                 </div>
+            <?php endforeach; ?>
             </div>
             <div class="right-footer">
                 <h2 style="text-align: left; padding: 28px; margin: 20px auto; padding-bottom: 5px !important;">Company</h2>
@@ -299,11 +295,11 @@
                 </div>
                 <div class="feedback">
                     <div class="form">
-                        <form action="#" method="POST" onsubmit="return validateForm()">
+                        <form action="admin/add_pesan.php" method="POST" onsubmit="return validateForm()">
                             <label style="text-align: left; ">Punya pertanyaan atau saran? silahkan kirimkan pesan anda....</label>
-                            <textarea name="pesan" id="pesan" rows="5" placeholder="Tuliskan Pesan anda disini.." required></textarea>
+                            <textarea name="pesan_pengunjung" id="pesan" rows="5" placeholder="Tuliskan Pesan anda disini.." required></textarea>
                             <input type="email" name="email" id="email" placeholder="Email" required>
-                            <input type="submit" value="Kirim">
+                            <input type="submit" value="insert pesan">
                         </form>
                     </div>
                 </div>

@@ -25,7 +25,7 @@ function uploadImage($fileInputName, $targetDirectory, $oldFotoPath = null)
     }
 
     // Cek ukuran file (contoh: batas 5MB)
-    if ($_FILES[$fileInputName]["size"] > 5000000) {
+    if ($_FILES[$fileInputName]["size"] > 1000000) {
         return "Sorry, your file is too large.";
     }
 
@@ -264,7 +264,7 @@ function login($username, $password)
 }
 
 
-function updateLayanan($id, $kelebihan, $investasi, $fotoFileInputName)
+function updateLayanan($id, $kelebihan, $mengapa_ghaffar, $fotoFileInputName)
 {
     global $conn;
     $targetDirectory = __DIR__ . "/../assets/images/layanan/";
@@ -292,9 +292,47 @@ function updateLayanan($id, $kelebihan, $investasi, $fotoFileInputName)
     }
 
     // Update data di database
-    $sql = "UPDATE layanan SET kelebihan=?, investasi=?, foto=? WHERE id=?";
+    $sql = "UPDATE layanan SET kelebihan=?, mengapa_ghaffar=?, foto=? WHERE id=?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('sssi', $kelebihan, $investasi, $newFotoPath, $id);
+    $stmt->bind_param('sssi', $kelebihan, $mengapa_ghaffar, $newFotoPath, $id);
+    if ($stmt->execute()) {
+        return "Record updated successfully";
+    } else {
+        return "Error updating record: " . $conn->error;
+    }
+    $stmt->close();
+}
+function updateInvestasi($id, $jangka_investasi, $jlh_investasi, $fotoFileInputName)
+{
+    global $conn;
+    $targetDirectory = __DIR__ . "/../assets/images/investasi/";
+    $oldFotoPath = null;
+
+    // Ambil path foto lama dari database
+    $sql = "SELECT foto FROM investasi WHERE id=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i', $id);
+    $stmt->execute();
+    $stmt->bind_result($oldFotoPath);
+    $stmt->fetch();
+    $stmt->close();
+
+    // Handle file upload jika ada file
+    $newFotoPath = $oldFotoPath; // Gunakan path foto lama secara default
+    if (isset($_FILES[$fotoFileInputName]) && $_FILES[$fotoFileInputName]['error'] === UPLOAD_ERR_OK) {
+        $uploadResult = uploadImage($fotoFileInputName, $targetDirectory, $oldFotoPath);
+
+        if (strpos($uploadResult, 'Sorry') === 0) {
+            return $uploadResult; // Kembalikan pesan kesalahan jika ada
+        } else {
+            $newFotoPath = $uploadResult;
+        }
+    }
+
+    // Update data di database
+    $sql = "UPDATE investasi SET jangka_investasi=?, jlh_investasi=?, foto=? WHERE id=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('sssi', $jangka_investasi, $jlh_investasi, $newFotoPath, $id);
     if ($stmt->execute()) {
         return "Record updated successfully";
     } else {
@@ -565,6 +603,45 @@ function updateTentang($id, $deskripsi_tentang, $fotoFileInputName)
     }
     $stmt->close();
 }
+function updateVisiMisi($id, $visi, $misi, $fotoFileInputName)
+{
+    global $conn;
+    $targetDirectory = __DIR__ . "/../assets/images/visi_misi/";
+    $oldFotoPath = null;
+
+    // Ambil path foto lama dari database
+    $sql = "SELECT foto FROM visi_misi WHERE id=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i', $id);
+    $stmt->execute();
+    $stmt->bind_result($oldFotoPath);
+    $stmt->fetch();
+    $stmt->close();
+
+    // Handle file upload jika ada file
+    $newFotoPath = $oldFotoPath; // Gunakan path foto lama secara default
+    if (isset($_FILES[$fotoFileInputName]) && $_FILES[$fotoFileInputName]['error'] === UPLOAD_ERR_OK) {
+        $uploadResult = uploadImage($fotoFileInputName, $targetDirectory, $oldFotoPath);
+
+        if (strpos($uploadResult, 'Sorry') === 0) {
+            return $uploadResult; // Kembalikan pesan kesalahan jika ada
+        } else {
+            $newFotoPath = $uploadResult;
+        }
+    }
+
+    // Update data di database
+    $sql = "UPDATE visi_misi SET visi=?, misi=?, foto=? WHERE id=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('sssi', $visi, $misi, $newFotoPath, $id);
+    if ($stmt->execute()) {
+        return "Record updated successfully";
+    } else {
+        return "Error updating record: " . $conn->error;
+    }
+    $stmt->close();
+}
+
 
 function updateKontak($id, $no_hp, $no_wa, $ig, $fb, $alamat)
 {
