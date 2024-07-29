@@ -20,65 +20,133 @@
         <div class="container mt-5">
             <!-- Content Div -->
             <div class="content">
-                <!-- Form Input -->
-                <h2>Form Input</h2>
-                <form>
-                    <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" placeholder="Masukkan username">
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="Masukkan password">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Kirim</button>
-                </form>
+                <?php include 'HalamanDashboard.php';?>
+                <?php include 'HalamanTentang.php';?>
+                <?php include 'HalamanProduk.php';?>
+                <?php include 'HalamanLayanan.php';?>
+                <?php include 'HalamanLegalitas.php';?>
+                <?php include 'HalamanTambahAdmin.php'; ?>
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                <script>
+                $(document).ready(function() {
+                    $('.menu-link').click(function() {
+                        // Menghapus kelas 'active' dari semua elemen
+                        $('.menu-link').removeClass('active');
+                        // Menambahkan kelas 'active' ke elemen yang diklik
+                        $(this).addClass('active');
+                    });
 
-                <!-- Tabel -->
-                <div class="mt-5">
-                    <h2>Daftar Pengguna</h2>
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Username</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>user1</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>user2</td>
-                            </tr>
-                            <!-- Tambahkan lebih banyak baris sesuai kebutuhan -->
-                        </tbody>
-                    </table>
-                </div>
+                    $('#tambah-admin-btn').click(function() {
+                        $('#halaman-tambah-admin').show(); // Menampilkan halaman tambah admin
+                        $('#halaman-dashboard').hide(); // Menyembunyikan halaman dashboard
+                        $('#halaman-tentang').hide();
+                        // Menghapus kelas 'active' dari semua elemen
+                        $('.menu-link').removeClass('active');
+                        // Menambahkan kelas 'active' ke tombol tambah admin
+                        $(this).addClass('active');
+                    });
+
+                    $('#Dashboard-btn').click(function() {
+                        $('#halaman-dashboard').show(); // Menampilkan halaman dashboard
+                        $('#halaman-tambah-admin').hide();
+                        $('#halaman-tentang').hide();
+                        $('#halaman-produk').hide();
+                        $('#halaman-layanan').hide();
+                        $('#halaman-legalitas').hide();
+                        // Menghapus kelas 'active' dari semua elemen
+                        $('.menu-link').removeClass('active');
+                        // Menambahkan kelas 'active' ke tombol dashboard
+                        $(this).addClass('active');
+                    });
+
+                    $('#Tentang-btn').click(function() {
+                        $('#halaman-dashboard').hide(); // Menampilkan halaman dashboard
+                        $('#halaman-tambah-admin').hide(); // Menyembunyikan halaman tambah admin
+                        $('#halaman-tentang').show();
+                        $('#halaman-produk').hide();
+                        $('#halaman-layanan').hide();
+                        $('#halaman-legalitas').hide(); // Menyembunyikan halaman tambah admin
+                        // Menghapus kelas 'active' dari semua elemen
+                        $('.menu-link').removeClass('active');
+                        // Menambahkan kelas 'active' ke tombol dashboard
+                        $(this).addClass('active');
+                    });
+
+                    $('#Produk-btn').click(function() {
+                        $('#halaman-dashboard').hide(); // Menampilkan halaman dashboard
+                        $('#halaman-tambah-admin').hide(); // Menyembunyikan halaman tambah admin
+                        $('#halaman-tentang').hide();
+                        $('#halaman-produk').show();
+                        $('#halaman-layanan').hide();
+                        $('#halaman-legalitas').hide(); // Menyembunyikan halaman tambah admin
+                        // Menghapus kelas 'active' dari semua elemen
+                        $('.menu-link').removeClass('active');
+                        // Menambahkan kelas 'active' ke tombol dashboard
+                        $(this).addClass('active');
+                    });
+
+                    $('#Layanan-btn').click(function() {
+                        $('#halaman-dashboard').hide(); // Menampilkan halaman dashboard
+                        $('#halaman-tambah-admin').hide(); // Menyembunyikan halaman tambah admin
+                        $('#halaman-tentang').hide();
+                        $('#halaman-produk').hide();
+                        $('#halaman-layanan').show();
+                        $('#halaman-legalitas').hide(); // Menyembunyikan halaman tambah admin
+                        // Menghapus kelas 'active' dari semua elemen
+                        $('.menu-link').removeClass('active');
+                        // Menambahkan kelas 'active' ke tombol dashboard
+                        $(this).addClass('active');
+                    });
+
+                    $('#Legalitas-btn').click(function() {
+                        $('#halaman-dashboard').hide(); // Menampilkan halaman dashboard
+                        $('#halaman-tambah-admin').hide(); // Menyembunyikan halaman tambah admin
+                        $('#halaman-tentang').hide();
+                        $('#halaman-produk').hide();
+                        $('#halaman-layanan').hide();
+                        $('#halaman-legalitas').show(); // Menyembunyikan halaman tambah admin
+                        // Menghapus kelas 'active' dari semua elemen
+                        $('.menu-link').removeClass('active');
+                        // Menambahkan kelas 'active' ke tombol dashboard
+                        $(this).addClass('active');
+                    });
+
+                    window.addEventListener('beforeunload', function() {
+                        $('.menu-link').removeClass('active');
+                    });
+                });
+                </script>
+                <script>
+                $(document).ready(function() {
+                    // Fungsi untuk mengganti teks h3
+                    function updateH3Text(newText) {
+                        $('#section-title').text(newText);
+                    }
+
+                    // Ketika menu-link diklik
+                    $('.menu-link').click(function(event) {
+                        event.preventDefault(); // Mencegah default link behaviour
+
+                        // Menghapus kelas 'active' dari semua elemen
+                        $('.menu-link').removeClass('active');
+
+                        // Menambahkan kelas 'active' ke elemen yang diklik
+                        $(this).addClass('active');
+
+                        // Ambil teks dari span dalam elemen yang diklik
+                        const newText = $(this).find('span').text();
+
+                        // Panggil fungsi untuk mengganti teks h3
+                        updateH3Text(newText);
+                    });
+                });
+                </script>
+
             </div>
         </div>
     </article>
-    <script>
-    document.getElementById('toggle-aside').addEventListener('click', function() {
-        const aside = document.querySelector('aside');
-        const article = document.querySelector('article');
-        const toggleIcon = document.getElementById('toggle-aside');
-        aside.classList.toggle('hidden');
-        if (aside.classList.contains('hidden')) {
-            article.classList.add('expanded');
-            article.classList.remove('contracted');
-            toggleIcon.classList.remove('bi-x');
-            toggleIcon.classList.add('bi-list');
-        } else {
-            article.classList.add('contracted');
-            article.classList.remove('expanded');
-            toggleIcon.classList.remove('bi-list');
-            toggleIcon.classList.add('bi-x');
-        }
-    });
-    </script>
+
+    <script src="assets/js/scriptDashboard.js"></script>
     <script src="bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

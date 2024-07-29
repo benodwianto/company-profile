@@ -56,14 +56,17 @@ aside li a {
     transition: background-color 0.3s ease-in-out, color 0.3s ease;
 }
 
-aside li a:hover {
-    background-color: var(--primary-color);
-    border-radius: 15px;
-    color: var(--secondary-color);
-}
-aside li a:hover i {
-    color: var(--secondary-color);
-}
+aside ul li a.active,
+        aside ul li a:hover {
+            background-color: var(--primary-color);
+            border-radius: 15px;
+            color: var(--secondary-color);
+        }
+
+        aside ul li a.active i,
+        aside ul li a:hover i {
+            color: var(--secondary-color);
+        }
 
 aside li a span {
     font-size: 14px;
@@ -107,10 +110,18 @@ article nav ul {
     gap: 10px;
     justify-content: flex-end;
     padding: 20px;
+    list-style: none;
+
 }
 
-article nav ul li {
+article nav ul li{
     padding: 20px;
+  
+}
+article nav ul li a{
+    text-decoration: none;
+    color: white;
+    background-color: #951C11;
 }
 
 /* judul dan button */
@@ -147,3 +158,33 @@ article .content {
     background-color: #FFFFF9;
     flex: 1;
 }
+
+/* halaman dashboard */
+.content-dashboard {
+    margin-top: 20px;
+}
+
+.profile-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.admin-info {
+    margin-top: 10px;
+}
+
+.status-online {
+    color: green;
+}
+
+.status-offline {
+    color: red;
+}
+
+.visitor-message {
+    margin-top: 10px;
+}
+
+/* akhir dashboard */
