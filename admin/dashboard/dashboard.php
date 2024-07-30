@@ -37,33 +37,33 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
     $(document).ready(function() {
-        // Fungsi untuk menampilkan halaman yang dipilih dan menyembunyikan halaman lainnya
         function showPage(pageId) {
-            // Sembunyikan semua halaman
             $('.content-page').hide();
-            // Tampilkan halaman yang dipilih
             $(pageId).show();
-            // Menghapus kelas 'active' dari semua elemen
             $('.menu-link').removeClass('active');
-            // Menambahkan kelas 'active' ke tombol yang sesuai
             $('[data-target="' + pageId + '"]').addClass('active');
+
+            // Update URL
+            var pageName = pageId.replace('#', '');
+            var newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname +
+                '?page=' + pageName;
+            history.pushState({
+                path: newUrl
+            }, '', newUrl);
         }
 
-        // Event handler untuk setiap tombol menu
         $('.menu-link').click(function(event) {
-            event.preventDefault(); // Mencegah default link behaviour
+            event.preventDefault();
             var pageId = $(this).data('target');
             showPage(pageId);
         });
 
-        // Event handler untuk tombol "Tambah Admin"
         $('#tambah-admin-btn').click(function(event) {
-            event.preventDefault(); // Mencegah default button behaviour
+            event.preventDefault();
             var pageId = $(this).data('target');
             showPage(pageId);
         });
 
-        // Menampilkan halaman default saat pertama kali dimuat
         var defaultPage = '#halaman-dashboard';
         var urlParams = new URLSearchParams(window.location.search);
         if (urlParams.has('page')) {
@@ -71,51 +71,33 @@
         }
         showPage(defaultPage);
 
-        // Menyimpan state halaman yang aktif sebelum halaman dimuat ulang
         window.addEventListener('beforeunload', function() {
             $('.menu-link').removeClass('active');
         });
     });
     </script>
+
     <script>
     $(document).ready(function() {
-        // Fungsi untuk mengganti teks h3
         function updateH3Text(newText) {
             $('#section-title').text(newText);
         }
 
-        // Ketika menu-link diklik
         $('.menu-link').click(function(event) {
-            event.preventDefault(); // Mencegah default link behaviour
-
-            // Menghapus kelas 'active' dari semua elemen
+            event.preventDefault();
             $('.menu-link').removeClass('active');
-
-            // Menambahkan kelas 'active' ke elemen yang diklik
             $(this).addClass('active');
-
-            // Ambil teks dari span dalam elemen yang diklik
             const newText = $(this).find('span').text();
-
-            // Panggil fungsi untuk mengganti teks h3
             updateH3Text(newText);
         });
 
-        // Event handler untuk tombol "Tambah Admin"
         $('#tambah-admin-btn').click(function(event) {
-            event.preventDefault(); // Mencegah default button behaviour
-
-            // Menghapus kelas 'active' dari semua elemen
+            event.preventDefault();
             $('.menu-link').removeClass('active');
-
-            // Menambahkan kelas 'active' ke elemen yang diklik
             $(this).addClass('active');
-
-            // Panggil fungsi untuk mengganti teks h3
             updateH3Text('Tambah Admin');
         });
 
-        // Perbarui teks h3 berdasarkan URL parameter
         var urlParams = new URLSearchParams(window.location.search);
         if (urlParams.has('page')) {
             const pageTitleMap = {
