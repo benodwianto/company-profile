@@ -1,4 +1,4 @@
-<div class="content-legalitas" id="halaman-legalitas" style="display: none;">
+<div class="content-page" id="halaman-legalitas" style="display: none;">
     <div class="card ms-4">
         <div class="card-body">
             <h5 class="card-title">legalitas</h5>

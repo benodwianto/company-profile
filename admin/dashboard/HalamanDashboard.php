@@ -1,9 +1,10 @@
-<div class="content-dashboard" id="halaman-dashboard">
+<div class="content-page" id="halaman-dashboard">
+    <h5 class="ms-4 mt-4">Informasi Admin</h5>
     <div class="card ms-4">
         <div class="card-body">
             <h5 class="card-title">Profile</h5>
             <div class="admin-info">
-                <img src="assets/images/logo.png" alt="Admin Photo" class="profile-img" width="100" height="100">
+                <img src="assets/images/logo.jpg" alt="Admin Photo" class="profile-img" width="100" height="100">
                 <p><strong>Username:</strong> admin_username</p>
                 <p><strong>Status:</strong> Super Admin</p>
             </div>
@@ -34,6 +35,22 @@
     </div>
     <!-- Card Baru untuk Pesan Pengunjung -->
     <h5 class="ms-4 mt-4">Pesan Pengunjung</h5>
+    <div class="card ms-4">
+        <div class="card-body">
+            <div class="visitor-message">
+                <p><strong>Email:</strong> user@example.com</p>
+                <p><strong>Pesan:</strong> Ini adalah pesan dari pengunjung.</p>
+            </div>
+        </div>
+    </div>
+    <div class="card ms-4">
+        <div class="card-body">
+            <div class="visitor-message">
+                <p><strong>Email:</strong> user@example.com</p>
+                <p><strong>Pesan:</strong> Ini adalah pesan dari pengunjung.</p>
+            </div>
+        </div>
+    </div>
     <div class="card ms-4">
         <div class="card-body">
             <div class="visitor-message">

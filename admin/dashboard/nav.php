@@ -8,10 +8,11 @@
         <li class="topbar dropdown">
             <a href="#" class="nav-link dropdown-toggle" id="userDropdown" role="button" data-bs-toggle="dropdown"
                 aria-expanded="false">
-                <img src="assets/images/logo.jpg" alt="User Image" width="50px" height="50px">
+                <img src="../../assets/images/logo.jpg" alt="User Image" width="50px" height="50px">
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                <li><button id="tambah-admin-btn" class="dropdown-item btn btn-primary">Tambah Admin</button></li>
+                <li><button id="tambah-admin-btn" class="dropdown-item btn btn-primary"
+                        data-target="#halaman-tambah-admin">Tambah Admin</button></li>
             </ul>
         </li>
     </ul>
