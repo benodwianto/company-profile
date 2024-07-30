@@ -1,4 +1,4 @@
-<div class="content-tentang" id="halaman-tentang" style="display: none;">
+<div class="content-page" id="halaman-tentang" style="display: none;">
     <div class="container mt-4">
         <form>
             <!-- Judul Deskripsi Singkat -->

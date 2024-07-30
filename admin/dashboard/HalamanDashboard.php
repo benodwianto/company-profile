@@ -1,4 +1,4 @@
-<div class="content-dashboard" id="halaman-dashboard">
+<div class="content-page" id="halaman-dashboard">
     <h5 class="ms-4 mt-4">Informasi Admin</h5>
     <div class="card ms-4">
         <div class="card-body">
