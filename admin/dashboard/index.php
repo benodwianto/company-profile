@@ -7,6 +7,9 @@
     <title>Tambah Admin</title>
     <link rel="stylesheet" href="../../assets/css/style_admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    //
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -71,6 +74,28 @@
             </table>
         </div>
     </div>
+
+    <script>
+        // Mengambil pesan dari sesi dan menampilkan popup
+        <?php if (isset($_SESSION['message'])) : ?>
+            var message = "<?php echo $_SESSION['message']; ?>";
+            if (message === "success") {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: 'Data has been inserted successfully!'
+                });
+            } else if (message === "error") {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Failed to insert data!'
+                });
+            }
+            <?php unset($_SESSION['message']); // Hapus pesan dari sesi 
+            ?>
+        <?php endif; ?>
+    </script>
 </body>
 
 </html>

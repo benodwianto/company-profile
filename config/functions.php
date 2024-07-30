@@ -670,9 +670,13 @@ function insertPesan($pesan_pengunjung, $email)
     $stmt->bind_param('ss', $pesan_pengunjung, $email);
 
     if ($stmt->execute()) {
-        return "Pesan added successfully";
+        $message = "success";
     } else {
-        return "Error adding pesan: " . $conn->error;
+        $message = "error";
     }
     $stmt->close();
+
+    $_SESSION['message'] = $message;
+    header('Location: index.php');
+    exit();
 }

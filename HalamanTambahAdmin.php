@@ -1,7 +1,7 @@
   <!-- Form Input -->
   <div class="content-page" id="halaman-tambah-admin" style="display: none;">
       <h2>Form Input Admin Baru</h2>
-      <form>
+      <form action="admin/add_admin.php" method="POST">
           <div class="mb-3">
               <label for="username" class="form-label">Username</label>
               <input type="text" class="form-control" id="username" placeholder="Masukkan username">
