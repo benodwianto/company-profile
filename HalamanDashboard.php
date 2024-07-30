@@ -4,7 +4,7 @@
         <div class="card-body">
             <h5 class="card-title">Profile</h5>
             <div class="admin-info">
-                <img src="assets/images/logo.png" alt="Admin Photo" class="profile-img" width="100" height="100">
+                <img src="assets/images/logo.jpg" alt="Admin Photo" class="profile-img" width="100" height="100">
                 <p><strong>Username:</strong> admin_username</p>
                 <p><strong>Status:</strong> Super Admin</p>
             </div>

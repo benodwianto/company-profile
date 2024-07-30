@@ -200,3 +200,23 @@ article .content {
 }
 
 /* akhir dashboard */
+/* tentang */
+.input-group {
+    display: flex;
+    align-items: center;
+}
+
+.input-group img {
+    width: 50px!important;
+    height: 50px!important;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.input-group .form-control {
+    flex: 1;
+}
+
+.input-group-text {
+    cursor: pointer;
+}
