@@ -41,6 +41,7 @@ $pesan_pengunjung = getAllData('pesan');
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+<<<<<<< HEAD
         $(document).ready(function() {
             // Fungsi untuk menampilkan halaman yang dipilih dan menyembunyikan halaman lainnya
             function showPage(pageId) {
@@ -81,8 +82,51 @@ $pesan_pengunjung = getAllData('pesan');
                 $('.menu-link').removeClass('active');
             });
         });
+=======
+    $(document).ready(function() {
+        function showPage(pageId) {
+            $('.content-page').hide();
+            $(pageId).show();
+            $('.menu-link').removeClass('active');
+            $('[data-target="' + pageId + '"]').addClass('active');
+
+            // Update URL
+            var pageName = pageId.replace('#', '');
+            var newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname +
+                '?page=' + pageName;
+            history.pushState({
+                path: newUrl
+            }, '', newUrl);
+        }
+
+        $('.menu-link').click(function(event) {
+            event.preventDefault();
+            var pageId = $(this).data('target');
+            showPage(pageId);
+        });
+
+        $('#tambah-admin-btn').click(function(event) {
+            event.preventDefault();
+            var pageId = $(this).data('target');
+            showPage(pageId);
+        });
+
+        var defaultPage = '#halaman-dashboard';
+        var urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('page')) {
+            defaultPage = '#' + urlParams.get('page');
+        }
+        showPage(defaultPage);
+
+        window.addEventListener('beforeunload', function() {
+            $('.menu-link').removeClass('active');
+        });
+    });
+>>>>>>> 0fcc3cc1c236e149726bde06e858496d30abd3eb
     </script>
+
     <script>
+<<<<<<< HEAD
         $(document).ready(function() {
             // Fungsi untuk mengganti teks h3
             function updateH3Text(newText) {
@@ -135,6 +179,42 @@ $pesan_pengunjung = getAllData('pesan');
                 updateH3Text(pageTitleMap[pageKey] || 'Dashboard');
             }
         });
+=======
+    $(document).ready(function() {
+        function updateH3Text(newText) {
+            $('#section-title').text(newText);
+        }
+
+        $('.menu-link').click(function(event) {
+            event.preventDefault();
+            $('.menu-link').removeClass('active');
+            $(this).addClass('active');
+            const newText = $(this).find('span').text();
+            updateH3Text(newText);
+        });
+
+        $('#tambah-admin-btn').click(function(event) {
+            event.preventDefault();
+            $('.menu-link').removeClass('active');
+            $(this).addClass('active');
+            updateH3Text('Tambah Admin');
+        });
+
+        var urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('page')) {
+            const pageTitleMap = {
+                'halaman-tambah-admin': 'Tambah Admin',
+                'halaman-dashboard': 'Dashboard',
+                'halaman-tentang': 'Tentang',
+                'halaman-produk': 'Produk',
+                'halaman-layanan': 'Layanan',
+                'halaman-legalitas': 'Legalitas'
+            };
+            const pageKey = urlParams.get('page');
+            updateH3Text(pageTitleMap[pageKey] || 'Dashboard');
+        }
+    });
+>>>>>>> 0fcc3cc1c236e149726bde06e858496d30abd3eb
     </script>
 
     <script src="../../assets/js/scriptDashboard.js"></script>
