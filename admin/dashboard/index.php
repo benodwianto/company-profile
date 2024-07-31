@@ -58,30 +58,8 @@ include '../../config/functions.php'
                 path: newUrl
             }, '', newUrl);
         }
-        // Handle Edit Link Click
-        $('.edit-link').click(function(event) {
-            event.preventDefault();
-            var productId = $(this).data('id');
 
-            // Update the form action with the product ID
-            $('#halaman-update-produk form').attr('action', 'update_produk.php?id=' + productId);
 
-            // Fetch and display the update form for the selected product
-            $.ajax({
-                url: 'update_produk.php',
-                type: 'GET',
-                data: {
-                    id: productId
-                },
-                success: function(response) {
-                    $('#halaman-update-produk').html(response);
-                    showPage('#halaman-update-produk');
-                },
-                error: function() {
-                    alert('Gagal memuat data produk untuk diupdate.');
-                }
-            });
-        });
 
 
         $('.menu-link').click(function(event) {
@@ -143,6 +121,24 @@ include '../../config/functions.php'
             const pageKey = urlParams.get('page');
             updateH3Text(pageTitleMap[pageKey] || 'Dashboard');
         }
+    });
+
+    $(document).ready(function() {
+        $('#inputGambar').on('change', function() {
+            var fileName = $(this).val().split('\\').pop();
+            if (fileName) {
+                $('#fileInfo').text(fileName);
+            } else {
+                $('#fileInfo').text('No file chosen');
+            }
+
+            // Preview the image
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#preview').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(this.files[0]);
+        });
     });
     </script>
 

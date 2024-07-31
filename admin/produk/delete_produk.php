@@ -9,7 +9,7 @@ if (isset($_GET['id'])) {
     echo $resultMessage;
 
     // Redirect kembali ke halaman daftar produk
-    header("Location: produk.php");
+    header("Location: ../dashboard/?page=halaman-produk");
     exit();
 } else {
     echo "Invalid request.";

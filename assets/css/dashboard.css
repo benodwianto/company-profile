@@ -231,14 +231,16 @@ article .content {
     border-radius: 10px;
     padding: 1rem;
     text-align: center;
-    width: 200px;
+    width: 300px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .product-image {
     width: 100%;
-    height: auto;
-    border-radius: 10px;
+    height: 100px!important;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 8px;
 }
 
 .product-icons {
@@ -279,6 +281,7 @@ article .content {
 .add-product-link p {
     margin-top: 0.5rem;
 }
+
 /* update produk */
 /* Tambahkan ini di file CSS atau dalam tag <style> di head HTML */
 

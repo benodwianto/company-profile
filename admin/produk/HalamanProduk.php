@@ -30,7 +30,7 @@ $result = $conn->query($sql);
                 <div class="product-icons">
                     <a href="../produk/update_produk.php?id=<?= htmlspecialchars($row['id']); ?>" class="icon-link"><i
                             class="fa fa-edit"></i></a>
-                    <a href="delete_produk.php?id=<?= htmlspecialchars($row['id']); ?>" class="icon-link"
+                    <a href="../produk/delete_produk.php?id=<?= htmlspecialchars($row['id']); ?>" class="icon-link"
                         onclick="return confirm('Are you sure you want to delete this item?');"><i
                             class="fa fa-trash"></i></a>
                 </div>
