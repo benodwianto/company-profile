@@ -1,3 +1,7 @@
+<?php session_start(); 
+$admins = getAllData('admin');
+$pesan_pengunjung = getAllData('pesan'); 
+?>
 <div class="content-page" id="halaman-dashboard">
     <h5 class="ms-4 mt-4">Informasi Admin</h5>
     <div class="card ms-4">
@@ -18,10 +22,10 @@
                 </thead>
                 <tbody>
                     <?php foreach ($admins as $admin) : ?>
-                        <tr>
-                            <td><?= $admin['username'] ?></td>
-                            <td><i class="bi bi-circle-fill status-online"></i> Online</td>
-                        </tr>
+                    <tr>
+                        <td><?= $admin['username'] ?></td>
+                        <td><i class="bi bi-circle-fill status-online"></i> Online</td>
+                    </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
@@ -30,13 +34,13 @@
     <!-- Card Baru untuk Pesan Pengunjung -->
     <h5 class="ms-4 mt-4">Pesan Pengunjung</h5>
     <?php foreach ($pesan_pengunjung as $pesan) : ?>
-        <div class="card ms-4">
-            <div class="card-body">
-                <div class="visitor-message">
-                    <p><strong>Email:</strong> <?= $pesan['email'] ?></p>
-                    <p><strong>Pesan:</strong> <?= $pesan['pesan_pengunjung'] ?></p>
-                </div>
+    <div class="card ms-4">
+        <div class="card-body">
+            <div class="visitor-message">
+                <p><strong>Email:</strong> <?= $pesan['email'] ?></p>
+                <p><strong>Pesan:</strong> <?= $pesan['pesan_pengunjung'] ?></p>
             </div>
         </div>
+    </div>
     <?php endforeach; ?>
 </div>

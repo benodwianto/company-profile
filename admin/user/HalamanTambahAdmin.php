@@ -1,8 +1,6 @@
 <?php
 ob_start(); // Mulai output buffering
 
-include '../../config/functions.php'; // Meng-include file fungsi
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
     $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
