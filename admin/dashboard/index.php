@@ -34,6 +34,7 @@ include '../../config/functions.php'
                     include 'HalamanLayanan.php';
                     include 'HalamanLegalitas.php';
                     include '../user/HalamanTambahAdmin.php';
+                  
                     ob_end_flush(); // Akhiri output buffering dan kirim output ke browser
                 ?>
             </div>
@@ -57,6 +58,31 @@ include '../../config/functions.php'
                 path: newUrl
             }, '', newUrl);
         }
+        // Handle Edit Link Click
+        $('.edit-link').click(function(event) {
+            event.preventDefault();
+            var productId = $(this).data('id');
+
+            // Update the form action with the product ID
+            $('#halaman-update-produk form').attr('action', 'update_produk.php?id=' + productId);
+
+            // Fetch and display the update form for the selected product
+            $.ajax({
+                url: 'update_produk.php',
+                type: 'GET',
+                data: {
+                    id: productId
+                },
+                success: function(response) {
+                    $('#halaman-update-produk').html(response);
+                    showPage('#halaman-update-produk');
+                },
+                error: function() {
+                    alert('Gagal memuat data produk untuk diupdate.');
+                }
+            });
+        });
+
 
         $('.menu-link').click(function(event) {
             event.preventDefault();
