@@ -220,3 +220,62 @@ article .content {
 .input-group-text {
     cursor: pointer;
 }
+/* produk */
+.product-container {
+    display: flex;
+    gap: 1rem;
+}
+
+.product-card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    width: 200px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.product-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.product-icons {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.icon-link {
+    color: #333;
+    text-decoration: none;
+}
+
+.icon-link .fa {
+    font-size: 1.5rem;
+}
+
+.add-product {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px dashed #ddd;
+}
+
+.add-product-link {
+    text-decoration: none;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.add-product-link .fa {
+    font-size: 2rem;
+}
+
+.add-product-link p {
+    margin-top: 0.5rem;
+}

@@ -1,7 +1,7 @@
 <?php
 ob_start(); // Mulai output buffering
 
-include '../../config/functions.php'; // Meng-include file fungsi
+
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 <!-- Form Input -->
-<div class="content-page" id="halaman-tambah-admin">
+<div class="content-page content-input-admin" id="halaman-tambah-admin">
     <h2>Form Input Admin Baru</h2>
     <?php if (isset($resultMessage)) : ?>
     <p><?= htmlspecialchars($resultMessage); ?></p>
@@ -28,14 +28,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <form action="" method="post">
         <div class="mb-3">
             <label for="username" class="form-label">Username</label>
-            <input type="text" class="form-control" id="username" name="username" placeholder="Masukkan username">
+            <div class="col-md-6">
+                <input type="text" class="form-control" id="username" name="username" placeholder="Masukkan username">
+            </div>
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan password">
+            <div class="col-md-6">
+                <input type="password" class="form-control" id="password" name="password"
+                    placeholder="Masukkan password">
+            </div>
         </div>
         <button type="submit" class="btn btn-primary" value="Add Admin">Tambah</button>
     </form>
+
 
     <!-- Tabel -->
     <div class="mt-5">
