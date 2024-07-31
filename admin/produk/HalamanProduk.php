@@ -28,7 +28,7 @@ $result = $conn->query($sql);
                     alt="<?= htmlspecialchars($row['jenis_sapi']); ?>" class="product-image">
                 <h3><?= htmlspecialchars($row['jenis_sapi']); ?></h3>
                 <div class="product-icons">
-                    <a href="update_produk.php?id=<?= htmlspecialchars($row['id']); ?>" class="icon-link"><i
+                    <a href="../produk/update_produk.php?id=<?= htmlspecialchars($row['id']); ?>" class="icon-link"><i
                             class="fa fa-edit"></i></a>
                     <a href="delete_produk.php?id=<?= htmlspecialchars($row['id']); ?>" class="icon-link"
                         onclick="return confirm('Are you sure you want to delete this item?');"><i
