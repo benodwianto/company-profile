@@ -42,7 +42,11 @@ $result = $conn->query($sql);
                     <div class="mb-3">
                         <label for="inputGambar" class="form-label">Unggah Gambar</label>
                         <div class="input-group">
-                            <img id="preview" src="https://community.softr.io/uploads/db9110/original/2X/7/74e6e7e382d0ff5d7773ca9a87e6f6f8817a68a6.jpeg" alt="Preview" width="50px" height="50px">
+                            <?php if ($row['foto']) : ?>
+                                <img src="../../assets/images/tentang/<?= htmlspecialchars(basename($row['foto'])); ?>" alt="Gambar tentang" width="200" height="200">
+                            <?php else : ?>
+                                <img id="preview" src="https://community.softr.io/uploads/db9110/original/2X/7/74e6e7e382d0ff5d7773ca9a87e6f6f8817a68a6.jpeg" alt="Preview" width="50px" height="50px">
+                            <?php endif; ?>
                             <input type="file" name="foto" class="form-control d-none" id="inputGambar">
                             <label class="input-group-text" for="inputGambar">Choose file</label>
                             <small class="form-text text-muted" id="fileInfo">No file chosen</small>
