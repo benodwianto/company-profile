@@ -17,46 +17,26 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>admin1</td>
-                        <td><i class="bi bi-circle-fill status-online"></i> Online</td>
-                    </tr>
-                    <tr>
-                        <td>admin2</td>
-                        <td><i class="bi bi-circle-fill status-offline"></i> Offline</td>
-                    </tr>
-                    <tr>
-                        <td>admin3</td>
-                        <td><i class="bi bi-circle-fill status-online"></i> Online</td>
-                    </tr>
+                    <?php foreach ($admins as $admin) : ?>
+                        <tr>
+                            <td><?= $admin['username'] ?></td>
+                            <td><i class="bi bi-circle-fill status-online"></i> Online</td>
+                        </tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
     </div>
     <!-- Card Baru untuk Pesan Pengunjung -->
     <h5 class="ms-4 mt-4">Pesan Pengunjung</h5>
-    <div class="card ms-4">
-        <div class="card-body">
-            <div class="visitor-message">
-                <p><strong>Email:</strong> user@example.com</p>
-                <p><strong>Pesan:</strong> Ini adalah pesan dari pengunjung.</p>
+    <?php foreach ($pesan_pengunjung as $pesan) : ?>
+        <div class="card ms-4">
+            <div class="card-body">
+                <div class="visitor-message">
+                    <p><strong>Email:</strong> <?= $pesan['email'] ?></p>
+                    <p><strong>Pesan:</strong> <?= $pesan['pesan_pengunjung'] ?></p>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="card ms-4">
-        <div class="card-body">
-            <div class="visitor-message">
-                <p><strong>Email:</strong> user@example.com</p>
-                <p><strong>Pesan:</strong> Ini adalah pesan dari pengunjung.</p>
-            </div>
-        </div>
-    </div>
-    <div class="card ms-4">
-        <div class="card-body">
-            <div class="visitor-message">
-                <p><strong>Email:</strong> user@example.com</p>
-                <p><strong>Pesan:</strong> Ini adalah pesan dari pengunjung.</p>
-            </div>
-        </div>
-    </div>
+    <?php endforeach; ?>
 </div>

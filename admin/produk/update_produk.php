@@ -1,6 +1,6 @@
 <?php
 include '../../config/functions.php';
-
+$id = $_GET['id'];
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id = $_POST['id'];
     $jenis_sapi = $_POST['jenis_sapi'];
@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 // Ambil data produk untuk ditampilkan di form
-$sql = "SELECT id, jenis_sapi, deskripsi_produk, foto FROM produk";
+$sql = "SELECT id, jenis_sapi, deskripsi_produk, foto FROM produk WHERE id = $id";
 $result = $conn->query($sql);
 ?>
 
