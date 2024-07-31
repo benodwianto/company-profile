@@ -77,11 +77,9 @@
                 <?= $home['deskripsi_dashboard']; ?>
                 <?php endforeach;
                 ?>
-                <span class="dots">...</span>
-                <span class="more-text"></span>
-                <span class="show-more-btn">selengkapnya</span>
+
             </p>
-            <button><a href="#produk">Lihat Produk</a> </button>
+            <button><a href="#produk-kami">Lihat Produk</a> </button>
         </div>
     </header>
 

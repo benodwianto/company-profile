@@ -495,7 +495,7 @@ section .content-section-produk-kami {
 .card {
     flex: 0 0 auto; /* Menghindari card untuk menyusut atau membesar */
     width: 350px;
-    height: 400px!important;
+    height: fit-content!important;
     /* Lebar card yang telah ditentukan */
     padding: 40px;
     overflow: hidden;

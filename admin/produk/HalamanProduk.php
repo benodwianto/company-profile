@@ -40,7 +40,7 @@ $result = $conn->query($sql);
             <p>No data found in the database.</p>
             <?php endif; ?>
             <div class="product-card add-product">
-                <a href="tambah_produk.php" class="add-product-link">
+                <a href="../produk/add_produk.php" class="add-product-link">
                     <i class="fa fa-plus"></i>
                     <p>Tambah Produk</p>
                 </a>
