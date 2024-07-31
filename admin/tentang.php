@@ -4,6 +4,7 @@ include '../config/functions.php'; // Meng-include file fungsi
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id = $_POST['id'];
     $deskripsi_tentang = $_POST['deskripsi_tentang'];
+    $tentang_kami = $_POST['tentang_kami'];
 
     // Periksa apakah ada file yang di-upload
     if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
@@ -13,10 +14,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Proses update data
-    $resultMessage = updateTentang($id, $deskripsi_tentang, $fotoFileInputName);
+    $resultMessage = updateTentang($id, $deskripsi_tentang, $tentang_kami, $fotoFileInputName);
 }
 
-$sql = "SELECT id, foto, deskripsi_tentang, foto FROM tentang";
+$sql = "SELECT id, foto, deskripsi_tentang,tentang_kami, foto FROM tentang";
 $result = $conn->query($sql);
 ?>
 
@@ -43,6 +44,8 @@ $result = $conn->query($sql);
                 <input type="hidden" name="id" value="<?= htmlspecialchars($row['id']); ?>">
                 <label for="deskripsi_tentang">deskripsi_tentang:</label>
                 <input type="text" name="deskripsi_tentang" id="deskripsi_tentang" value="<?= htmlspecialchars($row['deskripsi_tentang']); ?>"><br>
+                <label for="tentang_kami">Tentang Kami</label>
+                <input type="text" name="tentang_kami" id="tentang_kami" value="<?= htmlspecialchars($row['tentang_kami']); ?>"><br>
                 <label for="foto">Foto:</label>
                 <input type="file" name="foto" id="foto"> <img src="../assets/images/tentang/<?= htmlspecialchars(basename($row['foto'])); ?>" alt="foto tentang" width="50" height="50">
                 <br>

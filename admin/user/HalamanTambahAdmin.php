@@ -1,7 +1,7 @@
 <?php
 ob_start(); // Mulai output buffering
 
-
+include '../../config/functions.php'; // Meng-include file fungsi
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($username && $password) {
         // Proses insert data
         $resultMessage = insertAdmin($username, $password);
-        
+
         // Redirect dengan parameter query string yang divalidasi
         header("Location: {$_SERVER['PHP_SELF']}?page=halaman-tambah-admin&status=success");
         exit();

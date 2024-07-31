@@ -565,7 +565,7 @@ function deleteProduk($id)
 }
 
 
-function updateTentang($id, $deskripsi_tentang, $fotoFileInputName)
+function updateTentang($id, $deskripsi_tentang, $tentang_kami, $fotoFileInputName)
 {
     global $conn;
     $targetDirectory = __DIR__ . "/../assets/images/tentang/";
@@ -593,9 +593,9 @@ function updateTentang($id, $deskripsi_tentang, $fotoFileInputName)
     }
 
     // Update data di database
-    $sql = "UPDATE tentang SET deskripsi_tentang=?, foto=? WHERE id=?";
+    $sql = "UPDATE tentang SET deskripsi_tentang=?,tentang_kami=?, foto=? WHERE id=?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('ssi', $deskripsi_tentang, $newFotoPath, $id);
+    $stmt->bind_param('sssi', $deskripsi_tentang, $tentang_kami, $newFotoPath, $id);
     if ($stmt->execute()) {
         return "Record updated successfully";
     } else {
@@ -670,9 +670,13 @@ function insertPesan($pesan_pengunjung, $email)
     $stmt->bind_param('ss', $pesan_pengunjung, $email);
 
     if ($stmt->execute()) {
-        return "Pesan added successfully";
+        $message = "success";
     } else {
-        return "Error adding pesan: " . $conn->error;
+        $message = "error";
     }
     $stmt->close();
+
+    $_SESSION['message'] = $message;
+    header('Location: index.php');
+    exit();
 }
