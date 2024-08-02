@@ -680,7 +680,6 @@ function updateTentang($id, $deskripsi_tentang, $fotoFileInputName)
 
     // Update data di database
     $sql = "UPDATE tentang SET deskripsi_tentang=?, foto=? WHERE id=?";
-<<<<<<< HEAD
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('ssi', $deskripsi_tentang, $newFotoPath, $id);
     if ($stmt->execute()) {
@@ -689,24 +688,21 @@ function updateTentang($id, $deskripsi_tentang, $fotoFileInputName)
         return "Error updating record: " . $conn->error;
     }
     $stmt->close();
-=======
-$stmt = $conn->prepare($sql);
+    $stmt = $conn->prepare($sql);
 
-// Menggunakan tiga parameter pada bind_param
-$stmt->bind_param('ssi', $deskripsi_tentang, $newFotoPath, $id);
+    // Menggunakan tiga parameter pada bind_param
+    $stmt->bind_param('ssi', $deskripsi_tentang, $newFotoPath, $id);
 
-if ($stmt->execute()) {
-    $result = "Record updated successfully";
-} else {
-    $result = "Error updating record: " . $conn->error;
-}
+    if ($stmt->execute()) {
+        $result = "Record updated successfully";
+    } else {
+        $result = "Error updating record: " . $conn->error;
+    }
 
-// Tutup statement sebelum mengembalikan hasil
-$stmt->close();
+    // Tutup statement sebelum mengembalikan hasil
+    $stmt->close();
 
-return $result;
-
->>>>>>> be0dc97db497d6a2becd5729d53d0c6a8e63106b
+    return $result;
 }
 function updateVisiMisi($id, $visi, $misi, $fotoFileInputName)
 {
@@ -784,7 +780,6 @@ function insertPesan($pesan_pengunjung, $email)
     $_SESSION['message'] = $message;
     header('Location: index.php');
     exit();
-<<<<<<< HEAD
 }
 
 function getAllAdminsWithLastLoginTime()
@@ -842,6 +837,3 @@ function timeAgo($timestamp)
         return $numberOfUnits . ' ' . $text . ' yang lalu';
     }
 }
-=======
-}
->>>>>>> be0dc97db497d6a2becd5729d53d0c6a8e63106b
