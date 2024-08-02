@@ -24,8 +24,8 @@ $result = $conn->query($sql);
 ?>
 
 <div class="content-page" id="halaman-layanan" style="display: none;">
-    <div class="card ms-4">
-        <form action="" method="post" enctype="multipart/form-data">
+    <div class="card ms-4 shadow">
+        <form action="" method="post" enctype="multipart/form-data" class="p-4">
             <!-- Menampilkan formulir input untuk setiap entri layanan -->
             <?php if ($result->num_rows > 0) : ?>
             <?php while ($row = $result->fetch_assoc()) : ?>

@@ -4,7 +4,7 @@ $pesan_pengunjung = getAllData('pesan');
 ?>
 <div class="content-page" id="halaman-dashboard">
     <h5 class="ms-4 mt-4">Informasi Admin</h5>
-    <div class="card ms-4">
+    <div class="card ms-4 shadow-sm">
         <div class="card-body">
             <h5 class="card-title">Profile</h5>
             <div class="admin-info">
@@ -34,7 +34,7 @@ $pesan_pengunjung = getAllData('pesan');
     <!-- Card Baru untuk Pesan Pengunjung -->
     <h5 class="ms-4 mt-4">Pesan Pengunjung</h5>
     <?php foreach ($pesan_pengunjung as $pesan) : ?>
-    <div class="card ms-4">
+    <div class="card ms-4 m-3">
         <div class="card-body">
             <div class="visitor-message">
                 <p><strong>Email:</strong> <?= $pesan['email'] ?></p>
