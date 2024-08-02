@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = $_POST['password'];
 
     // Proses insert data
-    $resultMessage = insertAdmin($username, $password);
+    $resultMessage = insertAdmin($username, $password, 'petugas');
 }
 ?>
 

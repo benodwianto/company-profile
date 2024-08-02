@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Proses update data
-    $resultMessage = updateTentang($id, $deskripsi_tentang, $tentang_kami, $fotoFileInputName);
+    $resultMessage = updateTentang($id, $deskripsi_tentang, $fotoFileInputName);
 }
 
 $sql = "SELECT id, foto, deskripsi_tentang, foto FROM tentang";

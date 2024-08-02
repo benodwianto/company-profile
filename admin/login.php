@@ -1,15 +1,20 @@
 <?php
+session_start();
 include '../config/functions.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $adminId = login($username, $password);
+    $admin = login($username, $password);
 
-    if ($adminId) {
-        // Jika login berhasil, arahkan ke halaman dashboard atau halaman lain
-        header("Location: dashboard.php");
+    if ($admin) {
+        // Jika login berhasil, buat sesi
+        $_SESSION['admin_id'] = $admin['id'];
+        $_SESSION['status'] = $admin['status'];
+
+        // Arahkan ke halaman dashboard atau halaman lain
+        header("Location: dashboard");
         exit();
     } else {
         echo "Invalid username or password.";
