@@ -336,7 +336,7 @@ function updateLayanan($id, $kelebihan, $mengapa_ghaffar, $fotoFileInputName)
 
     // Handle file upload jika ada file
     $newFotoPath = $oldFotoPath; // Gunakan path foto lama secara default
-    if (isset($_FILES[$fotoFileInputName]) && $_FILES[$fotoFileInputName]['error'] === UPLOAD_ERR_OK) {
+    if ($fotoFileInputName) {
         $uploadResult = uploadImage($fotoFileInputName, $targetDirectory, $oldFotoPath);
 
         if (strpos($uploadResult, 'Sorry') === 0) {
@@ -351,12 +351,15 @@ function updateLayanan($id, $kelebihan, $mengapa_ghaffar, $fotoFileInputName)
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('sssi', $kelebihan, $mengapa_ghaffar, $newFotoPath, $id);
     if ($stmt->execute()) {
+        $stmt->close();
         return "Record updated successfully";
     } else {
-        return "Error updating record: " . $conn->error;
+        $error = $stmt->error;
+        $stmt->close();
+        return "Error updating record: " . $error;
     }
-    $stmt->close();
 }
+
 function updateInvestasi($id, $jangka_investasi, $jlh_investasi, $fotoFileInputName)
 {
     global $conn;
@@ -677,6 +680,7 @@ function updateTentang($id, $deskripsi_tentang, $fotoFileInputName)
 
     // Update data di database
     $sql = "UPDATE tentang SET deskripsi_tentang=?, foto=? WHERE id=?";
+<<<<<<< HEAD
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('ssi', $deskripsi_tentang, $newFotoPath, $id);
     if ($stmt->execute()) {
@@ -685,6 +689,24 @@ function updateTentang($id, $deskripsi_tentang, $fotoFileInputName)
         return "Error updating record: " . $conn->error;
     }
     $stmt->close();
+=======
+$stmt = $conn->prepare($sql);
+
+// Menggunakan tiga parameter pada bind_param
+$stmt->bind_param('ssi', $deskripsi_tentang, $newFotoPath, $id);
+
+if ($stmt->execute()) {
+    $result = "Record updated successfully";
+} else {
+    $result = "Error updating record: " . $conn->error;
+}
+
+// Tutup statement sebelum mengembalikan hasil
+$stmt->close();
+
+return $result;
+
+>>>>>>> be0dc97db497d6a2becd5729d53d0c6a8e63106b
 }
 function updateVisiMisi($id, $visi, $misi, $fotoFileInputName)
 {
@@ -762,6 +784,7 @@ function insertPesan($pesan_pengunjung, $email)
     $_SESSION['message'] = $message;
     header('Location: index.php');
     exit();
+<<<<<<< HEAD
 }
 
 function getAllAdminsWithLastLoginTime()
@@ -819,3 +842,6 @@ function timeAgo($timestamp)
         return $numberOfUnits . ' ' . $text . ' yang lalu';
     }
 }
+=======
+}
+>>>>>>> be0dc97db497d6a2becd5729d53d0c6a8e63106b

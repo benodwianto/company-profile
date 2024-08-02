@@ -1,9 +1,8 @@
 <?php
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $id = $_POST['id'];
-    $deskripsi_tentang = $_POST['deskripsi_tentang'];
- 
+    $id = isset($_POST['id']) ? $_POST['id'] : null;
+    $deskripsi_tentang = isset($_POST['deskripsi_tentang']) ? $_POST['deskripsi_tentang'] : null;
 
     // Periksa apakah ada file yang di-upload
     if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
@@ -12,18 +11,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $fotoFileInputName = null; // Tidak ada file baru
     }
 
-    // Proses update data
-    $resultMessage = updateTentang($id, $deskripsi_tentang, $fotoFileInputName);
+    // Validasi nilai yang tidak boleh null
+    if ($id && $deskripsi_tentang) {
+        // Proses update data
+        $resultMessage = updateTentang($id, $deskripsi_tentang, $fotoFileInputName);
+    } else {
+        $resultMessage = "Data tidak lengkap, tidak bisa di-update.";
+    }
 }
 
-$sql = "SELECT id, foto, deskripsi_tentang, foto FROM tentang";
+// Mendapatkan data dari database
+$sql = "SELECT id, foto, deskripsi_tentang FROM tentang";
 $result = $conn->query($sql);
+
 ?>
 
 <div class="content-page" id="halaman-tentang" style="display: none;">
     <div class="container mt-4">
         <form action="" method="post" enctype="multipart/form-data">
-            <!-- Judul Deskripsi Singkat -->
             <?php if ($result->num_rows > 0) : ?>
             <?php while ($row = $result->fetch_assoc()) : ?>
             <input type="hidden" name="id" value="<?= htmlspecialchars($row['id']); ?>">
@@ -32,7 +37,6 @@ $result = $conn->query($sql);
                 <textarea class="form-control" name="deskripsi_tentang" id="deskripsiSingkat" rows="3"
                     placeholder="Masukkan deskripsi singkat di sini..."><?= htmlspecialchars($row['deskripsi_tentang']); ?></textarea>
             </div>
-
             <!-- Input Gambar -->
             <div class="mb-3">
                 <label for="inputGambar" class="form-label">Unggah Gambar</label>
@@ -59,5 +63,6 @@ $result = $conn->query($sql);
             <!-- Tombol Simpan -->
             <button type="submit" class="btn btn-primary">Simpan</button>
         </form>
+
     </div>
 </div>
