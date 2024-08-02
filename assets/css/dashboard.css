@@ -37,7 +37,7 @@ aside ul {
    
     height: 100%;
     padding: 0;
-    padding-top: 50px;
+    padding-top: 20px;
  
 
 }
@@ -371,3 +371,4 @@ article .content {
     padding: 16px; /* Padding 4rem jika menggunakan ukuran basis 16px */
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
+/* legalitas */

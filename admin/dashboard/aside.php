@@ -11,6 +11,8 @@
                     class="bi bi-layers"></i><span>Layanan</span></a></li>
         <li class="menu" id="Legalitas-btn"><a href="#" class="menu-link" data-target="#halaman-legalitas"><i
                     class="bi bi-file-earmark-text"></i><span>Legalitas</span></a></li>
+        <li class="menu" id="Kontak-btn"><a href="#" class="menu-link" data-target="#halaman-kontak"><i
+                    class="bi bi-file-earmark-text"></i><span>Kontak</span></a></li>
 
     </ul>
 </aside>

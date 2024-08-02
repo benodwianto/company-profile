@@ -17,6 +17,9 @@ include '../../config/functions.php'
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+
 </head>
 
 <body>
@@ -34,6 +37,7 @@ include '../../config/functions.php'
                     include 'HalamanLayanan.php';
                     include 'HalamanLegalitas.php';
                     include '../user/HalamanTambahAdmin.php';
+                    // include '../legalitas/add_legalitas.php';
                   
                     ob_end_flush(); // Akhiri output buffering dan kirim output ke browser
                 ?>
@@ -117,6 +121,7 @@ include '../../config/functions.php'
                 'halaman-produk': 'Produk',
                 'halaman-layanan': 'Layanan',
                 'halaman-legalitas': 'Legalitas'
+                // 'halaman-add-legalitas': 'InsertLegalitas'
             };
             const pageKey = urlParams.get('page');
             updateH3Text(pageTitleMap[pageKey] || 'Dashboard');
@@ -143,6 +148,7 @@ include '../../config/functions.php'
     </script>
 
     <script src="../../assets/js/scriptDashboard.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../../bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
