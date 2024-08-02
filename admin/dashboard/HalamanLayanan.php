@@ -1,71 +1,140 @@
 <?php
+// Cek apakah form telah disubmit
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $id = $_POST['id'];
-    $kelebihan = isset($_POST['kelebihan']) ? $_POST['kelebihan'] : null;
-    $mengapa_ghaffar = isset($_POST['mengapa_ghaffar']) ? $_POST['mengapa_ghaffar'] : null;
+    if (isset($_POST['update_tentang'])) {
+        $id = isset($_POST['id']) ? $_POST['id'] : null;
+        $deskripsi_tentang = isset($_POST['deskripsi_tentang']) ? $_POST['deskripsi_tentang'] : null;
 
-    // Periksa apakah ada file yang di-upload
-    if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
-        $fotoFileInputName = 'foto';
-    } else {
-        $fotoFileInputName = null; // Tidak ada file baru
-    }
+        // Periksa apakah ada file yang di-upload
+        if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
+            $fotoFileInputName = 'foto';
+        } else {
+            $fotoFileInputName = null; // Tidak ada file baru
+        }
 
-    // Proses update data
-    if ($id && $kelebihan && $mengapa_ghaffar) {
-        $resultMessage = updateLayanan($id, $kelebihan, $mengapa_ghaffar, $fotoFileInputName);
-    } else {
-        $resultMessage = "Data tidak lengkap, tidak bisa di-update.";
+        // Validasi nilai yang tidak boleh null
+        if ($id && $deskripsi_tentang) {
+            // Proses update data
+            $resultMessage = updateTentang($id, $deskripsi_tentang, $fotoFileInputName);
+        } else {
+            $resultMessage = "Data tidak lengkap, tidak bisa di-update.";
+        }
+    } elseif (isset($_POST['update_investasi'])) {
+        $id = isset($_POST['id']) ? $_POST['id'] : null;
+        $jangka_investasi = isset($_POST['jangka_investasi']) ? $_POST['jangka_investasi'] : null;
+        $jlh_investasi = isset($_POST['jlh_investasi']) ? $_POST['jlh_investasi'] : null;
+
+        // Periksa apakah ada file yang di-upload
+        if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
+            $fotoFileInputName = 'foto';
+        } else {
+            $fotoFileInputName = null; // Tidak ada file baru
+        }
+
+        // Validasi nilai yang tidak boleh null
+        if ($id && $jangka_investasi && $jlh_investasi) {
+            // Proses update data
+            $resultMessage = updateInvestasi($id, $jangka_investasi, $jlh_investasi, $fotoFileInputName);
+        } else {
+            $resultMessage = "Data tidak lengkap, tidak bisa di-update.";
+        }
     }
 }
 
-$sql = "SELECT id, kelebihan, mengapa_ghaffar, foto FROM layanan";
-$result = $conn->query($sql);
+// Mendapatkan data dari database
+$sqlTentang = "SELECT id, foto, deskripsi_tentang FROM tentang";
+$resultTentang = $conn->query($sqlTentang);
+
+$sqlInvestasi = "SELECT id, jangka_investasi, jlh_investasi, foto FROM investasi";
+$resultInvestasi = $conn->query($sqlInvestasi);
+
 ?>
 
 <div class="content-page" id="halaman-layanan" style="display: none;">
-    <div class="card ms-4 shadow">
-        <form action="" method="post" enctype="multipart/form-data" class="p-4">
-            <!-- Menampilkan formulir input untuk setiap entri layanan -->
-            <?php if ($result->num_rows > 0) : ?>
-            <?php while ($row = $result->fetch_assoc()) : ?>
-            <input type="hidden" name="id" value="<?= htmlspecialchars($row['id']); ?>">
-            <div class="mb-3">
-                <label for="Mengapaghaffar" class="form-label">Mengapa Ghaffar</label>
-                <textarea class="form-control" name="mengapa_ghaffar" id="Mengapaghaffar" rows="3"
-                    placeholder="Masukkan deskripsi singkat di sini..."><?= htmlspecialchars($row['mengapa_ghaffar']); ?></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="kelebihan" class="form-label">Kelebihan</label>
-                <textarea class="form-control" name="kelebihan" id="kelebihan" rows="3"
-                    placeholder="Masukkan deskripsi singkat di sini..."><?= htmlspecialchars($row['kelebihan']); ?></textarea>
-            </div>
-
-            <!-- Input Gambar -->
-            <div class="mb-3">
-                <label for="inputGambar" class="form-label">Unggah Gambar</label>
-                <div class="input-group">
-                    <?php if ($row['foto']) : ?>
-                    <img src="../../assets/images/layanan/<?= htmlspecialchars(basename($row['foto'])); ?>"
-                        alt="Gambar tentang" width="200" height="200">
-                    <?php else : ?>
-                    <img id="preview"
-                        src="https://community.softr.io/uploads/db9110/original/2X/7/74e6e7e382d0ff5d7773ca9a87e6f6f8817a68a6.jpeg"
-                        alt="Preview" width="50px" height="50px">
-                    <?php endif; ?>
-                    <input type="file" name="foto" class="form-control d-none" id="inputGambar">
-                    <label class="input-group-text" for="inputGambar">Choose file</label>
-                    <small class="form-text text-muted" id="fileInfo">No file chosen</small>
+    <div class="container mt-3">
+        <!-- Form Tentang -->
+        <div class="card ms-4 shadow">
+            <form action="" method="post" enctype="multipart/form-data" class="p-4">
+                <?php if ($resultTentang->num_rows > 0) : ?>
+                <?php while ($rowTentang = $resultTentang->fetch_assoc()) : ?>
+                <input type="hidden" name="id" value="<?= htmlspecialchars($rowTentang['id']); ?>">
+                <input type="hidden" name="update_tentang" value="1">
+                <div class="mb-3">
+                    <label for="deskripsiSingkat" class="form-label">Deskripsi Singkat</label>
+                    <textarea class="form-control" name="deskripsi_tentang" id="deskripsiSingkat" rows="10"
+                        placeholder="Masukkan deskripsi singkat di sini..."><?= htmlspecialchars($rowTentang['deskripsi_tentang']); ?></textarea>
                 </div>
-                <small class="form-text text-muted">Please upload image size less than 1000KB</small>
-            </div>
-            <?php endwhile; ?>
-            <?php else : ?>
-            <p>No data found in the database.</p>
-            <?php endif; ?>
+                <div class="mb-3">
+                    <label for="inputGambarTentang" class="form-label">Unggah Gambar</label>
+                    <div class="input-group">
+                        <?php if ($rowTentang['foto']) : ?>
+                        <img src="../../assets/images/tentang/<?= htmlspecialchars(basename($rowTentang['foto'])); ?>"
+                            alt="Gambar tentang" width="200" height="200">
+                        <?php else : ?>
+                        <img id="previewTentang"
+                            src="https://community.softr.io/uploads/db9110/original/2X/7/74e6e7e382d0ff5d7773ca9a87e6f6f8817a68a6.jpeg"
+                            alt="Preview" width="50px" height="50px">
+                        <?php endif; ?>
+                        <input type="file" name="foto" class="form-control d-none" id="inputGambarTentang">
+                        <label class="input-group-text" for="inputGambarTentang">Choose file</label>
+                        <small class="form-text text-muted" id="fileInfoTentang">No file chosen</small>
+                    </div>
+                    <small class="form-text text-muted">Please upload image size less than 1000KB</small>
+                </div>
+                <?php endwhile; ?>
+                <?php else : ?>
+                <p>No data found in the database.</p>
+                <?php endif; ?>
 
-            <!-- Tombol Simpan -->
-            <button type="submit" class="btn btn-primary">Simpan</button>
-        </form>
+                <!-- Tombol Simpan -->
+                <button type="submit" class="btn btn-primary">Simpan</button>
+            </form>
+        </div>
+
+        <!-- Form Investasi -->
+        <div class="card ms-4 shadow mt-3">
+            <form action="" method="post" enctype="multipart/form-data" class="p-4">
+                <?php if ($resultInvestasi->num_rows > 0) : ?>
+                <?php while ($rowInvestasi = $resultInvestasi->fetch_assoc()) : ?>
+                <input type="hidden" name="id" value="<?= htmlspecialchars($rowInvestasi['id']); ?>">
+                <input type="hidden" name="update_investasi" value="1">
+                <div class="mb-3">
+                    <label for="jangkaInvestasi" class="form-label">Jangka Investasi</label>
+                    <input type="text" class="form-control" name="jangka_investasi" id="jangkaInvestasi"
+                        value="<?= htmlspecialchars($rowInvestasi['jangka_investasi']); ?>"
+                        placeholder="Masukkan jangka investasi">
+                </div>
+                <div class="mb-3">
+                    <label for="jlhInvestasi" class="form-label">Jumlah Investasi</label>
+                    <input type="text" class="form-control" name="jlh_investasi" id="jlhInvestasi"
+                        value="<?= htmlspecialchars($rowInvestasi['jlh_investasi']); ?>"
+                        placeholder="Masukkan jumlah investasi">
+                </div>
+                <div class="mb-3">
+                    <label for="inputGambarInvestasi" class="form-label">Unggah Gambar</label>
+                    <div class="input-group">
+                        <?php if ($rowInvestasi['foto']) : ?>
+                        <img src="../../assets/images/investasi/<?= htmlspecialchars(basename($rowInvestasi['foto'])); ?>"
+                            alt="Foto investasi" width="200" height="200">
+                        <?php else : ?>
+                        <img id="previewInvestasi"
+                            src="https://community.softr.io/uploads/db9110/original/2X/7/74e6e7e382d0ff5d7773ca9a87e6f6f8817a68a6.jpeg"
+                            alt="Preview" width="50px" height="50px">
+                        <?php endif; ?>
+                        <input type="file" name="foto" class="form-control d-none" id="inputGambarInvestasi">
+                        <label class="input-group-text" for="inputGambarInvestasi">Choose file</label>
+                        <small class="form-text text-muted" id="fileInfoInvestasi">No file chosen</small>
+                    </div>
+                    <small class="form-text text-muted">Please upload image size less than 1000KB</small>
+                </div>
+                <?php endwhile; ?>
+                <?php else : ?>
+                <p>No data found in the database.</p>
+                <?php endif; ?>
+
+                <!-- Tombol Simpan -->
+                <button type="submit" class="btn btn-primary">Simpan</button>
+            </form>
+        </div>
     </div>
 </div>

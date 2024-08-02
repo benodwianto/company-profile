@@ -198,6 +198,29 @@ article .content {
 .visitor-message {
     margin-top: 10px;
 }
+/* CSS Kustom untuk Card Pesan Pengunjung */
+.visitor-message {
+    position: relative;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.message-content {
+    flex: 1;
+}
+
+.message-time {
+    color: #888;
+    font-size: 0.875rem;
+}
+
+.card {
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 
 /* akhir dashboard */
 /* tentang */
