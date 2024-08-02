@@ -281,7 +281,7 @@ function updateLayanan($id, $kelebihan, $mengapa_ghaffar, $fotoFileInputName)
 
     // Handle file upload jika ada file
     $newFotoPath = $oldFotoPath; // Gunakan path foto lama secara default
-    if (isset($_FILES[$fotoFileInputName]) && $_FILES[$fotoFileInputName]['error'] === UPLOAD_ERR_OK) {
+    if ($fotoFileInputName) {
         $uploadResult = uploadImage($fotoFileInputName, $targetDirectory, $oldFotoPath);
 
         if (strpos($uploadResult, 'Sorry') === 0) {
@@ -296,12 +296,15 @@ function updateLayanan($id, $kelebihan, $mengapa_ghaffar, $fotoFileInputName)
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('sssi', $kelebihan, $mengapa_ghaffar, $newFotoPath, $id);
     if ($stmt->execute()) {
+        $stmt->close();
         return "Record updated successfully";
     } else {
-        return "Error updating record: " . $conn->error;
+        $error = $stmt->error;
+        $stmt->close();
+        return "Error updating record: " . $error;
     }
-    $stmt->close();
 }
+
 function updateInvestasi($id, $jangka_investasi, $jlh_investasi, $fotoFileInputName)
 {
     global $conn;
@@ -565,7 +568,7 @@ function deleteProduk($id)
 }
 
 
-function updateTentang($id, $deskripsi_tentang, $tentang_kami, $fotoFileInputName)
+function updateTentang($id, $deskripsi_tentang, $fotoFileInputName)
 {
     global $conn;
     $targetDirectory = __DIR__ . "/../assets/images/tentang/";
@@ -593,15 +596,23 @@ function updateTentang($id, $deskripsi_tentang, $tentang_kami, $fotoFileInputNam
     }
 
     // Update data di database
-    $sql = "UPDATE tentang SET deskripsi_tentang=?,tentang_kami=?, foto=? WHERE id=?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param('sssi', $deskripsi_tentang, $tentang_kami, $newFotoPath, $id);
-    if ($stmt->execute()) {
-        return "Record updated successfully";
-    } else {
-        return "Error updating record: " . $conn->error;
-    }
-    $stmt->close();
+    $sql = "UPDATE tentang SET deskripsi_tentang=?, foto=? WHERE id=?";
+$stmt = $conn->prepare($sql);
+
+// Menggunakan tiga parameter pada bind_param
+$stmt->bind_param('ssi', $deskripsi_tentang, $newFotoPath, $id);
+
+if ($stmt->execute()) {
+    $result = "Record updated successfully";
+} else {
+    $result = "Error updating record: " . $conn->error;
+}
+
+// Tutup statement sebelum mengembalikan hasil
+$stmt->close();
+
+return $result;
+
 }
 function updateVisiMisi($id, $visi, $misi, $fotoFileInputName)
 {

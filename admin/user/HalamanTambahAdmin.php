@@ -2,8 +2,9 @@
 ob_start(); // Mulai output buffering
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
-    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+    // Gunakan FILTER_SANITIZE_SPECIAL_CHARS sebagai pengganti FILTER_SANITIZE_STRING
+    $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_SPECIAL_CHARS);
+    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_SPECIAL_CHARS);
 
     if ($username && $password) {
         // Proses insert data
@@ -17,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
+
 <!-- Form Input -->
 <div class="content-page content-input-admin" id="halaman-tambah-admin">
     <h2>Form Input Admin Baru</h2>
