@@ -179,7 +179,7 @@ function updateHome($id, $deskripsi_dashboard)
     $conn->close();
 }
 
-function insertAdmin($username, $password)
+function insertAdmin($username, $password, $petugas)
 {
     global $conn;
 
@@ -187,9 +187,9 @@ function insertAdmin($username, $password)
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
     // Insert data ke database
-    $sql = "INSERT INTO admin (username, password) VALUES (?, ?)";
+    $sql = "INSERT INTO admin (username, password, status) VALUES (?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('ss', $username, $hashedPassword);
+    $stmt->bind_param('sss', $username, $hashedPassword, $petugas);
 
     if ($stmt->execute()) {
         return "Admin added successfully";
@@ -223,33 +223,87 @@ function updateAdmin($id, $username, $password = null)
     $stmt->close();
 }
 
+function getAdminDataBySessionId()
+{
+    global $conn;
+
+    // Periksa apakah sesi admin_id sudah diatur
+    if (isset($_SESSION['admin_id'])) {
+        $admin_id = $_SESSION['admin_id'];
+
+        // Query untuk mengambil data admin berdasarkan admin_id
+        $sql = "SELECT * FROM admin WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('i', $admin_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $adminData = $result->fetch_assoc();
+            $stmt->close();
+            return $adminData;
+        } else {
+            $stmt->close();
+            return null;
+        }
+    } else {
+        return null;
+    }
+}
+
 function recordLoginTime($id_admin)
 {
     global $conn;
 
-    // Insert data login ke tabel login
-    $sql = "INSERT INTO login (id_admin) VALUES (?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param('i', $id_admin);
+    // Periksa apakah sudah ada login untuk admin ini
+    $sql_check = "SELECT COUNT(*) FROM login WHERE id_admin = ?";
+    $stmt_check = $conn->prepare($sql_check);
+    $stmt_check->bind_param('i', $id_admin);
+    $stmt_check->execute();
+    $stmt_check->bind_result($count);
+    $stmt_check->fetch();
+    $stmt_check->close();
 
-    if ($stmt->execute()) {
-        return "Login time recorded successfully";
+    if ($count > 0) {
+        // Jika sudah ada, update waktu login
+        $sql_update = "UPDATE login SET waktu = NOW() WHERE id_admin = ?";
+        $stmt_update = $conn->prepare($sql_update);
+        $stmt_update->bind_param('i', $id_admin);
+
+        if ($stmt_update->execute()) {
+            $stmt_update->close();
+            return "Login time updated successfully";
+        } else {
+            $stmt_update->close();
+            return "Error updating login time: " . $conn->error;
+        }
     } else {
-        return "Error recording login time: " . $conn->error;
+        // Jika belum ada, insert data login baru
+        $sql_insert = "INSERT INTO login (id_admin, waktu) VALUES (?, NOW())";
+        $stmt_insert = $conn->prepare($sql_insert);
+        $stmt_insert->bind_param('i', $id_admin);
+
+        if ($stmt_insert->execute()) {
+            $stmt_insert->close();
+            return "Login time recorded successfully";
+        } else {
+            $stmt_insert->close();
+            return "Error recording login time: " . $conn->error;
+        }
     }
-    $stmt->close();
 }
+
 
 function login($username, $password)
 {
     global $conn;
 
     // Cari admin berdasarkan username
-    $sql = "SELECT id, password FROM admin WHERE username=?";
+    $sql = "SELECT id, password, status FROM admin WHERE username=?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('s', $username);
     $stmt->execute();
-    $stmt->bind_result($id, $hashedPassword);
+    $stmt->bind_result($id, $hashedPassword, $status);
     $stmt->fetch();
     $stmt->close();
 
@@ -257,11 +311,12 @@ function login($username, $password)
     if (password_verify($password, $hashedPassword)) {
         // Jika login berhasil, catat waktu login
         recordLoginTime($id);
-        return $id; // Kembalikan ID admin sebagai tanda login berhasil
+        return ['id' => $id, 'status' => $status]; // Kembalikan array yang berisi ID admin dan status
     } else {
         return false; // Kembalikan false jika login gagal
     }
 }
+
 
 
 function updateLayanan($id, $kelebihan, $mengapa_ghaffar, $fotoFileInputName)
@@ -470,6 +525,34 @@ function deleteLegalitas($id)
     }
     $stmt->close();
 }
+function deleteAdmin($username)
+{
+    global $conn;
+
+    // Siapkan pernyataan SQL untuk menghapus data
+    $sql = "DELETE FROM admin WHERE username = ?";
+    $stmt = $conn->prepare($sql);
+
+    // Cek apakah pernyataan berhasil disiapkan
+    if ($stmt === false) {
+        return "Error preparing statement: " . $conn->error;
+    }
+
+    // Bind parameter ke pernyataan SQL
+    $stmt->bind_param('s', $username);
+
+    // Eksekusi pernyataan SQL
+    if ($stmt->execute()) {
+        $result = "Record deleted successfully";
+    } else {
+        $result = "Error deleting record: " . $conn->error;
+    }
+
+    // Tutup pernyataan
+    $stmt->close();
+
+    return $result;
+}
 
 function insertProduk($jenis_sapi, $deskripsi_produk, $fotoFileInputName)
 {
@@ -597,22 +680,29 @@ function updateTentang($id, $deskripsi_tentang, $fotoFileInputName)
 
     // Update data di database
     $sql = "UPDATE tentang SET deskripsi_tentang=?, foto=? WHERE id=?";
-$stmt = $conn->prepare($sql);
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('ssi', $deskripsi_tentang, $newFotoPath, $id);
+    if ($stmt->execute()) {
+        return "Record updated successfully";
+    } else {
+        return "Error updating record: " . $conn->error;
+    }
+    $stmt->close();
+    $stmt = $conn->prepare($sql);
 
-// Menggunakan tiga parameter pada bind_param
-$stmt->bind_param('ssi', $deskripsi_tentang, $newFotoPath, $id);
+    // Menggunakan tiga parameter pada bind_param
+    $stmt->bind_param('ssi', $deskripsi_tentang, $newFotoPath, $id);
 
-if ($stmt->execute()) {
-    $result = "Record updated successfully";
-} else {
-    $result = "Error updating record: " . $conn->error;
-}
+    if ($stmt->execute()) {
+        $result = "Record updated successfully";
+    } else {
+        $result = "Error updating record: " . $conn->error;
+    }
 
-// Tutup statement sebelum mengembalikan hasil
-$stmt->close();
+    // Tutup statement sebelum mengembalikan hasil
+    $stmt->close();
 
-return $result;
-
+    return $result;
 }
 function updateVisiMisi($id, $visi, $misi, $fotoFileInputName)
 {
@@ -690,4 +780,60 @@ function insertPesan($pesan_pengunjung, $email)
     $_SESSION['message'] = $message;
     header('Location: index.php');
     exit();
+}
+
+function getAllAdminsWithLastLoginTime()
+{
+    global $conn;
+
+    // Query untuk menggabungkan tabel admin dan login berdasarkan id_admin
+    $sql = "
+        SELECT 
+            a.id, a.username, a.status, MAX(l.waktu) as lastLoginTime
+        FROM 
+            admin a
+        LEFT JOIN 
+            login l ON a.id = l.id_admin
+        GROUP BY 
+            a.id, a.username, a.status
+        ORDER BY 
+            lastLoginTime DESC
+    ";
+    $result = $conn->query($sql);
+    $admins = [];
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $admins[] = $row;
+        }
+    }
+
+    return $admins;
+}
+
+// Fungsi untuk mengubah timestamp menjadi waktu relatif
+function timeAgo($timestamp)
+{
+    if (!$timestamp || $timestamp === '1970-01-01 00:00:00') {
+        return 'Belum pernah login';
+    }
+
+    $time = time() - strtotime($timestamp);
+    $time = ($time < 1) ? 1 : $time;
+
+    $tokens = array(
+        31536000 => 'tahun',
+        2592000 => 'bulan',
+        604800 => 'minggu',
+        86400 => 'hari',
+        3600 => 'jam',
+        60 => 'menit',
+        1 => 'detik'
+    );
+
+    foreach ($tokens as $unit => $text) {
+        if ($time < $unit) continue;
+        $numberOfUnits = floor($time / $unit);
+        return $numberOfUnits . ' ' . $text . ' yang lalu';
+    }
 }

@@ -2,13 +2,13 @@
 ob_start(); // Mulai output buffering
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Gunakan FILTER_SANITIZE_SPECIAL_CHARS sebagai pengganti FILTER_SANITIZE_STRING
-    $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_SPECIAL_CHARS);
-    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_SPECIAL_CHARS);
+    $username = filter_input(INPUT_POST, 'username');
+    $password = filter_input(INPUT_POST, 'password');
+    $petugas = 'petugas';
 
     if ($username && $password) {
         // Proses insert data
-        $resultMessage = insertAdmin($username, $password);
+        $resultMessage = insertAdmin($username, $password, $petugas);
 
         // Redirect dengan parameter query string yang divalidasi
         header("Location: {$_SERVER['PHP_SELF']}?page=halaman-tambah-admin&status=success");
@@ -17,13 +17,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $resultMessage = "Invalid input!";
     }
 }
+
 ?>
 
 <!-- Form Input -->
 <div class="content-page content-input-admin" id="halaman-tambah-admin">
     <h2>Form Input Admin Baru</h2>
     <?php if (isset($resultMessage)) : ?>
-    <p><?= htmlspecialchars($resultMessage); ?></p>
+        <p><?= htmlspecialchars($resultMessage); ?></p>
     <?php endif; ?>
     <form action="" method="post">
         <div class="mb-3">
@@ -35,8 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="mb-3">
             <label for="password" class="form-label">Password</label>
             <div class="col-md-6">
-                <input type="password" class="form-control" id="password" name="password"
-                    placeholder="Masukkan password">
+                <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan password">
             </div>
         </div>
         <button type="submit" class="btn btn-primary" value="Add Admin">Tambah</button>
@@ -55,17 +55,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>user1</td>
-                    <td><i class="bi bi-trash"></i></td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>user2</td>
-                    <td><a href="#"><i class="bi bi-trash"></i></a></td>
-                </tr>
-                <!-- Tambahkan lebih banyak baris sesuai kebutuhan -->
+                <?php foreach ($admins as $admin) : ?>
+                    <tr>
+                        <td>1</td>
+                        <td><?= $admin['username'] ?></td>
+                        <td><a href="delete_admin.php?id=<?= $admin['id'] ?>"><i class="bi bi-trash"></a></td>
+                    </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
     </div>
