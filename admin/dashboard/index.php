@@ -2,6 +2,12 @@
 include '../../config/functions.php';
 
 session_start();
+if (!isset($_SESSION['admin_id'])) {
+    // Jika belum login, arahkan ke halaman login
+    header("Location: ../login.php");
+    exit();
+}
+
 
 $admins = getAllData('admin');
 $pesan_pengunjung = getAllData('pesan');
@@ -15,11 +21,10 @@ $adminData = getAdminDataBySessionId();
 <?php include 'aside.php'; ?>
 <article class="contracted">
     <?php include 'nav.php'; ?>
-    <div class="container mt-5">
+    <div class="container ml-0">
         <div class="content">
-
             <div class="content-page" id="halaman-dashboard">
-                <h5 class="ms-4 mt-4">Informasi Admin</h5>
+                <h5 class="ms-4 mt-2">Informasi Admin</h5>
                 <div class="card ms-4 shadow-sm">
                     <div class="card-body">
                         <h5 class="card-title">Profile</h5>
@@ -106,89 +111,6 @@ $adminData = getAdminDataBySessionId();
 <script src="../../assets/js/scriptDashboard.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="../../bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
-
-<script>
-// $(document).ready(function() {
-//     function tampilkanHalaman(pageId) {
-//         $('.content-page').hide();
-//         $(pageId).show();
-//         $('.menu-link').removeClass('active');
-//         $('[data-target="' + pageId + '"]').addClass('active');
-//         var pageName = pageId.replace('#', '');
-//         var newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname +
-//             '?page=' + pageName;
-//         history.pushState({
-//             path: newUrl
-//         }, '', newUrl);
-//     }
-
-//     $('.menu-link').click(function(event) {
-//         event.preventDefault();
-//         var pageId = $(this).data('target');
-//         tampilkanHalaman(pageId);
-//     });
-
-//     $('#tambah-admin-btn').click(function(event) {
-//         event.preventDefault();
-//         var pageId = $(this).data('target');
-//         tampilkanHalaman(pageId);
-//     });
-
-//     var halamanDefault = '#halaman-dashboard';
-//     var urlParams = new URLSearchParams(window.location.search);
-//     if (urlParams.has('page')) {
-//         halamanDefault = '#' + urlParams.get('page');
-//     }
-//     tampilkanHalaman(halamanDefault);
-
-//     window.addEventListener('beforeunload', function() {
-//         $('.menu-link').removeClass('active');
-//     });
-
-// function updateJudul(newText) {
-//     $('#section-title').text(newText);
-// }
-
-// $('.menu-link').click(function(event) {
-//     event.preventDefault();
-//     $('.menu-link').removeClass('active');
-//     $(this).addClass('active');
-//     const newText = $(this).find('span').text();
-//     updateJudul(newText);
-// });
-
-//     $('#tambah-admin-btn').click(function(event) {
-//         event.preventDefault();
-//         $('.menu-link').removeClass('active');
-//         $(this).addClass('active');
-//         updateJudul('Tambah Admin');
-//     });
-
-//     if (urlParams.has('page')) {
-//         const judulHalaman = {
-//             'halaman-tambah-admin': 'Tambah Admin',
-//             'halaman-dashboard': 'Dashboard',
-//             'halaman-tentang': 'Tentang',
-//             'halaman-produk': 'Produk',
-//             'halaman-layanan': 'Layanan',
-//             'halaman-legalitas': 'Legalitas',
-//             'halaman-kontak': 'Kontak',
-//         };
-//         const pageKey = urlParams.get('page');
-//         updateJudul(judulHalaman[pageKey] || 'Dashboard');
-//     }
-
-//     $('#inputGambar').on('change', function() {
-//         var fileName = $(this).val().split('\\').pop();
-//         $('#fileInfo').text(fileName ? fileName : 'No file chosen');
-//         var reader = new FileReader();
-//         reader.onload = function(e) {
-//             $('#preview').attr('src', e.target.result);
-//         }
-//         reader.readAsDataURL(this.files[0]);
-//     });
-// });
-</script>
 </body>
 
 </html>

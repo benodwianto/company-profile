@@ -19,20 +19,35 @@ $stmt->close();
 
 <head>
     <meta charset="UTF-8">
-    <title>Update Legalitas</title>
+    <title>View Legalitas</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+
+    iframe {
+        border: none;
+        width: 100%;
+        height: 80vh;
+    }
+    </style>
 </head>
 
 <body>
-    <h2>Update Legalitas</h2>
+    <h2>View Legalitas</h2>
 
     <label for="sertifikat">Sertifikat:</label>
-    <input type="text" name="sertifikat" id="sertifikat" value="<?= htmlspecialchars($sertifikat); ?>" required><br>
+    <input type="text" name="sertifikat" id="sertifikat" value="<?= htmlspecialchars($sertifikat); ?>" readonly><br><br>
 
     <label for="legalitas">Legalitas (PDF):</label>
     <?php if ($legalitas) : ?>
-        <iframe src="../../assets/pdf/legalitas/<?= htmlspecialchars(basename($legalitas)); ?>" width="50%" height="400" frameborder="0"></iframe>
+    <iframe src="../../assets/pdf/legalitas/<?= htmlspecialchars(basename($legalitas)); ?>" allow="fullscreen"></iframe>
+    <?php else : ?>
+    <p>No PDF file available.</p>
     <?php endif; ?>
 
+    <br><br>
     <a href="legalitas.php">Back to List</a>
 </body>
 

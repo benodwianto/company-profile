@@ -3,6 +3,19 @@ include '../../config/functions.php';
 
 session_start();
 
+// Cek apakah admin sudah login
+if (!isset($_SESSION['admin_id'])) {
+    // Jika belum login, arahkan ke halaman login
+    header("Location: ../login.php");
+    exit();
+}
+
+// Cek apakah admin memiliki status yang sesuai
+if ($_SESSION['status'] != 'Admin') {
+    // Jika status bukan admin, arahkan ke halaman dashboard atau halaman lain
+    header("Location: index.php");
+    exit();
+}
 $admins = getAllData('admin');
 $pesan_pengunjung = getAllData('pesan');
 $info_login = getAllData('pesan');

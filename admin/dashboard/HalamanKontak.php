@@ -1,6 +1,13 @@
 <?php
 include '../../config/functions.php';
 
+session_start();
+if (!isset($_SESSION['admin_id'])) {
+    // Jika belum login, arahkan ke halaman login
+    header("Location: ../login.php");
+    exit();
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id = isset($_POST['id']) ? $_POST['id'] : null;
     $no_hp = isset($_POST['no_hp']) ? $_POST['no_hp'] : null;

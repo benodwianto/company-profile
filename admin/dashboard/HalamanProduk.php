@@ -30,7 +30,7 @@ $result = $conn->query($sql);
     <article class="contracted">
         <?php include '../dashboard/nav.php'; ?>
         <div class="container mt-5">
-            <div class="content">
+            <div class="content" style="padding-top: 100px">
                 <div class="content-page" id="halaman-produk">
                     <div class="container mt-5">
                         <h2>Daftar Produk</h2>
