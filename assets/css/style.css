@@ -606,6 +606,7 @@ width: 616px;
     flex-direction: column;
     width: 100dvw;
 
+
 }
 .content-section-legalitas {
     padding-top:15dvh;
@@ -1586,6 +1587,12 @@ tbody {
 
   /* akhir footer */
 
+  .unduh-legalitas  .list-group{
+    display: flex;
+    gap: 10px;
+    flex-direction: column; 
+    
+}
 }
 /* Untuk tampilan di atas 768px, sembunyikan tombol "selengkapnya" */
 @media (min-width: 769px) {

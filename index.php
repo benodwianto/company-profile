@@ -303,7 +303,7 @@
             </div>
 
             <div class="whatsapp-popup" id="whatsappPopup">
-                <textarea id="whatsappMessage" placeholder="Type your message here..."></textarea>
+                <textarea id="whatsappMessage" placeholder="Ketik pesan anda disini..."></textarea>
                 <button onclick="sendMessage()">Send</button>
             </div>
         </section>
@@ -389,7 +389,7 @@
 
     function sendMessage() {
         var message = document.getElementById('whatsappMessage').value;
-        var url = 'https://wa.me/yourwhatsappphonenumber?text=' + encodeURIComponent(message);
+        var url = 'https://wa.me/6283167961562?text=' + encodeURIComponent(message);
         window.open(url, '_blank');
     }
     </script>
