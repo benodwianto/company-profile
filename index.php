@@ -21,7 +21,7 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
-    <!-- <link rel="stylesheet" href="https://meyerweb.com/eric/tools/css/reset/reset.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
 
 
@@ -70,19 +70,18 @@
             </div>
         </nav>
         <!-- ini bagian konten header -->
-        <div class="jumbotron-content" id="header">
+        <div class="jumbotron-content d-flex flex-column justify-content-center align-items-center align-items-sm-start p-5"
+            id="header">
             <h1>PT Ghaffar Farm Bersaudara</h1>
             <p>SYARIAH, BAROKAH SUKSES</p>
             <p>
                 <?php
-                $dataHome = getAllData('home');
-                foreach ($dataHome as $home) : ?>
+            $dataHome = getAllData('home');
+            foreach ($dataHome as $home) : ?>
                 <?= $home['deskripsi_dashboard']; ?>
-                <?php endforeach;
-                ?>
-
+                <?php endforeach; ?>
             </p>
-            <button><a href="#produk-kami">Lihat Produk</a> </button>
+            <button><a href="#produk-kami">Lihat Produk</a></button>
         </div>
     </header>
 
@@ -209,6 +208,40 @@
                 </div>
                 <?php endforeach; ?>
             </div>
+            <div class="container my-5">
+                <div class="row">
+                    <div class="col-lg-6 col-12 mb-4">
+                        <div class="card w-100 h-100">
+                            <div class="card-body">
+                                <h1 class="card-title h4 h-sm-3">Penjualan Daging Segar dan Beku</h1>
+                                <p class="card-text">
+                                    Kami menyediakan berbagai jenis daging segar dan beku dengan kualitas terbaik,
+                                    langsung dari peternak ke konsumen.
+                                </p>
+                                <button class="btn" style="background-color: #951C11; color: white;">
+                                    Beli Sekarang
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-12 mb-4">
+                        <div class="card w-100 h-100">
+                            <div class="card-body">
+                                <h1 class="card-title h4 h-sm-3">Penjualan Daging Qurban</h1>
+                                <p class="card-text">
+                                    Dapatkan daging qurban yang telah diproses sesuai syariah dengan harga yang
+                                    terjangkau dan kualitas terjamin.
+                                </p>
+                                <button class="btn" style="background-color: #951C11; color: white;">
+                                    Beli Sekarang
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </section>
 
 
@@ -264,6 +297,14 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="whatsapp-icon" id="whatsappIcon">
+                <i class="fa fa-whatsapp" aria-hidden="true" style="font-size: 30px;"></i>
+            </div>
+
+            <div class="whatsapp-popup" id="whatsappPopup">
+                <textarea id="whatsappMessage" placeholder="Type your message here..."></textarea>
+                <button onclick="sendMessage()">Send</button>
             </div>
         </section>
     </main>
@@ -334,6 +375,24 @@
         </div>
         <p>&copy; 2024 PT Ghaffar Farm Bersaudara. All rights reserved.</p>
     </footer>
+
+
+    <script>
+    document.getElementById('whatsappIcon').addEventListener('click', function() {
+        var popup = document.getElementById('whatsappPopup');
+        if (popup.style.display === 'none' || popup.style.display === '') {
+            popup.style.display = 'block';
+        } else {
+            popup.style.display = 'none';
+        }
+    });
+
+    function sendMessage() {
+        var message = document.getElementById('whatsappMessage').value;
+        var url = 'https://wa.me/yourwhatsappphonenumber?text=' + encodeURIComponent(message);
+        window.open(url, '_blank');
+    }
+    </script>
 
 
 
