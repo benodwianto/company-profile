@@ -12,5 +12,5 @@ if ($id > 0) {
 }
 
 // Redirect kembali ke halaman daftar legalitas
-header("Location: ../dashboard/?page=halaman-legalitas");
+header("Location: ../dashboard/HalamanLegalitas.php");
 exit();

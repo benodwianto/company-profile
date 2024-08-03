@@ -496,6 +496,8 @@ function insertLegalitas($fileInputNameLegalitas, $sertifikat)
     $stmt->close();
 }
 
+
+
 function deleteLegalitas($id)
 {
     global $conn;

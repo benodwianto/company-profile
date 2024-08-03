@@ -1,4 +1,5 @@
-<?php
+<?php 
+include '../../config/functions.php';
 
 // Ambil semua data legalitas
 $dataLegalitas = getAllLegalitas();
@@ -12,25 +13,32 @@ function getAllLegalitas()
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Validasi input
     $fileInputNameLegalitas = 'legalitas';
-    $sertifikat = $_POST['sertifikat'];
+    $sertifikat = isset($_POST['sertifikat']) ? $_POST['sertifikat'] : '';
 
     // Proses insert data
     $resultMessage = insertLegalitas($fileInputNameLegalitas, $sertifikat);
-    echo "<div class='message'>$resultMessage</div>";
+
 }
 
 ?>
 
-
-
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1, minimum-scale=1">
+    <title>PT Ghaffar Farm Bersaudara - Dashboard</title>
+    <link rel="stylesheet" href="../../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../../bootstrap-5.3.3-dist/css/bootstrap.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Pastikan jQuery dimuat -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
     /* Styling sesuai dengan yang diberikan */
@@ -98,17 +106,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         text-align: left;
     }
 
-    .container-legalitasth {
+    .container-legalitas th {
         background-color: #f2f2f2;
-    }
-
-    .file-upload-wrapper {
-        display: flex;
-        align-items: center;
-        background-color: #fff;
-        border-radius: 10px;
-        padding: 15px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
     .custom-file-upload {
@@ -153,117 +152,133 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     .chosen {
         margin-left: -60px;
-        /* Sesuaikan nilai jika diperlukan */
-
-        /* Memastikan elemen geser ke kiri jika ada ruang ekstra */
     }
     </style>
 </head>
 
 <body>
-    <div class="content-page" id="halaman-legalitas">
-        <div class="container-legalitas">
-            <div class="card">
-                <h2>Upload Legalitas</h2>
-                <form id="upload-form" action="" method="post" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <div class="file-upload-wrapper">
-                            <div class="custom-file-upload d-flex align-items-center">
-                                <div>
-                                    <img src="../../assets/images/pdf-icon.png" alt="PDF Icon" class="pdf-icon">
+    <?php include 'aside.php'; ?>
+    <article class="contracted">
+        <?php include 'nav.php'; ?>
+        <div class="container mt-5">
+            <div class="content">
+                <div class="content-page" id="halaman-legalitas" display="none">
+                    <div class="container-legalitas">
+                        <div class="card">
+                            <h2>Upload Legalitas</h2>
+                            <form id="upload-form" action="" method="post" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <div class="file-upload-wrapper">
+                                        <div class="custom-file-upload">
+                                            <div>
+                                                <img src="../../assets/images/pdf-icon.png" alt="PDF Icon"
+                                                    class="pdf-icon">
+                                            </div>
+                                            <div class="legalitas">
+                                                <label for="legalitas-upload" class="form-label">Please upload only PDF
+                                                    format</label>
+                                                <label for="legalitas-upload" class="btn-file">Choose File</label>
+                                                <input type="file" id="legalitas-upload" name="legalitas" accept=".pdf"
+                                                    required>
+                                            </div>
+                                            <div class="chosen mt-4">
+                                                <span class="file-name">No File Chosen</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <label for="sertifikat" class="form-label" style="margin-top: 20px;">Nama
+                                        Sertifikat</label>
+                                    <div class="file-upload-wrapper">
+                                        <input type="text" name="sertifikat" id="sertifikat" class="form-control"
+                                            placeholder="Masukkan Nama Sertifikat" required>
+                                    </div>
                                 </div>
-                                <div class="legalitas d-block ml-1">
-                                    <label for="legalitas-upload" class="form-label">Please upload only PDF
-                                        format</label>
-                                    <label for="legalitas-upload" class="btn-file">Choose File</label>
-                                    <input type="file" id="legalitas-upload" name="legalitas" accept=".pdf"
-                                        style="display: none;">
-                                </div>
-                                <div class="chosen mt-4 mr-500">
-                                    <span class="file-name">No File Chosen</span>
-                                </div>
-                            </div>
+
+                                <button type="submit" class="btn-dark">Simpan Perubahan</button>
+                            </form>
                         </div>
 
-                        <label for="sertifikat" class="form-label" style="margin-top: 20px;">Nama Sertifikat</label>
-                        <div class="file-upload-wrapper">
-                            <input type="text" name="sertifikat" id="sertifikat" class="form-control"
-                                placeholder="Masukkan Nama Sertifikat">
-                        </div>
+                        <h1>Legalitas List</h1>
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Sertifikat</th>
+                                    <th>Legalitas File</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($dataLegalitas as $legalitas) : ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($legalitas['id']); ?></td>
+                                    <td><?= htmlspecialchars($legalitas['sertifikat']); ?></td>
+                                    <td>
+                                        <?php if (!empty($legalitas['legalitas'])) : ?>
+                                        <a href="legalitas_pdf.php?id=<?= htmlspecialchars($legalitas['id']); ?>"
+                                            target="_blank">Lihat PDF</a>
+                                        <?php else : ?>
+                                        No File
+                                        <?php endif; ?>
+                                    </td>
+                                    <td>
+                                        <a
+                                            href="../legalitas/read_legalitas.php?id=<?= htmlspecialchars($legalitas['id']); ?>">View</a>
+                                        |
+                                        <a
+                                            href="../legalitas/update_legalitas.php?id=<?= htmlspecialchars($legalitas['id']); ?>">Update</a>
+                                        |
+                                        <a href="../legalitas/delete_legalitas.php?id=<?= htmlspecialchars($legalitas['id']); ?>"
+                                            class="delete-button">Delete</a>
+                                    </td>
+                                </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
                     </div>
+                </div>
 
-                    <button type="submit" class="btn-dark">Simpan Perubahan</button>
-                </form>
+                <script>
+                document.getElementById("legalitas-upload").addEventListener("change", function() {
+                    var fileName = this.files[0] ? this.files[0].name : "No File Chosen";
+                    document.querySelector(".file-name").textContent = fileName;
+                });
+
+                $(document).ready(function() {
+                    // Konfirmasi penghapusan menggunakan SweetAlert2
+                    $('body').on('click', '.delete-button', function(e) {
+                        e.preventDefault();
+
+                        var link = $(this).attr('href'); // Ambil URL penghapusan dari atribut href
+
+                        Swal.fire({
+                            title: 'Apakah Anda Yakin?',
+                            text: "Anda tidak akan dapat memulihkan item ini",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Yes, delete it!',
+                            cancelButtonText: 'Cancel'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href =
+                                    link; // Redirect ke URL penghapusan jika dikonfirmasi
+                            }
+                        });
+                    });
+                });
+                </script>
+
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                <script src="../../assets/js/scriptDashboard.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                <script src="../../bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
             </div>
-
-            <h1>Legalitas List</h1>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Sertifikat</th>
-                        <th>Legalitas File</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($dataLegalitas as $legalitas) : ?>
-                    <tr>
-                        <td><?= htmlspecialchars($legalitas['id']); ?></td>
-                        <td><?= htmlspecialchars($legalitas['sertifikat']); ?></td>
-                        <td>
-                            <?php if (!empty($legalitas['legalitas'])) : ?>
-                            <a href="legalitas_pdf.php?id=<?= htmlspecialchars($legalitas['id']); ?>"
-                                target="_blank">Lihat PDF</a>
-                            <?php else : ?>
-                            No File
-                            <?php endif; ?>
-                        </td>
-                        <td>
-                            <a href="read_legalitas.php?id=<?= htmlspecialchars($legalitas['id']); ?>">View</a> |
-                            <a href="update_legalitas.php?id=<?= htmlspecialchars($legalitas['id']); ?>">Update</a> |
-                            <a href="../legalitas/delete_legalitas.php?id=<?= htmlspecialchars($legalitas['id']); ?>"
-                                class="delete-button">Delete</a>
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
         </div>
-    </div>
-
-    <script>
-    document.getElementById("legalitas-upload").addEventListener("change", function() {
-        var fileName = this.files[0] ? this.files[0].name : "No File Chosen";
-        document.querySelector(".file-name").textContent = fileName;
-    });
-
-    $(document).ready(function() {
-        // Konfirmasi penghapusan menggunakan SweetAlert2
-        $('body').on('click', '.delete-button', function(e) {
-            e.preventDefault();
-
-            var link = $(this).attr('href'); // Ambil URL penghapusan dari atribut href
-
-            Swal.fire({
-                title: 'Apakah Anda Yakin?',
-                text: "Anda tidak akan dapat memulihkan item ini",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!',
-                cancelButtonText: 'Cancel'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href =
-                        link; // Redirect ke URL penghapusan jika dikonfirmasi
-                }
-            });
-        });
-    });
-    </script>
+    </article>
 </body>
 
 </html>
