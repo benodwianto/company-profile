@@ -780,7 +780,7 @@ function insertPesan($pesan_pengunjung, $email)
     $stmt->close();
 
     $_SESSION['message'] = $message;
-    header('Location: index.php');
+    header('Location: ../index.php');
     exit();
 }
 

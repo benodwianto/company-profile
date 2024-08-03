@@ -6,6 +6,7 @@
     --base-light: #FEF5EA;
 }
 
+
 html{
     padding: 0;
     margin: 0;
@@ -196,7 +197,7 @@ nav li a .logo {
 }
 .dropdown.open .dropdown-icon{
     margin-left: 10px;
-    text-transform: rotate(180deg);
+    transform: rotate(180deg);
 }
 .dropdown-item {
     padding: 0;
@@ -235,7 +236,13 @@ header {
 
 /* awal jumbotron */
 .jumbotron-content {
-    display: flex;
+   
+
+        display: -webkit-flex; /* Safari */
+        display: -moz-flex; /* Firefox */
+        display: -ms-flex; /* IE 10 */
+        display: flex; /* Modern browsers */
+    
     flex-direction: column;
     margin-top: 15dvh;
     height: 100dvh;
@@ -260,8 +267,7 @@ header {
 .jumbotron-content p {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     height: 28px;
-    width: 516px;
-    font-weight:700; 
+    width: 516px;  
     font-size: 24px;
     color: #FFFFFF;
     margin: 10px;
@@ -1107,7 +1113,10 @@ footer p {
     
     /* jumbotron */
     .jumbotron-content {
-        display: flex;
+            display: -webkit-flex; /* Safari */
+            display: -moz-flex; /* Firefox */
+            display: -ms-flex; /* IE 10 */
+            display: flex; /* Modern browsers */
         flex-direction: column;
         margin-top: 8dvh !important;
         height: 100dvh;
@@ -1190,7 +1199,12 @@ footer p {
 /* awal section tentang kami */
 .tentangkami {
     height: fit-content;
-    display: flex;
+   
+        display: -webkit-flex; /* Safari */
+        display: -moz-flex; /* Firefox */
+        display: -ms-flex; /* IE 10 */
+        display: flex; /* Modern browsers */
+
     flex-direction: column;
     width: 100dvw;
 
