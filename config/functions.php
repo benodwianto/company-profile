@@ -496,6 +496,8 @@ function insertLegalitas($fileInputNameLegalitas, $sertifikat)
     $stmt->close();
 }
 
+
+
 function deleteLegalitas($id)
 {
     global $conn;
@@ -778,7 +780,7 @@ function insertPesan($pesan_pengunjung, $email)
     $stmt->close();
 
     $_SESSION['message'] = $message;
-    header('Location: index.php');
+    header('Location: ../index.php');
     exit();
 }
 

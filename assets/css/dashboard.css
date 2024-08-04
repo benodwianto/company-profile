@@ -5,6 +5,7 @@
     --base-dark: #262020;
     --base-light: #FEF5EA;
 }
+
 html {
     margin: 0;
     padding: 0;
@@ -37,7 +38,7 @@ aside ul {
    
     height: 100%;
     padding: 0;
-    padding-top: 50px;
+    padding-top: 10px;
  
 
 }
@@ -165,7 +166,7 @@ article nav ul li a{
 article .content {
     background-color: #FFFFF9;
     flex: 1;
-    padding-top: 104px;
+   
     padding-left: 191px;
    
  
@@ -173,7 +174,7 @@ article .content {
 
 /* halaman dashboard */
 .content-dashboard {
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .profile-img {
@@ -370,4 +371,74 @@ article .content {
 .shadow {
     padding: 16px; /* Padding 4rem jika menggunakan ukuran basis 16px */
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+/* legalitas */
+.file-upload-wrapper {
+    display: flex;
+    align-items: center;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+.pdf-icon {
+    width: 50px;
+    margin-right: 15px;
+}
+
+#legalitas-upload {
+    border: none;
+    outline: none;
+}
+
+.btn-dark {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.btn-dark:hover {
+    background-color: #555;
+}
+
+
+
+
+input[type="file"] {
+    display: none;
+}
+
+.btn-file {
+    background-color: white;
+    color: #007bff;
+    padding: 10px 20px;
+    width: 133px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 2px solid #007bff;
+    text-align: center;
+}
+
+.btn-file:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.file-name {
+    font-size: 14px;
+    color: #888;
+}
+
+.legalitas {
+    display: flex!important;
+    flex-direction: column;
+}
+
+.chosen {
+    margin-left: -60px;
 }
