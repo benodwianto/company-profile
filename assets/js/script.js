@@ -224,3 +224,64 @@ function validateForm() {
 
   return true;
 }
+
+// text expandable card pada produk kami
+document.addEventListener('DOMContentLoaded', function() {
+  const buttons = document.querySelectorAll('.toggle-btn');
+  const collapseElements = document.querySelectorAll('.collapse');
+
+  // Pastikan semua elemen collapse tertutup saat halaman dimuat
+  collapseElements.forEach(collapse => {
+      collapse.classList.remove('show');
+  });
+
+  buttons.forEach(button => {
+      button.addEventListener('click', function() {
+          const target = this.getAttribute('data-bs-target');
+          const targetElement = document.querySelector(target);
+          const isCurrentlyShown = targetElement.classList.contains('show');
+
+          collapseElements.forEach(collapse => {
+              if (collapse.id !== target.replace('#', '')) {
+                  const collapseInstance = bootstrap.Collapse.getOrCreateInstance(
+                      collapse);
+                  if (collapseInstance._isShown()) {
+                      collapseInstance.hide();
+                      // Mengubah ikon tombol kembali ke mata terbuka untuk elemen yang ditutup
+                      document.querySelector(
+                              `[data-bs-target="#${collapse.id}"] i`).classList
+                          .replace('fa-eye-slash', 'fa-eye');
+                  }
+              }
+          });
+
+          const targetCollapse = bootstrap.Collapse.getOrCreateInstance(targetElement);
+          targetCollapse.toggle();
+
+          // Mengubah ikon tombol berdasarkan status elemen collapse
+          const icon = this.querySelector('i');
+          if (isCurrentlyShown) {
+              icon.classList.replace('fa-eye-slash', 'fa-eye');
+          } else {
+              icon.classList.replace('fa-eye', 'fa-eye-slash');
+          }
+      });
+  });
+
+  // Tambahkan event listener untuk mengubah ikon tombol setelah elemen collapse ditutup
+  collapseElements.forEach(collapse => {
+      collapse.addEventListener('hidden.bs.collapse', function() {
+          const button = document.querySelector(`[data-bs-target="#${collapse.id}"] i`);
+          if (button) {
+              button.classList.replace('fa-eye-slash', 'fa-eye');
+          }
+      });
+
+      collapse.addEventListener('shown.bs.collapse', function() {
+          const button = document.querySelector(`[data-bs-target="#${collapse.id}"] i`);
+          if (button) {
+              button.classList.replace('fa-eye', 'fa-eye-slash');
+          }
+      });
+  });
+});

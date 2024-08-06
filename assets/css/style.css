@@ -285,25 +285,24 @@ header {
   
  
 }
-.jumbotron-content button {
+button.btn-jumbotron {
     width: 10dvw; 
     margin: 10px;
     background-color: #F1F1D5;
     border: none;
-    height: 53px;
+    height: 100px!important;
     border-radius: 36px;
-    margin-top: 80px;
+    margin-top: 5%;
+    padding: 10px;
    
- 
 }
-.jumbotron-content button a {
+.jumbotron-content a {
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     width: 10dvw; 
     font-weight:400; 
     font-size: 16px;
     color: black;
     margin: 10px;
-    
     text-decoration: none;
    
  
@@ -499,9 +498,12 @@ section .content-section-produk-kami {
     -ms-overflow-style: none; /* Untuk Internet Explorer dan Edge */
 }
 .card {
+    /* position: relative; */
     flex: 0 0 auto; /* Menghindari card untuk menyusut atau membesar */
     width: 350px;
     height: fit-content!important;
+    margin-left:auto;
+    margin-right:auto;
     /* Lebar card yang telah ditentukan */
     padding: 40px;
     overflow: hidden;
@@ -509,6 +511,41 @@ section .content-section-produk-kami {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 
                 0 6px 20px rgba(0, 0, 0, 0.1); /* Menambahkan efek bayangan */
 }
+
+
+.toggle-container {
+    position: absolute;
+    bottom: 0px; /* Jarak dari bawah */
+    right: 0px;  /* Jarak dari kanan */
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 5px; /* Jarak antara tombol dan teks */
+    border: none;
+    box-shadow: 0 0 10px var(--primary-color); /* Bayangan bercahaya */
+    padding: 5px 10px; /* Padding tombol */
+    margin: none;
+}
+
+.toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+}
+
+.toggle-text {
+    font-size: 14px;
+    color: #951C11; /* Sesuaikan warna sesuai kebutuhan */
+    margin-left: 61%;
+}
+
+
+/* .toggle-btn {
+    position: absolute;
+    bottom: 20px; 
+    right: 20px; 
+} */
 
 
 .card-img-top {
@@ -522,6 +559,8 @@ section .content-section-produk-kami {
 .card-body .card-text {
     text-align: left;
 }
+
+
 
 /* .card-img-top:hover {
     transform: scale(1.1);

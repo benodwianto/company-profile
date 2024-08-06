@@ -81,7 +81,7 @@
                 <?= $home['deskripsi_dashboard']; ?>
                 <?php endforeach; ?>
             </p>
-            <button><a href="#produk-kami">Lihat Produk</a></button>
+            <button class="btn-jumbotron"><a href="#produk-kami">Lihat Produk</a></button>
         </div>
     </header>
 
@@ -143,15 +143,38 @@
                     <?php
                     $produks = getAllData('produk');
                     foreach ($produks as $produk) : ?>
-                    <div class="card">
-                        <h1 style="text-align: center; font-size:x-large;">
-                            <?= htmlspecialchars($produk['jenis_sapi']); ?></h1>
+                    <?php $uniqueId = uniqid(); ?>
+                    <div class="card" style="width: 20rem; height: auto; position: relative;">
+                        <h1 style="text-align: center; font-size: x-large;">
+                            <?= htmlspecialchars($produk['jenis_sapi']); ?>
+                        </h1>
                         <img src="assets/images/produk/<?= htmlspecialchars(basename($produk['foto'])); ?>"
-                            class="card-img-top" alt="<?= $produk['jenis_sapi'] ?>">
+                            class="card-img-top" alt="<?= htmlspecialchars($produk['jenis_sapi']); ?>"
+                            style="height: 200px; object-fit: cover;">
                         <div class="card-body">
-                            <p class="card-text"><?= htmlspecialchars($produk['deskripsi_produk']); ?></p>
+                            <div id="collapseText<?= $uniqueId ?>" class="collapse">
+                                <p class="card-text"><?= htmlspecialchars($produk['deskripsi_produk']); ?></p>
+                            </div>
+                            <!-- Tombol dan teks -->
+                            <div class="toggle-container">
+                                <span class="toggle-text">Lihat Teks</span>
+                                <button class="btn toggle-btn" type="button" data-bs-toggle="collapse"
+                                    style="background-color: #951C11; color: white;"
+                                    data-bs-target="#collapseText<?= $uniqueId ?>" aria-expanded="false"
+                                    aria-controls="collapseText<?= $uniqueId ?>">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
+
+
+
+
+
+
+
+
                     <?php endforeach; ?>
                 </div>
             </div>
