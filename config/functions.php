@@ -13,6 +13,7 @@ if ($conn->connect_error) {
 }
 function uploadImage($fileInputName, $targetDirectory, $oldFotoPath = null)
 {
+    global $conn;
     // Menetapkan nama file tujuan
     $targetFile = $targetDirectory . basename($_FILES[$fileInputName]["name"]);
     $uploadOk = 1;
@@ -21,22 +22,30 @@ function uploadImage($fileInputName, $targetDirectory, $oldFotoPath = null)
     // Cek apakah file gambar atau bukan
     $check = getimagesize($_FILES[$fileInputName]["tmp_name"]);
     if ($check === false) {
-        return "File is not an image.";
+        $_SESSION['message'] = "file bukan gambar.";
+        $_SESSION['message_type'] = 'error';
+        return false;
     }
 
-    // Cek ukuran file (contoh: batas 5MB)
+    // Cek ukuran file (batas 1MB)
     if ($_FILES[$fileInputName]["size"] > 1000000) {
-        return "Sorry, your file is too large.";
+        $_SESSION['message'] = "Ukuran file terlalu besar.";
+        $_SESSION['message_type'] = 'error';
+        return false;
     }
 
     // Izinkan format file tertentu
-    if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
-        return "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+    if (!in_array($imageFileType, ['jpg', 'jpeg', 'png', 'gif'])) {
+        $_SESSION['message'] = "Hanya mengizinkan file JPG, JPEG, PNG & GIF.";
+        $_SESSION['message_type'] = 'error';
+        return false;
     }
 
     // Cek apakah $uploadOk diset ke 0 karena kesalahan
     if ($uploadOk == 0) {
-        return "Sorry, your file was not uploaded.";
+        $_SESSION['message'] = "Foto yang dipilih tidak sesuai.";
+        $_SESSION['message_type'] = 'error';
+        return false;
     } else {
         // Mengupload file
         if (move_uploaded_file($_FILES[$fileInputName]["tmp_name"], $targetFile)) {
@@ -44,9 +53,11 @@ function uploadImage($fileInputName, $targetDirectory, $oldFotoPath = null)
             if ($oldFotoPath && file_exists($oldFotoPath)) {
                 unlink($oldFotoPath);
             }
-            return $targetFile;
+            return basename($targetFile);
         } else {
-            return "Sorry, there was an error uploading your file.";
+            $_SESSION['message'] = "Ada yang salah saat mengupload foto.";
+            $_SESSION['message_type'] = 'error';
+            return false;
         }
     }
 }
@@ -317,10 +328,9 @@ function login($username, $password)
     }
 }
 
-
-
 function updateLayanan($id, $kelebihan, $mengapa_ghaffar, $fotoFileInputName)
 {
+    session_start();
     global $conn;
     $targetDirectory = __DIR__ . "/../assets/images/layanan/";
     $oldFotoPath = null;
@@ -336,11 +346,12 @@ function updateLayanan($id, $kelebihan, $mengapa_ghaffar, $fotoFileInputName)
 
     // Handle file upload jika ada file
     $newFotoPath = $oldFotoPath; // Gunakan path foto lama secara default
-    if ($fotoFileInputName) {
+    if (isset($_FILES[$fotoFileInputName]) && $_FILES[$fotoFileInputName]['error'] === UPLOAD_ERR_OK) {
         $uploadResult = uploadImage($fotoFileInputName, $targetDirectory, $oldFotoPath);
 
-        if (strpos($uploadResult, 'Sorry') === 0) {
-            return $uploadResult; // Kembalikan pesan kesalahan jika ada
+        if ($uploadResult === false) {
+            header("Location: HalamanLayanan.php?id=$id");
+            exit();
         } else {
             $newFotoPath = $uploadResult;
         }
@@ -351,17 +362,21 @@ function updateLayanan($id, $kelebihan, $mengapa_ghaffar, $fotoFileInputName)
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('sssi', $kelebihan, $mengapa_ghaffar, $newFotoPath, $id);
     if ($stmt->execute()) {
-        $stmt->close();
-        return "Record updated successfully";
+        $_SESSION['message'] = "Berhasil memperbarui Data layanan";
+        $_SESSION['message_type'] = 'success';
     } else {
-        $error = $stmt->error;
-        $stmt->close();
-        return "Error updating record: " . $error;
+        $_SESSION['message'] = "Gagal Memperbarui Data Layanan" . $stmt->error;
+        $_SESSION['message_type'] = 'error';
     }
+    $stmt->close();
+
+    header("Location: HalamanLayanan.php?id=$id");
+    exit();
 }
 
 function updateInvestasi($id, $jangka_investasi, $jlh_investasi, $fotoFileInputName)
 {
+    session_start();
     global $conn;
     $targetDirectory = __DIR__ . "/../assets/images/investasi/";
     $oldFotoPath = null;
@@ -380,8 +395,9 @@ function updateInvestasi($id, $jangka_investasi, $jlh_investasi, $fotoFileInputN
     if (isset($_FILES[$fotoFileInputName]) && $_FILES[$fotoFileInputName]['error'] === UPLOAD_ERR_OK) {
         $uploadResult = uploadImage($fotoFileInputName, $targetDirectory, $oldFotoPath);
 
-        if (strpos($uploadResult, 'Sorry') === 0) {
-            return $uploadResult; // Kembalikan pesan kesalahan jika ada
+        if ($uploadResult === false) {
+            header("Location: HalamanLayanan.php?id=$id");
+            exit();
         } else {
             $newFotoPath = $uploadResult;
         }
@@ -392,80 +408,101 @@ function updateInvestasi($id, $jangka_investasi, $jlh_investasi, $fotoFileInputN
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('sssi', $jangka_investasi, $jlh_investasi, $newFotoPath, $id);
     if ($stmt->execute()) {
-        return "Record updated successfully";
+        $_SESSION['message'] = "Berhasil memperbarui data Investasi";
+        $_SESSION['message_type'] = 'success';
     } else {
-        return "Error updating record: " . $conn->error;
+        $_SESSION['message'] = "Gagal memperbarui data Investasi" . $stmt->error;
+        $_SESSION['message_type'] = 'error';
     }
     $stmt->close();
-}
 
+    header("Location: HalamanLayanan.php?id=$id");
+    exit();
+}
 function uploadLegalitas($fileInputName)
 {
     global $conn;
-    $targetDirectory =  __DIR__ . "/../assets/pdf/legalitas/";
+    $targetDirectory = __DIR__ . "/../assets/pdf/legalitas/";
     $filePath = null;
 
     if (isset($_FILES[$fileInputName]) && $_FILES[$fileInputName]['error'] === UPLOAD_ERR_OK) {
         $fileType = strtolower(pathinfo($_FILES[$fileInputName]['name'], PATHINFO_EXTENSION));
         if ($fileType != 'pdf') {
-            return "Sorry, only PDF files are allowed.";
+            $_SESSION['message'] = "Hanya boleh file PDF yang diupload.";
+            $_SESSION['message_type'] = 'error';
+            return null;
         }
 
         $fileName = basename($_FILES[$fileInputName]["name"]);
         $filePath = $targetDirectory . $fileName;
 
         if (move_uploaded_file($_FILES[$fileInputName]["tmp_name"], $filePath)) {
-            return $fileName; // Return only the file name to be stored in database
+            return $fileName;
         } else {
-            return "Sorry, there was an error uploading your file.";
+            $_SESSION['message'] = "Maaf, terjadi masalah saat mengunggah file. Silakan coba lagi.";
+            $_SESSION['message_type'] = 'error';
+            return null;
         }
     }
 
-    return "No file uploaded or error occurred.";
+    $_SESSION['message'] = "File tidak ditemukan.";
+    $_SESSION['message_type'] = 'error';
+    return null;
 }
 
 function updateLegalitas($id, $fileInputName, $sertifikat)
 {
     global $conn;
-    $targetDirectory = __DIR__ . "/../assets/pdf/legalitas/";
+    $targetDirectory = __DIR__ . "../../assets/pdf/legalitas/"; // Pastikan path benar
     $oldFilePath = null;
 
-    // Ambil path file lama dari database
+    // Ambil nama file lama dari database
     $sql = "SELECT legalitas FROM legalitas WHERE id=?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('i', $id);
     $stmt->execute();
-    $stmt->bind_result($oldFilePath);
+    $stmt->bind_result($oldFileName); // Nama file lama, bukan path
     $stmt->fetch();
     $stmt->close();
 
-    // Handle file upload jika ada file
-    $newFilePath = $oldFilePath; // Gunakan path file lama secara default
-    if (isset($_FILES[$fileInputName]) && $_FILES[$fileInputName]['error'] === UPLOAD_ERR_OK) {
-        $uploadResult = uploadLegalitas($fileInputName, $targetDirectory);
+    $oldFilePath = $targetDirectory . $oldFileName; // Gabungkan dengan path direktori
 
-        if (strpos($uploadResult, 'Sorry') === 0) {
-            return $uploadResult; // Kembalikan pesan kesalahan jika ada
+    // Handle file upload jika ada file
+    $newFileName = $oldFileName; // Gunakan nama file lama sebagai default
+    if (isset($_FILES[$fileInputName]) && $_FILES[$fileInputName]['error'] === UPLOAD_ERR_OK) {
+        $uploadResult = uploadLegalitas($fileInputName);
+
+        if ($uploadResult === null) {
+            // Gagal upload, redirect dengan pesan error
+            $_SESSION['message'] = "Gagal mengupload file.";
+            $_SESSION['message_type'] = 'error';
+            header("Location: ../dashboard/HalamanLegalitas.php");
+            exit();
         } else {
-            $newFilePath = $uploadResult;
+            $newFileName = $uploadResult; // Update dengan nama file baru
         }
     }
 
     // Update data di database
     $sql = "UPDATE legalitas SET sertifikat=?, legalitas=? WHERE id=?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('ssi', $sertifikat, $newFilePath, $id);
+    $stmt->bind_param('ssi', $sertifikat, $newFileName, $id);
     if ($stmt->execute()) {
         // Hapus file lama jika ada
-        if ($oldFilePath && file_exists($oldFilePath) && $oldFilePath != $newFilePath) {
+        if ($oldFileName && file_exists($oldFilePath) && $oldFileName != $newFileName) {
             unlink($oldFilePath);
         }
-        return "Record updated successfully";
+        $_SESSION['message'] = "Berhasil memperbarui data Legalitas";
+        $_SESSION['message_type'] = 'success';
     } else {
-        return "Error updating record: " . $conn->error;
+        $_SESSION['message'] = "Gagal memperbarui data Legalitas: " . $conn->error;
+        $_SESSION['message_type'] = 'error';
     }
     $stmt->close();
+    header("Location: ../dashboard/HalamanLegalitas.php");
+    exit();
 }
+
 
 function insertLegalitas($fileInputNameLegalitas, $sertifikat)
 {
@@ -475,10 +512,11 @@ function insertLegalitas($fileInputNameLegalitas, $sertifikat)
     // Handle file upload untuk legalitas
     $filePathLegalitas = null;
     if (isset($_FILES[$fileInputNameLegalitas]) && $_FILES[$fileInputNameLegalitas]['error'] === UPLOAD_ERR_OK) {
-        $uploadResultLegalitas = uploadLegalitas($fileInputNameLegalitas, $targetDirectoryLegalitas);
+        $uploadResultLegalitas = uploadLegalitas($fileInputNameLegalitas);
 
-        if (strpos($uploadResultLegalitas, 'Sorry') === 0) {
-            return $uploadResultLegalitas; // Kembalikan pesan kesalahan jika ada
+        if ($uploadResultLegalitas === null) {
+            header("Location: HalamanLegalitas.php");
+            exit();
         } else {
             $filePathLegalitas = $uploadResultLegalitas;
         }
@@ -489,27 +527,32 @@ function insertLegalitas($fileInputNameLegalitas, $sertifikat)
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('ss', $filePathLegalitas, $sertifikat);
     if ($stmt->execute()) {
-        return "Record inserted successfully";
+        $_SESSION['message'] = "Berhasil menambahkan data Legalitas";
+        $_SESSION['message_type'] = 'success';
     } else {
-        return "Error inserting record: " . $conn->error;
+        $_SESSION['message'] = "Gagal menambahkan data Legalitas" . $conn->error;
+        $_SESSION['message_type'] = 'error';
     }
     $stmt->close();
+    header("Location: HalamanLegalitas.php");
+    exit();
 }
-
-
 
 function deleteLegalitas($id)
 {
     global $conn;
+    $targetDirectory = __DIR__ . "../../assets/pdf/legalitas/";
 
-    // Ambil path file dari database
+    // Ambil nama file dari database
     $sql = "SELECT legalitas FROM legalitas WHERE id=?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('i', $id);
     $stmt->execute();
-    $stmt->bind_result($filePath);
+    $stmt->bind_result($fileName);
     $stmt->fetch();
     $stmt->close();
+
+    $filePath = $targetDirectory . $fileName; // Gabungkan path direktori dan nama file
 
     // Hapus data dari database
     $sql = "DELETE FROM legalitas WHERE id=?";
@@ -518,14 +561,25 @@ function deleteLegalitas($id)
 
     if ($stmt->execute()) {
         // Hapus file dari server
-        if ($filePath && file_exists($filePath)) {
-            unlink($filePath);
+        if ($fileName && file_exists($filePath)) {
+            if (unlink($filePath)) {
+                $_SESSION['message'] = "Berhasil menghapus data Legalitas";
+                $_SESSION['message_type'] = 'success';
+            } else {
+                $_SESSION['message'] = "Gagal menghapus file: " . $filePath;
+                $_SESSION['message_type'] = 'error';
+            }
+        } else {
+            $_SESSION['message'] = "File tidak ditemukan atau path salah: " . $filePath;
+            $_SESSION['message_type'] = 'error';
         }
-        return "Record deleted successfully";
     } else {
-        return "Error deleting record: " . $conn->error;
+        $_SESSION['message'] = "Gagal menghapus data Legalitas: " . $conn->error;
+        $_SESSION['message_type'] = 'error';
     }
     $stmt->close();
+    header("Location: ../dashboard/HalamanLegalitas.php");
+    exit();
 }
 function deleteAdmin($username)
 {
@@ -564,8 +618,8 @@ function insertProduk($jenis_sapi, $deskripsi_produk, $fotoFileInputName)
     // Handle file upload
     $uploadResult = uploadImage($fotoFileInputName, $targetDirectory);
 
-    if (strpos($uploadResult, 'Sorry') === 0) {
-        return $uploadResult; // Return upload error message
+    if (!$uploadResult) {
+        return;
     } else {
         $fotoPath = $uploadResult;
     }
@@ -576,15 +630,21 @@ function insertProduk($jenis_sapi, $deskripsi_produk, $fotoFileInputName)
     $stmt->bind_param('sss', $jenis_sapi, $fotoPath, $deskripsi_produk);
 
     if ($stmt->execute()) {
-        return "Product inserted successfully";
+        $_SESSION['message'] = "Berhasil menambahkan produk";
+        $_SESSION['message_type'] = 'success';
     } else {
-        return "Error inserting product: " . $conn->error;
+        $_SESSION['message'] = "Gagal menambahkan produk: " . $stmt->error;
+        $_SESSION['message_type'] = 'error';
     }
     $stmt->close();
+
+    header("Location: ../dashboard/HalamanProduk.php");
+    exit();
 }
 
 function updateProduk($id, $jenis_sapi, $deskripsi_produk, $fotoFileInputName)
 {
+    session_start();
     global $conn;
     $targetDirectory = __DIR__ . "/../assets/images/produk/";
     $oldFotoPath = null;
@@ -603,8 +663,9 @@ function updateProduk($id, $jenis_sapi, $deskripsi_produk, $fotoFileInputName)
     if (isset($_FILES[$fotoFileInputName]) && $_FILES[$fotoFileInputName]['error'] === UPLOAD_ERR_OK) {
         $uploadResult = uploadImage($fotoFileInputName, $targetDirectory, $oldFotoPath);
 
-        if (strpos($uploadResult, 'Sorry') === 0) {
-            return $uploadResult; // Kembalikan pesan kesalahan jika ada
+        if ($uploadResult === false) {
+            header("Location: update_produk.php?id=$id");
+            exit();
         } else {
             $newFotoPath = $uploadResult;
         }
@@ -615,11 +676,16 @@ function updateProduk($id, $jenis_sapi, $deskripsi_produk, $fotoFileInputName)
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('sssi', $jenis_sapi, $deskripsi_produk, $newFotoPath, $id);
     if ($stmt->execute()) {
-        return "Record updated successfully";
+        $_SESSION['message'] = "Berhasil memperbarui produk";
+        $_SESSION['message_type'] = 'success';
     } else {
-        return "Error updating record: " . $conn->error;
+        $_SESSION['message'] = "Gagal memperbarui produk " . $stmt->error;
+        $_SESSION['message_type'] = 'error';
     }
     $stmt->close();
+
+    header("Location: ../dashboard/HalamanProduk.php?id=$id");
+    exit();
 }
 
 function deleteProduk($id)
@@ -641,20 +707,25 @@ function deleteProduk($id)
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('i', $id);
     if ($stmt->execute()) {
-        // Hapus file foto lama jika ada
-        if ($oldFotoPath && file_exists($oldFotoPath)) {
-            unlink($oldFotoPath);
-        }
-        return "Record deleted successfully";
+        $_SESSION['message'] = "Produk berhasil dihapus";
+        $_SESSION['message_type'] = 'success';
     } else {
-        return "Error deleting record: " . $conn->error;
+        $_SESSION['message'] = "Produk gagal dihapus: " . $conn->error;
+        $_SESSION['message_type'] = 'error';
     }
     $stmt->close();
+
+    header("Location: ../dashboard/HalamanProduk.php");
+    exit();
+
+    header("Location: ../dashboard/HalamanProduk.php");
+    exit();
 }
 
 
 function updateTentang($id, $deskripsi_tentang, $fotoFileInputName)
 {
+    session_start();
     global $conn;
     $targetDirectory = __DIR__ . "/../assets/images/tentang/";
     $oldFotoPath = null;
@@ -673,8 +744,9 @@ function updateTentang($id, $deskripsi_tentang, $fotoFileInputName)
     if (isset($_FILES[$fotoFileInputName]) && $_FILES[$fotoFileInputName]['error'] === UPLOAD_ERR_OK) {
         $uploadResult = uploadImage($fotoFileInputName, $targetDirectory, $oldFotoPath);
 
-        if (strpos($uploadResult, 'Sorry') === 0) {
-            return $uploadResult; // Kembalikan pesan kesalahan jika ada
+        if ($uploadResult === false) {
+            header("Location: HalamanTentang.php?id=$id");
+            exit();
         } else {
             $newFotoPath = $uploadResult;
         }
@@ -685,29 +757,21 @@ function updateTentang($id, $deskripsi_tentang, $fotoFileInputName)
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('ssi', $deskripsi_tentang, $newFotoPath, $id);
     if ($stmt->execute()) {
-        return "Record updated successfully";
+        $_SESSION['message'] = "Berhasil memperbarui Tentang";
+        $_SESSION['message_type'] = 'success';
     } else {
-        return "Error updating record: " . $conn->error;
+        $_SESSION['message'] = "Gagal memperbarui Tentang: " . $stmt->error;
+        $_SESSION['message_type'] = 'error';
     }
     $stmt->close();
-    $stmt = $conn->prepare($sql);
 
-    // Menggunakan tiga parameter pada bind_param
-    $stmt->bind_param('ssi', $deskripsi_tentang, $newFotoPath, $id);
-
-    if ($stmt->execute()) {
-        $result = "Record updated successfully";
-    } else {
-        $result = "Error updating record: " . $conn->error;
-    }
-
-    // Tutup statement sebelum mengembalikan hasil
-    $stmt->close();
-
-    return $result;
+    header("Location: HalamanTentang.php?id=$id");
+    exit();
 }
+
 function updateVisiMisi($id, $visi, $misi, $fotoFileInputName)
 {
+    session_start();
     global $conn;
     $targetDirectory = __DIR__ . "/../assets/images/visi_misi/";
     $oldFotoPath = null;
@@ -726,8 +790,9 @@ function updateVisiMisi($id, $visi, $misi, $fotoFileInputName)
     if (isset($_FILES[$fotoFileInputName]) && $_FILES[$fotoFileInputName]['error'] === UPLOAD_ERR_OK) {
         $uploadResult = uploadImage($fotoFileInputName, $targetDirectory, $oldFotoPath);
 
-        if (strpos($uploadResult, 'Sorry') === 0) {
-            return $uploadResult; // Kembalikan pesan kesalahan jika ada
+        if ($uploadResult === false) {
+            header("Location: HalamanTentang.php?id=$id");
+            exit();
         } else {
             $newFotoPath = $uploadResult;
         }
@@ -738,16 +803,23 @@ function updateVisiMisi($id, $visi, $misi, $fotoFileInputName)
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('sssi', $visi, $misi, $newFotoPath, $id);
     if ($stmt->execute()) {
-        return "Record updated successfully";
+        $_SESSION['message'] = "Berhasil memperbarui Visi Misi";
+        $_SESSION['message_type'] = 'success';
     } else {
-        return "Error updating record: " . $conn->error;
+        $_SESSION['message'] = "Gagal memperbarui Visi Misi: " . $stmt->error;
+        $_SESSION['message_type'] = 'error';
     }
     $stmt->close();
+
+    header("Location: HalamanTentang.php?id=$id");
+    exit();
 }
+
 
 
 function updateKontak($id, $no_hp, $no_wa, $ig, $fb, $alamat)
 {
+    session_start();
     global $conn;
 
     // Update data di database
@@ -756,12 +828,18 @@ function updateKontak($id, $no_hp, $no_wa, $ig, $fb, $alamat)
     $stmt->bind_param('sssssi', $no_hp, $no_wa, $ig, $fb, $alamat, $id);
 
     if ($stmt->execute()) {
-        return "Kontak updated successfully";
+        $_SESSION['message'] = "Kontak berhasil diperbarui";
+        $_SESSION['message_type'] = 'success';
     } else {
-        return "Error updating kontak: " . $conn->error;
+        $_SESSION['message'] = "Gagal memperbarui Kontak " . $stmt->error;
+        $_SESSION['message_type'] = 'error';
     }
     $stmt->close();
+
+    header("Location: HalamanKontak.php?id=$id");
+    exit();
 }
+
 
 function insertPesan($pesan_pengunjung, $email)
 {

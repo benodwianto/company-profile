@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $fb = isset($_POST['fb']) ? $_POST['fb'] : null;
     $alamat = isset($_POST['alamat']) ? $_POST['alamat'] : null;
 
-    
+
 
     // Proses update data
     $resultMessage = updateKontak($id, $no_hp, $no_wa, $ig, $fb, $alamat);
@@ -37,41 +37,36 @@ $result = $conn->query($sql);
                 <div class="card ms-4 shadow-sm">
                     <form action="" method="post" class="row g-3 p-4">
                         <?php while ($row = $result->fetch_assoc()) : ?>
-                        <input type="hidden" name="id" value="<?= htmlspecialchars($row['id']); ?>">
+                            <input type="hidden" name="id" value="<?= htmlspecialchars($row['id']); ?>">
 
-                        <div class="col-md-6">
-                            <label for="no_hp" class="form-label">No HP:</label>
-                            <input type="text" name="no_hp" id="no_hp" class="form-control"
-                                value="<?= htmlspecialchars($row['no_hp']); ?>" required>
-                        </div>
+                            <div class="col-md-6">
+                                <label for="no_hp" class="form-label">No HP:</label>
+                                <input type="text" name="no_hp" id="no_hp" class="form-control" value="<?= htmlspecialchars($row['no_hp']); ?>" required>
+                            </div>
 
-                        <div class="col-md-6">
-                            <label for="no_wa" class="form-label">No WA:</label>
-                            <input type="text" name="no_wa" id="no_wa" class="form-control"
-                                value="<?= htmlspecialchars($row['no_wa']); ?>" required>
-                        </div>
+                            <div class="col-md-6">
+                                <label for="no_wa" class="form-label">No WA:</label>
+                                <input type="text" name="no_wa" id="no_wa" class="form-control" value="<?= htmlspecialchars($row['no_wa']); ?>" required>
+                            </div>
 
-                        <div class="col-md-6">
-                            <label for="ig" class="form-label">Instagram:</label>
-                            <input type="text" name="ig" id="ig" class="form-control"
-                                value="<?= htmlspecialchars($row['ig']); ?>" required>
-                        </div>
+                            <div class="col-md-6">
+                                <label for="ig" class="form-label">Instagram:</label>
+                                <input type="text" name="ig" id="ig" class="form-control" value="<?= htmlspecialchars($row['ig']); ?>" required>
+                            </div>
 
-                        <div class="col-md-6">
-                            <label for="fb" class="form-label">Facebook:</label>
-                            <input type="text" name="fb" id="fb" class="form-control"
-                                value="<?= htmlspecialchars($row['fb']); ?>" required>
-                        </div>
+                            <div class="col-md-6">
+                                <label for="fb" class="form-label">Facebook:</label>
+                                <input type="text" name="fb" id="fb" class="form-control" value="<?= htmlspecialchars($row['fb']); ?>" required>
+                            </div>
 
-                        <div class="col-12">
-                            <label for="alamat" class="form-label">Alamat:</label>
-                            <textarea name="alamat" id="alamat" class="form-control" rows="3"
-                                required><?= htmlspecialchars($row['alamat']); ?></textarea>
-                        </div>
+                            <div class="col-12">
+                                <label for="alamat" class="form-label">Alamat:</label>
+                                <textarea name="alamat" id="alamat" class="form-control" rows="3" required><?= htmlspecialchars($row['alamat']); ?></textarea>
+                            </div>
 
-                        <div class="col-12">
-                            <input type="submit" value="Update Kontak" class="btn btn-primary">
-                        </div>
+                            <div class="col-12">
+                                <input type="submit" value="Update Kontak" class="btn btn-primary">
+                            </div>
                         <?php endwhile; ?>
                     </form>
 
@@ -80,6 +75,7 @@ $result = $conn->query($sql);
         </div>
     </div>
 </article>
+<?php include 'popup.php'; ?>
 </body>
 
 </html>

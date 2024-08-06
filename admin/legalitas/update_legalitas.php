@@ -1,4 +1,5 @@
 <?php
+session_start();
 include '../../config/functions.php';
 
 // Ambil ID dari query string
@@ -11,10 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Proses update data
     $resultMessage = updateLegalitas($id, $fileInputName, $sertifikat);
-    echo $resultMessage;
-
-    // Redirect kembali ke halaman daftar legalitas
-    header("Location: read_legalitas.php");
     exit();
 }
 
@@ -55,6 +52,7 @@ $stmt->close();
     </form>
 
     <a href="legalitas_list.php">Back to List</a>
+    <?php include '../dashboard/popup.php'; ?>
 </body>
 
 </html>

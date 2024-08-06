@@ -9,11 +9,4 @@ if (isset($_GET['id'])) {
     $id = $result->fetch_assoc()['id'];
     // Proses hapus data
     $resultMessage = deleteAdmin($id);
-    echo $resultMessage;
-
-    // Redirect kembali ke halaman daftar produk
-    header("Location: ../dashboard/?page=halaman-produk");
-    exit();
-} else {
-    echo "Invalid request.";
 }
