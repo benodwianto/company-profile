@@ -1,7 +1,6 @@
 <?php
-include '../../config/functions.php';
-
 session_start();
+include '../../config/functions.php';
 
 // Cek apakah admin sudah login
 if (!isset($_SESSION['admin_id'])) {
@@ -32,10 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $resultMessage = insertAdmin($username, $password, $petugas);
 
         // Redirect dengan parameter query string yang divalidasi
-        header("Location: {$_SERVER['PHP_SELF']}?page=halaman-tambah-admin&status=success");
+        header("Location: HalamanTambahAdmin.php");
         exit();
-    } else {
-        $resultMessage = "Invalid input!";
     }
 }
 
@@ -50,21 +47,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="content-page content-input-admin" id="halaman-tambah-admin">
                 <h2>Form Input Admin Baru</h2>
                 <?php if (isset($resultMessage)) : ?>
-                <p><?= htmlspecialchars($resultMessage); ?></p>
+                    <p><?= htmlspecialchars($resultMessage); ?></p>
                 <?php endif; ?>
                 <form action="" method="post">
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
                         <div class="col-md-6">
-                            <input type="text" class="form-control" id="username" name="username"
-                                placeholder="Masukkan username">
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Masukkan username" required>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
                         <div class="col-md-6">
-                            <input type="password" class="form-control" id="password" name="password"
-                                placeholder="Masukkan password">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan password" required>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary" value="Add Admin">Tambah</button>
@@ -83,12 +78,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </thead>
                         <tbody>
                             <?php foreach ($admins as $index => $admin) : ?>
-                            <tr>
-                                <td><?= $index + 1; ?></td>
-                                <td><?= htmlspecialchars($admin['username']); ?></td>
-                                <td><a href="delete_admin.php?id=<?= $admin['id']; ?>"><i class="bi bi-trash"></i></a>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td><?= $index + 1; ?></td>
+                                    <td><?= htmlspecialchars($admin['username']); ?></td>
+                                    <td><a href="../user/delete_admin.php?id=<?= $admin['id']; ?>"><i class="bi bi-trash"></i></a>
+                                    </td>
+                                </tr>
                             <?php endforeach; ?>
                         </tbody>
                     </table>

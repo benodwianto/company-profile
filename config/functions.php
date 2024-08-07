@@ -88,7 +88,10 @@ function insertSponsor($sponsor, $fileInputName)
     // Handle file upload
     $uploadResult = uploadImage($fileInputName, $targetDirectory);
     if (strpos($uploadResult, 'Sorry') === 0) {
-        return $uploadResult; // Kembalikan pesan kesalahan jika ada
+        $_SESSION['message'] = $uploadResult;
+        $_SESSION['message_type'] = 'error';
+
+        return false; // Indicate failure
     }
 
     // Insert data ke database
@@ -97,12 +100,24 @@ function insertSponsor($sponsor, $fileInputName)
     $stmt->bind_param('ss', $sponsor, $uploadResult);
 
     if ($stmt->execute()) {
-        return "Sponsor added successfully";
+        $stmt->close();
+
+        // Set session message for successful insert
+        $_SESSION['message'] = 'Sponsor berhasil ditambahkan';
+        $_SESSION['message_type'] = 'success';
+
+        return true;
     } else {
-        return "Error adding sponsor: " . $conn->error;
+        $stmt->close();
+
+        // Set session message for error during insert
+        $_SESSION['message'] = 'Terjadi kesalahan saat menambahkan sponsor: ' . $conn->error;
+        $_SESSION['message_type'] = 'error';
+
+        return false; // Indicate failure
     }
-    $stmt->close();
 }
+
 
 
 function updateSponsor($id, $sponsor, $fileInputName)
@@ -126,7 +141,13 @@ function updateSponsor($id, $sponsor, $fileInputName)
         $uploadResult = uploadImage($fileInputName, $targetDirectory, $oldFilePath);
 
         if (strpos($uploadResult, 'Sorry') === 0) {
-            return $uploadResult; // Kembalikan pesan kesalahan jika ada
+            // Set session message for file upload error
+            $_SESSION['message'] = $uploadResult;
+            $_SESSION['message_type'] = 'error';
+
+            // Redirect back to the sponsor page
+            header("Location: HalamanSponsor.php?id=$id");
+            exit();
         } else {
             $newFilePath = $uploadResult;
         }
@@ -136,13 +157,20 @@ function updateSponsor($id, $sponsor, $fileInputName)
     $sql = "UPDATE sponsor SET sponsor=?, foto=? WHERE id=?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('ssi', $sponsor, $newFilePath, $id);
+
     if ($stmt->execute()) {
-        return "Sponsor updated successfully";
+        $_SESSION['message'] = 'Sponsor berhasil diperbarui';
+        $_SESSION['message_type'] = 'success';
     } else {
-        return "Error updating sponsor: " . $conn->error;
+        $_SESSION['message'] = 'Terjadi kesalahan saat memperbarui sponsor' . $conn->error;
+        $_SESSION['message_type'] = 'error';
     }
     $stmt->close();
+
+    header("Location: HalamanSponsor.php?id=$id");
+    exit();
 }
+
 
 function deleteSponsor($id)
 {
@@ -163,31 +191,52 @@ function deleteSponsor($id)
     $stmt->bind_param('i', $id);
 
     if ($stmt->execute()) {
-        // Hapus file dari server
+        // Hapus file dari server jika ada
         if ($filePath && file_exists($filePath)) {
             unlink($filePath);
         }
-        return "Sponsor deleted successfully";
+        $_SESSION['message'] = 'Sponsor berhasil dihapus';
+        $_SESSION['message_type'] = 'success';
+
+        return true; // Indicate success
     } else {
-        return "Error deleting sponsor: " . $conn->error;
+        $_SESSION['message'] = 'Terjadi kesalahan saat menghapus sponsor' . $conn->error;
+        $_SESSION['message_type'] = 'error';
+
+        return false; // Indicate failure
     }
     $stmt->close();
 }
 
 
+
 function updateHome($id, $deskripsi_dashboard)
 {
     global $conn;
+
     $sql = "UPDATE home SET deskripsi_dashboard=? WHERE id=?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('si', $deskripsi_dashboard, $id);
+
     if ($stmt->execute()) {
-        return "Record updated successfully";
+        $stmt->close();
+        $conn->close();
+
+        // Set session message for successful update
+        $_SESSION['message'] = 'Deskripsi dashboard berhasil diperbarui';
+        $_SESSION['message_type'] = 'success';
+
+        return true; // Indicate success
     } else {
-        return "Error updating record: " . $conn->error;
+        $stmt->close();
+        $conn->close();
+
+        // Set session message for error during update
+        $_SESSION['message'] = 'Terjadi kesalahan saat memperbarui deskripsi dashboard: ' . $conn->error;
+        $_SESSION['message_type'] = 'error';
+
+        return false; // Indicate failure
     }
-    $stmt->close();
-    $conn->close();
 }
 
 function insertAdmin($username, $password, $petugas)
@@ -203,12 +252,24 @@ function insertAdmin($username, $password, $petugas)
     $stmt->bind_param('sss', $username, $hashedPassword, $petugas);
 
     if ($stmt->execute()) {
-        return "Admin added successfully";
+        $stmt->close();
+
+        // Set session message for successful insert
+        $_SESSION['message'] = 'Admin berhasil ditambahkan';
+        $_SESSION['message_type'] = 'success';
+
+        return true;
     } else {
-        return "Error adding admin: " . $conn->error;
+        $stmt->close();
+
+        // Set session message for error during insert
+        $_SESSION['message'] = 'Terjadi kesalahan saat menambahkan admin' . $conn->error;
+        $_SESSION['message_type'] = 'error';
+
+        return false;
     }
-    $stmt->close();
 }
+
 
 function updateAdmin($id, $username, $password = null)
 {
@@ -227,12 +288,24 @@ function updateAdmin($id, $username, $password = null)
     }
 
     if ($stmt->execute()) {
-        return "Admin updated successfully";
+        $stmt->close();
+
+        // Set session message for successful update
+        $_SESSION['message'] = 'Admin berhasil diperbarui';
+        $_SESSION['message_type'] = 'success';
+
+        return true;
     } else {
-        return "Error updating admin: " . $conn->error;
+        $stmt->close();
+
+        // Set session message for error during update
+        $_SESSION['message'] = 'Terjadi kesalahan saat memperbarui admin' . $conn->error;
+        $_SESSION['message_type'] = 'error';
+
+        return false;
     }
-    $stmt->close();
 }
+
 
 function getAdminDataBySessionId()
 {
@@ -283,10 +356,20 @@ function recordLoginTime($id_admin)
 
         if ($stmt_update->execute()) {
             $stmt_update->close();
-            return "Login time updated successfully";
+
+            // Set session message for successful update
+            $_SESSION['message'] = 'Login time updated successfully';
+            $_SESSION['message_type'] = 'success';
+
+            return true;
         } else {
             $stmt_update->close();
-            return "Error updating login time: " . $conn->error;
+
+            // Set session message for error during update
+            $_SESSION['message'] = 'Error updating login time: ' . $conn->error;
+            $_SESSION['message_type'] = 'error';
+
+            return false;
         }
     } else {
         // Jika belum ada, insert data login baru
@@ -296,10 +379,20 @@ function recordLoginTime($id_admin)
 
         if ($stmt_insert->execute()) {
             $stmt_insert->close();
-            return "Login time recorded successfully";
+
+            // Set session message for successful insert
+            $_SESSION['message'] = 'Login time recorded successfully';
+            $_SESSION['message_type'] = 'success';
+
+            return true;
         } else {
             $stmt_insert->close();
-            return "Error recording login time: " . $conn->error;
+
+            // Set session message for error during insert
+            $_SESSION['message'] = 'Error recording login time: ' . $conn->error;
+            $_SESSION['message_type'] = 'error';
+
+            return false;
         }
     }
 }
@@ -319,11 +412,20 @@ function login($username, $password)
     $stmt->close();
 
     // Verifikasi password
-    if (password_verify($password, $hashedPassword)) {
+    if ($hashedPassword !== null && password_verify($password, $hashedPassword)) {
         // Jika login berhasil, catat waktu login
         recordLoginTime($id);
+
+        // Set session message for successful login
+        $_SESSION['message'] = 'Berhasil Login';
+        $_SESSION['message_type'] = 'success';
+
         return ['id' => $id, 'status' => $status]; // Kembalikan array yang berisi ID admin dan status
     } else {
+        // Set session message for failed login
+        $_SESSION['message'] = 'Username atau Password salah';
+        $_SESSION['message_type'] = 'error';
+
         return false; // Kembalikan false jika login gagal
     }
 }
@@ -591,7 +693,11 @@ function deleteAdmin($username)
 
     // Cek apakah pernyataan berhasil disiapkan
     if ($stmt === false) {
-        return "Error preparing statement: " . $conn->error;
+        // Set session message for error preparing statement
+        $_SESSION['message'] = 'Terjadi kesalahan saat menyiapkan pernyataan' . $conn->error;
+        $_SESSION['message_type'] = 'error';
+
+        return false;
     }
 
     // Bind parameter ke pernyataan SQL
@@ -599,16 +705,24 @@ function deleteAdmin($username)
 
     // Eksekusi pernyataan SQL
     if ($stmt->execute()) {
-        $result = "Record deleted successfully";
+        $stmt->close();
+
+        // Set session message for successful deletion
+        $_SESSION['message'] = 'Data admin berhasil dihapus';
+        $_SESSION['message_type'] = 'success';
+
+        return true;
     } else {
-        $result = "Error deleting record: " . $conn->error;
+        $stmt->close();
+
+        // Set session message for error during deletion
+        $_SESSION['message'] = 'Terjadi kesalahan saat menghapus data admin: ' . $conn->error;
+        $_SESSION['message_type'] = 'error';
+
+        return false;
     }
-
-    // Tutup pernyataan
-    $stmt->close();
-
-    return $result;
 }
+
 
 function insertProduk($jenis_sapi, $deskripsi_produk, $fotoFileInputName)
 {
@@ -851,13 +965,13 @@ function insertPesan($pesan_pengunjung, $email)
     $stmt->bind_param('ss', $pesan_pengunjung, $email);
 
     if ($stmt->execute()) {
-        $message = "success";
+        $_SESSION['message'] = "Pesan berhasil mengirim";
+        $_SESSION['message_type'] = 'success';
     } else {
-        $message = "error";
+        $_SESSION['message'] = "Gagal mengirim Pesan " . $stmt->error;
+        $_SESSION['message_type'] = 'error';
     }
     $stmt->close();
-
-    $_SESSION['message'] = $message;
     header('Location: ../index.php');
     exit();
 }

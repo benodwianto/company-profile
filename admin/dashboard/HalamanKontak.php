@@ -75,7 +75,6 @@ $result = $conn->query($sql);
         </div>
     </div>
 </article>
-<?php include 'popup.php'; ?>
 </body>
 
 </html>

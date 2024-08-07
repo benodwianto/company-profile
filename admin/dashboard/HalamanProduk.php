@@ -39,9 +39,6 @@ $result = $conn->query($sql);
                     <div class="container mt-5">
                         <h2>Daftar Produk</h2>
 
-                        <!-- Menampilkan pesan hasil operasi -->
-                        <?php include 'popup.php'; ?>
-
                         <!-- Menampilkan data produk -->
                         <div class="product-container">
                             <?php if ($result->num_rows > 0) : ?>
