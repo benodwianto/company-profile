@@ -120,54 +120,48 @@ function insertSponsor($sponsor, $fileInputName)
 
 
 
-function updateSponsor($id, $sponsor, $fileInputName)
+function updateSponsor($id, $sponsor, $fotoFileInputName)
 {
     global $conn;
     $targetDirectory = __DIR__ . "/../assets/images/sponsor/";
-    $oldFilePath = null;
+    $oldFotoPath = null;
 
     // Ambil path foto lama dari database
     $sql = "SELECT foto FROM sponsor WHERE id=?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('i', $id);
     $stmt->execute();
-    $stmt->bind_result($oldFilePath);
+    $stmt->bind_result($oldFotoPath);
     $stmt->fetch();
     $stmt->close();
 
     // Handle file upload jika ada file
-    $newFilePath = $oldFilePath; // Gunakan path foto lama secara default
-    if (isset($_FILES[$fileInputName]) && $_FILES[$fileInputName]['error'] === UPLOAD_ERR_OK) {
-        $uploadResult = uploadImage($fileInputName, $targetDirectory, $oldFilePath);
+    $newFotoPath = $oldFotoPath; // Gunakan path foto lama secara default
+    if (isset($_FILES[$fotoFileInputName]) && $_FILES[$fotoFileInputName]['error'] === UPLOAD_ERR_OK) {
+        $uploadResult = uploadImage($fotoFileInputName, $targetDirectory, $oldFotoPath);
 
-        if (strpos($uploadResult, 'Sorry') === 0) {
-            // Set session message for file upload error
-            $_SESSION['message'] = $uploadResult;
-            $_SESSION['message_type'] = 'error';
-
-            // Redirect back to the sponsor page
-            header("Location: HalamanSponsor.php?id=$id");
+        if ($uploadResult === false) {
+            header("Location: update_sponsor.php?id=$id");
             exit();
         } else {
-            $newFilePath = $uploadResult;
+            $newFotoPath = $uploadResult;
         }
     }
 
     // Update data di database
     $sql = "UPDATE sponsor SET sponsor=?, foto=? WHERE id=?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('ssi', $sponsor, $newFilePath, $id);
-
+    $stmt->bind_param('ssi', $sponsor, $newFotoPath, $id);
     if ($stmt->execute()) {
-        $_SESSION['message'] = 'Sponsor berhasil diperbarui';
+        $_SESSION['message'] = "Berhasil memperbarui sponsor";
         $_SESSION['message_type'] = 'success';
     } else {
-        $_SESSION['message'] = 'Terjadi kesalahan saat memperbarui sponsor' . $conn->error;
+        $_SESSION['message'] = "Gagal memperbarui sponsor " . $stmt->error;
         $_SESSION['message_type'] = 'error';
     }
     $stmt->close();
 
-    header("Location: HalamanSponsor.php?id=$id");
+    header("Location: ../dashboard/HalamanSponsor.php?id=$id");
     exit();
 }
 
