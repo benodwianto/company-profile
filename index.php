@@ -16,7 +16,7 @@ include 'config/functions.php'; ?>
         content="PT Ghaffar Farm Bersaudara, penggemukan sapi, pemasok daging, sapi qurban, daging sapi lokal">
     <meta name="author" content="PT Ghaffar Farm Bersaudara">
     <link rel="canonical" href="https://www.ghaffarfarm.com/">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css?v=1.0.1">
     <link rel="stylesheet" href="bootstrap-5.3.3-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" type="text/css"
@@ -143,8 +143,8 @@ include 'config/functions.php'; ?>
                 <p style="opacity: 0.5;">Jenis Sapi yang Diternakkan</p>
                 <div class="content-section-produk-kami-card">
                     <?php
-                    $produks = getAllData('produk');
-                    foreach ($produks as $produk) : ?>
+            $produks = getAllData('produk');
+            foreach ($produks as $produk) : ?>
                     <?php $uniqueId = uniqid(); ?>
                     <div class="card" style="width: 20rem; height: auto; position: relative;">
                         <h1 style="text-align: center; font-size: x-large;">
@@ -157,7 +157,6 @@ include 'config/functions.php'; ?>
                             <div id="collapseText<?= $uniqueId ?>" class="collapse">
                                 <p class="card-text"><?= htmlspecialchars($produk['deskripsi_produk']); ?></p>
                             </div>
-                            <!-- Tombol dan teks -->
                             <div class="toggle-container">
                                 <span class="toggle-text">Lihat Teks</span>
                                 <button class="btn toggle-btn" type="button" data-bs-toggle="collapse"
@@ -169,18 +168,13 @@ include 'config/functions.php'; ?>
                             </div>
                         </div>
                     </div>
-
-
-
-
-
-
-
-
                     <?php endforeach; ?>
                 </div>
             </div>
         </section>
+
+
+
 
         <section id="layanan" class="layanan">
             <div class="content-section-layanan">
@@ -362,13 +356,13 @@ include 'config/functions.php'; ?>
                     </table>
 
                 </div>
-                <div class="view-map">
+                <div class="view-map" id="view-map">
 
                     <iframe
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.796557337123!2d100.65034387435526!3d-0.18924338540971586!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e2ab31ac2dc3b05%3A0x23c5173ad15bb109!2sCV.GHAFFAR%20FARM%20BERSAUDARA!5e0!3m2!1sid!2sid!4v1721993524153!5m2!1sid!2sid"
-                        width="447" height="295" style="border:0;" allowfullscreen="" loading="lazy"
+                        width="100%" height="295" style="border:0;" allowfullscreen="" loading="lazy"
                         referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    <p style="text-align: left; width: 447px;"><?= $kontak['alamat'] ?></p>
+                    <p style="text-align: left;"><?= $kontak['alamat'] ?></p>
                 </div>
                 <?php endforeach; ?>
             </div>
