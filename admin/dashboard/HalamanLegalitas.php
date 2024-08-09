@@ -57,7 +57,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
 
                         <label for="sertifikat" class="form-label" style="margin-top: 20px;">Nama Sertifikat</label>
-                        <input type="text" name="sertifikat" id="sertifikat" class="form-control" placeholder="Masukkan Nama Sertifikat" required>
+                        <input type="text" name="sertifikat" id="sertifikat" class="form-control"
+                            placeholder="Masukkan Nama Sertifikat" required>
 
                     </div>
 
@@ -78,16 +79,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </thead>
                     <tbody>
                         <?php foreach ($dataLegalitas as $legalitas) : ?>
-                            <tr>
-                                <td><?= htmlspecialchars($legalitas['id']); ?></td>
-                                <td><?= htmlspecialchars($legalitas['sertifikat']); ?></td>
+                        <tr>
+                            <td><?= htmlspecialchars($legalitas['id']); ?></td>
+                            <td><?= htmlspecialchars($legalitas['sertifikat']); ?></td>
 
-                                <td>
-                                    <a href="../legalitas/read_legalitas.php?id=<?= htmlspecialchars($legalitas['id']); ?>" class="btn btn-secondary btn-sm">View</a>
-                                    <a href="../legalitas/update_legalitas.php?id=<?= htmlspecialchars($legalitas['id']); ?>" class="btn btn-secondary btn-sm">Update</a>
-                                    <a href="../legalitas/delete_legalitas.php?id=<?= htmlspecialchars($legalitas['id']); ?>" class="btn btn-danger btn-sm delete-button">Delete</a>
-                                </td>
-                            </tr>
+                            <td>
+                                <a href="../legalitas/read_legalitas.php?id=<?= htmlspecialchars($legalitas['id']); ?>"
+                                    class="btn btn-secondary btn-sm">View</a>
+                                <a href="../legalitas/delete_legalitas.php?id=<?= htmlspecialchars($legalitas['id']); ?>"
+                                    class="btn btn-danger btn-sm delete-button">Delete</a>
+                            </td>
+                        </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
@@ -101,35 +103,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <script src="../../bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
 <script src="../../assets/js/scriptDashboard.js"></script>
 <script>
-    document.getElementById("legalitas-upload").addEventListener("change", function() {
-        var fileName = this.files[0] ? this.files[0].name : "No File Chosen";
-        document.querySelector(".file-name").textContent = fileName;
-    });
+document.getElementById("legalitas-upload").addEventListener("change", function() {
+    var fileName = this.files[0] ? this.files[0].name : "No File Chosen";
+    document.querySelector(".file-name").textContent = fileName;
+});
 
-    $(document).ready(function() {
-        // Konfirmasi penghapusan menggunakan SweetAlert2
-        $('body').on('click', '.delete-button', function(e) {
-            e.preventDefault();
+$(document).ready(function() {
+    // Konfirmasi penghapusan menggunakan SweetAlert2
+    $('body').on('click', '.delete-button', function(e) {
+        e.preventDefault();
 
-            var link = $(this).attr('href'); // Ambil URL penghapusan dari atribut href
+        var link = $(this).attr('href'); // Ambil URL penghapusan dari atribut href
 
-            Swal.fire({
-                title: 'Apakah Anda Yakin?',
-                text: "Anda tidak akan dapat memulihkan item ini",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!',
-                cancelButtonText: 'Cancel'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href =
-                        link; // Redirect ke URL penghapusan jika dikonfirmasi
-                }
-            });
+        Swal.fire({
+            title: 'Apakah Anda Yakin?',
+            text: "Anda tidak akan dapat memulihkan item ini",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href =
+                    link; // Redirect ke URL penghapusan jika dikonfirmasi
+            }
         });
     });
+});
 </script>
 
 

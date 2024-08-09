@@ -926,10 +926,24 @@ footer p {
    
     background-color: var(--primary-color);
 }
-.view-map {
-    margin-left: 0;
-    width: fit-content;
+
+#view-map {
+    padding: 0;
+   display: flex;
+   flex-direction: column;
+   width: 80%;
+   padding-left: 40px;
 }
+#view-map p {
+    text-align: left;
+    width: 100%!important;
+}
+
+#view-map iframe{
+    width: 500px!important;
+    align-items: flex-start!important;
+}
+
 
 
 .menu ul {
@@ -1259,6 +1273,17 @@ footer p {
        
      
     }
+    button.btn-jumbotron {
+   
+        margin: 10px;
+        background-color: #F1F1D5;
+        border: none;
+        height: 50px!important;
+        border-radius: 36px;
+        margin-top: 15%;
+        padding: 5px;
+       
+    }
     .jumbotron-content button a {
         font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
         width: 20dvw; 
@@ -1584,17 +1609,24 @@ tbody {
     resize: none;
     padding: 1em; 
 }
-.map {
-    margin-left: 0!important;
-    width: 325px !important;
-    height: 178px !important;
-    padding: 1px!important;
-   margin-right: 100px;
+#view-map {
+    padding: 0;
+   display: flex;
+   flex-direction: column;
+   width: 100%;
+   padding-left: none;
 }
+
 .view-map p {
     text-align: left;
-     width: 325px;
+    padding: 0!important;
+    width: 350px!important;
 }
+#view-map iframe{
+    width: 350px!important;
+    align-items: center!important;
+}
+
 
 .right-footer .menu .nav-link {
     text-decoration: none !important;
