@@ -154,15 +154,13 @@ include 'config/functions.php'; ?>
                             class="card-img-top" alt="<?= htmlspecialchars($produk['jenis_sapi']); ?>"
                             style="height: 200px; object-fit: cover;">
                         <div class="card-body">
-                            <div id="collapseText<?= $uniqueId ?>" class="collapse">
+                            <div id="textContainer<?= $uniqueId ?>" style="max-height: 0; overflow: hidden;">
                                 <p class="card-text"><?= htmlspecialchars($produk['deskripsi_produk']); ?></p>
                             </div>
                             <div class="toggle-container">
-                                <span class="toggle-text">Lihat Teks</span>
-                                <button class="btn toggle-btn" type="button" data-bs-toggle="collapse"
-                                    style="background-color: #951C11; color: white;"
-                                    data-bs-target="#collapseText<?= $uniqueId ?>" aria-expanded="false"
-                                    aria-controls="collapseText<?= $uniqueId ?>">
+                                <span class="toggle-text" id="toggleText<?= $uniqueId ?>">Lihat Teks</span>
+                                <button class="btn toggle-btn" type="button" onclick="toggleText('<?= $uniqueId ?>')"
+                                    style="background-color: #951C11; color: white;">
                                     <i class="fas fa-eye"></i>
                                 </button>
                             </div>
@@ -172,6 +170,10 @@ include 'config/functions.php'; ?>
                 </div>
             </div>
         </section>
+
+
+
+
 
 
 
@@ -411,6 +413,41 @@ include 'config/functions.php'; ?>
         var message = document.getElementById('whatsappMessage').value;
         var url = 'https://wa.me/6283167961562?text=' + encodeURIComponent(message);
         window.open(url, '_blank');
+    }
+
+    function toggleText(id) {
+        const textContainer = document.getElementById('textContainer' + id);
+        const toggleText = document.getElementById('toggleText' + id);
+        const maxHeight = textContainer.scrollHeight; // tinggi konten sebenarnya
+        let currentHeight = textContainer.style.maxHeight === '0px' ? 0 : maxHeight;
+        const increment = 30; // perubahan height per tick
+        const intervalTime = 30; // interval waktu per tick
+
+        if (currentHeight === 0) {
+            // Expand
+            textContainer.style.display = 'block';
+            const expandInterval = setInterval(() => {
+                if (currentHeight >= maxHeight) {
+                    clearInterval(expandInterval);
+                    toggleText.innerText = 'Tutup Teks';
+                } else {
+                    currentHeight += increment;
+                    textContainer.style.maxHeight = currentHeight + 'px';
+                }
+            }, intervalTime);
+        } else {
+            // Collapse
+            const collapseInterval = setInterval(() => {
+                if (currentHeight <= 0) {
+                    clearInterval(collapseInterval);
+                    textContainer.style.maxHeight = '0px';
+                    toggleText.innerText = 'Lihat Teks';
+                } else {
+                    currentHeight -= increment;
+                    textContainer.style.maxHeight = currentHeight + 'px';
+                }
+            }, intervalTime);
+        }
     }
     </script>
 

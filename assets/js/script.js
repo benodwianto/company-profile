@@ -170,6 +170,28 @@ function Marquee(selector, speed) {
 //2 marquee speed 0.2
 window.addEventListener("load", Marquee(".marquee", 0.2));
 
+// validasi inut pesan landing page footer
+function validateForm() {
+  var pesan = document.getElementById("pesan").value;
+  var email = document.getElementById("email").value;
+
+  // Basic XSS protection by sanitizing input
+  var regex = /<\/?[^>]+(>|$)/g;
+  if (regex.test(pesan)) {
+    alert("Pesan mengandung karakter tidak valid.");
+    return false;
+  }
+
+  // Basic email format validation
+  var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailPattern.test(email)) {
+    alert("Format email tidak valid.");
+    return false;
+  }
+
+  return true;
+}
+
 // dropdown
 function toggleDropdown(event) {
   event.preventDefault();
@@ -203,63 +225,45 @@ window.onclick = function (event) {
   }
 };
 
-// validasi inut pesan landing page footer
-function validateForm() {
-  var pesan = document.getElementById("pesan").value;
-  var email = document.getElementById("email").value;
 
-  // Basic XSS protection by sanitizing input
-  var regex = /<\/?[^>]+(>|$)/g;
-  if (regex.test(pesan)) {
-    alert("Pesan mengandung karakter tidak valid.");
-    return false;
-  }
-
-  // Basic email format validation
-  var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailPattern.test(email)) {
-    alert("Format email tidak valid.");
-    return false;
-  }
-
-  return true;
-}
 
 // text expandable card pada produk kami
-document.addEventListener('DOMContentLoaded', function() {
-  const toggleButtons = document.querySelectorAll('.toggle-btn');
-  const collapseElements = document.querySelectorAll('.collapse');
+// document.addEventListener('DOMContentLoaded', function() {
+//   const toggleButtons = document.querySelectorAll(".toggle-btn");
+//   const collapseElements = document.querySelectorAll(".collapse");
 
-  // Function to close all collapse elements
-  function closeAllCollapses() {
-      collapseElements.forEach(collapse => {
-          const collapseInstance = bootstrap.Collapse.getOrCreateInstance(collapse);
-          if (collapseInstance._isShown()) {
-              collapseInstance.hide();
-          }
-      });
-  }
+//   // Function to close all collapse elements except the clicked one
+//   function closeAllCollapses(exceptElement = null) {
+//     collapseElements.forEach((collapse) => {
+//       if (collapse !== exceptElement) {
+//         const collapseInstance =
+//           bootstrap.Collapse.getOrCreateInstance(collapse);
+//         collapseInstance.hide();
+//       }
+//     });
+//   }
 
-  // Event listener for toggle buttons
-  toggleButtons.forEach(button => {
-      button.addEventListener('click', function() {
-          const target = this.getAttribute('data-bs-target');
-          const targetElement = document.querySelector(target);
+//   // Event listener for toggle buttons
+//   toggleButtons.forEach((button) => {
+//     button.addEventListener("click", function () {
+//       const target = this.getAttribute("data-bs-target");
+//       const targetElement = document.querySelector(target);
 
-          // Close all collapse elements except the target
-          closeAllCollapses();
+//       // Close all collapse elements except the target
+//       closeAllCollapses(targetElement);
 
-          // Toggle the target collapse
-          const targetCollapse = bootstrap.Collapse.getOrCreateInstance(targetElement);
-          targetCollapse.toggle();
+//       // Toggle the target collapse
+//       const targetCollapse =
+//         bootstrap.Collapse.getOrCreateInstance(targetElement);
+//       targetCollapse.toggle();
 
-          // Update the icon
-          const icon = this.querySelector('i');
-          if (targetCollapse._isShown()) {
-              icon.classList.replace('fa-eye', 'fa-eye-slash');
-          } else {
-              icon.classList.replace('fa-eye-slash', 'fa-eye');
-          }
-      });
-  });
-});
+//       // Update the icon
+//       const icon = this.querySelector("i");
+//       if (targetCollapse._isShown()) {
+//         icon.classList.replace("fa-eye", "fa-eye-slash");
+//       } else {
+//         icon.classList.replace("fa-eye-slash", "fa-eye");
+//       }
+//     });
+//   });
+// });

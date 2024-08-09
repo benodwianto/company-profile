@@ -1086,8 +1086,14 @@ footer p {
         z-index: 1060;
         position: fixed;
         right: 20px;
-        /* transition: transform 0.3s ease;  */
+        transition: transform 0.3s ease; 
     }
+      
+     
+      
+      .no-toggle {
+        pointer-events: none; /* Disable pointer events during toggle */
+      }
   
     .navbar-collapse {
         transition: transform 1s ease;
@@ -1165,10 +1171,10 @@ footer p {
   
     .dark-icon {
         font-size: 24px;
-        color: #333; /* Warna ikon gelap */
+        color: var(--base-light)!important; /* Warna ikon gelap */
         margin-left: 10px;
         transition: transform 0.1s ease-in-out !important;
-        border: 1px solid black;
+        border: 1px solid var(--base-light)!important;
         border-radius: 5px;
         padding: 10px;
         padding-top: 0;
@@ -1177,7 +1183,7 @@ footer p {
     }
     .light-icon {
         font-size: 24px;
-        color: var(--base-light); /* Warna ikon gelap */
+        color: var(--base-light)!important; /* Warna ikon gelap */
         margin-left: 10px;
         transition: transform 3s ease-in-out;
         transition-delay: 3s;
@@ -1185,7 +1191,7 @@ footer p {
     }
     .collapse-icon {
         font-size: 24px;
-        color: black; /* Ganti warna sesuai keinginan */
+        color: var(--base-light)!important; /* Ganti warna sesuai keinginan */
         transition: margin-left 0.5s ease;
     }
     
