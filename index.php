@@ -137,7 +137,7 @@ include 'config/functions.php'; ?>
                     foreach ($produks as $produk) : ?>
                         <?php $uniqueId = uniqid(); ?>
                         <div class="card" style="width: 20rem; height: auto; position: relative;">
-                            <h1 style="text-align: center; font-size: x-large;">
+                            <h1 style="text-align: center; font-size: x-large;margin-top: 1px;">
                                 <?= htmlspecialchars($produk['jenis_sapi']); ?>
                             </h1>
                             <img src="assets/images/produk/<?= htmlspecialchars(basename($produk['foto'])); ?>" class="card-img-top" alt="<?= htmlspecialchars($produk['jenis_sapi']); ?>" style="height: 200px; object-fit: cover;">
@@ -147,7 +147,7 @@ include 'config/functions.php'; ?>
                                 </div>
                                 <!-- Tombol dan teks -->
                                 <div class="toggle-container">
-                                    <span class="toggle-text">Lihat Teks</span>
+                                    <span class="toggle-text">Deskripsi</span>
                                     <button class="btn toggle-btn" type="button" data-bs-toggle="collapse" style="background-color: #951C11; color: white;" data-bs-target="#collapseText<?= $uniqueId ?>" aria-expanded="false" aria-controls="collapseText<?= $uniqueId ?>">
                                         <i class="fas fa-eye"></i>
                                     </button>
