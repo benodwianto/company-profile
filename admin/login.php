@@ -31,32 +31,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
     <style>
-        body {
-            background-color: #f8f9fa;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
+    body {
+        background-color: #f8f9fa;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
 
-        .login-container {
-            max-width: 400px;
-            width: 100%;
-            padding: 20px;
-            background: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-        }
+    .login-container {
+        max-width: 400px;
+        width: 100%;
+        padding: 20px;
+        background: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
 
-        .login-container h2 {
-            margin-bottom: 20px;
-        }
+    .login-container h2 {
+        margin-bottom: 20px;
+    }
 
-        .form-control:focus {
-            box-shadow: none;
-            border-color: #007bff;
-        }
+    .form-control:focus {
+        box-shadow: none;
+        border-color: #007bff;
+    }
     </style>
 </head>
 
@@ -73,7 +73,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <input type="password" name="password" id="password" class="form-control" required>
             </div>
             <div class="container text-center">
-                <button type="submit" class="btn btn-primary" style="background-color: #951C11; border-color: #951C11;">Login</button>
+                <button type="submit" class="btn btn-primary"
+                    style="background-color: #951C11; border-color: #951C11;">Login</button>
             </div>
 
 
