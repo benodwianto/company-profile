@@ -38,7 +38,7 @@ aside ul {
    
     height: 100%;
     padding: 0;
-    padding-top: 10px;
+    padding-top: 30px;
  
 
 }
@@ -50,8 +50,9 @@ aside ul li {
 }
 aside li a {
     display: flex;
-    flex-direction: column;
-    width: fit-content;
+    flex-direction: row;
+    align-items: center;
+    width: 70%;
     padding: 7px 7px 7px 7px;
     gap: 5px;
     margin: auto;
@@ -76,7 +77,7 @@ aside ul li a.active,
 aside li a span {
     font-size: 14px;
     width: 66px;
-    text-align: center;
+    text-align: left;
 }
 aside li i {
     font-size: 25px;
@@ -251,6 +252,9 @@ article .content {
 }
 
 .product-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     border: 1px solid #ddd;
     border-radius: 10px;
     padding: 1rem;
@@ -261,7 +265,7 @@ article .content {
 
 .product-image {
     width: 100%;
-    height: 100px!important;
+    height: 150px!important;
     object-fit: cover;
     object-position: center;
     border-radius: 8px;
@@ -272,10 +276,15 @@ article .content {
     justify-content: center;
     gap: 0.5rem;
     margin-top: 0.5rem;
+    
 }
 
 .icon-link {
-    color: #333;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+.icon-link:hover {
+    color: var(--shadow-color);
     text-decoration: none;
 }
 

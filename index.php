@@ -7,17 +7,22 @@ include 'config/functions.php'; ?>
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1, minimum-scale=1">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1, minimum-scale=1">
     <title>PT Ghaffar Farm Bersaudara - Sentra Pemasok Daging Sapi</title>
-    <meta name="description" content="PT Ghaffar Farm Bersaudara adalah perusahaan yang bergerak dalam penggemukan sapi dan pemasok daging untuk kebutuhan hotel, restoran, swalayan, dan lainnya. Kami menyediakan sapi qurban berkualitas super.">
-    <meta name="keywords" content="PT Ghaffar Farm Bersaudara, penggemukan sapi, pemasok daging, sapi qurban, daging sapi lokal">
+    <meta name="description"
+        content="PT Ghaffar Farm Bersaudara adalah perusahaan yang bergerak dalam penggemukan sapi dan pemasok daging untuk kebutuhan hotel, restoran, swalayan, dan lainnya. Kami menyediakan sapi qurban berkualitas super.">
+    <meta name="keywords"
+        content="PT Ghaffar Farm Bersaudara, penggemukan sapi, pemasok daging, sapi qurban, daging sapi lokal">
     <meta name="author" content="PT Ghaffar Farm Bersaudara">
     <link rel="canonical" href="https://www.ghaffarfarm.com/">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="bootstrap-5.3.3-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
 
@@ -35,7 +40,9 @@ include 'config/functions.php'; ?>
                 <img src="assets/images/logo.jpg" alt="Logo PT Ghaffar Farm Bersaudara" class="logo" />
                 <span class="nav-text">PT. Ghaffar Farm Bersaudara</span>
             </a>
-            <button class="navbar-toggler  navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler  navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-ikon" role="button">
                     <i class="fa fa-bars light-icon" aria-hidden="true"></i>
                     <i class="fa fa-times dark-icon d-none"></i>
@@ -65,14 +72,15 @@ include 'config/functions.php'; ?>
             </div>
         </nav>
         <!-- ini bagian konten header -->
-        <div class="jumbotron-content d-flex flex-column justify-content-center align-items-center align-items-sm-start p-5" id="header">
+        <div class="jumbotron-content d-flex flex-column justify-content-center align-items-center align-items-sm-start p-5"
+            id="header">
             <h1>PT Ghaffar Farm Bersaudara</h1>
             <p>SYARIAH, BAROKAH SUKSES</p>
             <p>
                 <?php
                 $dataHome = getAllData('home');
                 foreach ($dataHome as $home) : ?>
-                    <?= $home['deskripsi_dashboard']; ?>
+                <?= $home['deskripsi_dashboard']; ?>
                 <?php endforeach; ?>
             </p>
             <button class="btn-jumbotron"><a href="#produk-kami">Lihat Produk</a></button>
@@ -86,15 +94,16 @@ include 'config/functions.php'; ?>
                     <?php
                     $dataTentangKami = getAllData('tentang');
                     foreach ($dataTentangKami as $tentang_kami) : ?>
-                        <img src="assets/images/tentang/<?= htmlspecialchars(basename($tentang_kami['foto'])); ?>" class="gambar-tentangkami" alt="gambar tentang PT Ghaffar Farm Bersaudara" width="300px">
-                        <div class="background"></div>
+                    <img src="assets/images/tentang/<?= htmlspecialchars(basename($tentang_kami['foto'])); ?>"
+                        class="gambar-tentangkami" alt="gambar tentang PT Ghaffar Farm Bersaudara" width="300px">
+                    <div class="background"></div>
                 </div>
                 <div class="right-tentangkami">
                     <h2 name="judul-tentang-kami"> Tentang Kami<span class="line tentangkami"></span></h2>
 
                     <p name="deskripsi-tentang-kami" style="text-align: left; width: 70%;">
-                        <?= $tentang_kami['deskripsi_tentang']; ?>
-                    <?php endforeach;
+                        <?= nl2br(htmlspecialchars($tentang_kami['deskripsi_tentang'])); ?>
+                        <?php endforeach;
                     ?>
 
                     </p>
@@ -114,13 +123,14 @@ include 'config/functions.php'; ?>
 
                         <h3 style="color: #FEF5EA;">MISI</h3>
                         <p name="deskripsi-misi">
-                        <?php echo $visi_misi['misi'];
+                            <?php echo $visi_misi['misi'];
                             endforeach; ?>
                         </p>
                     </div>
                 </div>
                 <div class="right-visimisi">
-                    <img src="assets/images/visi_misi/<?= htmlspecialchars(basename($visi_misi['foto'])); ?>" class="gambar-visimisi" alt="gambar tentang PT Ghaffar Farm Bersaudara">
+                    <img src="assets/images/visi_misi/<?= htmlspecialchars(basename($visi_misi['foto'])); ?>"
+                        class="gambar-visimisi" alt="gambar tentang PT Ghaffar Farm Bersaudara">
                 </div>
             </div>
         </section>
@@ -135,25 +145,30 @@ include 'config/functions.php'; ?>
                     <?php
                     $produks = getAllData('produk');
                     foreach ($produks as $produk) : ?>
-                        <?php $uniqueId = uniqid(); ?>
-                        <div class="card" style="width: 20rem; height: auto; position: relative;">
-                            <h1 style="text-align: center; font-size: x-large;">
-                                <?= htmlspecialchars($produk['jenis_sapi']); ?>
-                            </h1>
-                            <img src="assets/images/produk/<?= htmlspecialchars(basename($produk['foto'])); ?>" class="card-img-top" alt="<?= htmlspecialchars($produk['jenis_sapi']); ?>" style="height: 200px; object-fit: cover;">
-                            <div class="card-body">
-                                <div id="collapseText<?= $uniqueId ?>" class="collapse">
-                                    <p class="card-text"><?= htmlspecialchars($produk['deskripsi_produk']); ?></p>
-                                </div>
-                                <!-- Tombol dan teks -->
-                                <div class="toggle-container">
-                                    <span class="toggle-text">Lihat Teks</span>
-                                    <button class="btn toggle-btn" type="button" data-bs-toggle="collapse" style="background-color: #951C11; color: white;" data-bs-target="#collapseText<?= $uniqueId ?>" aria-expanded="false" aria-controls="collapseText<?= $uniqueId ?>">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                </div>
+                    <?php $uniqueId = uniqid(); ?>
+                    <div class="card" style="width: 20rem; height: auto; position: relative;">
+                        <h1 style="text-align: center; font-size: x-large;">
+                            <?= htmlspecialchars($produk['jenis_sapi']); ?>
+                        </h1>
+                        <img src="assets/images/produk/<?= htmlspecialchars(basename($produk['foto'])); ?>"
+                            class="card-img-top" alt="<?= htmlspecialchars($produk['jenis_sapi']); ?>"
+                            style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <div id="collapseText<?= $uniqueId ?>" class="collapse">
+                                <p class="card-text"><?= htmlspecialchars($produk['deskripsi_produk']); ?></p>
+                            </div>
+                            <!-- Tombol dan teks -->
+                            <div class="toggle-container">
+                                <span class="toggle-text">Lihat Teks</span>
+                                <button class="btn toggle-btn" type="button" data-bs-toggle="collapse"
+                                    style="background-color: #951C11; color: white;"
+                                    data-bs-target="#collapseText<?= $uniqueId ?>" aria-expanded="false"
+                                    aria-controls="collapseText<?= $uniqueId ?>">
+                                    <i class="fas fa-eye"></i>
+                                </button>
                             </div>
                         </div>
+                    </div>
 
 
 
@@ -175,23 +190,24 @@ include 'config/functions.php'; ?>
                     <?php
                     $layanans = getAllData('layanan');
                     foreach ($layanans as $layanan) : ?>
-                        <div class="left-layanan">
-                            <img src="assets/images/layanan/<?= htmlspecialchars(basename($layanan['foto'])); ?>" class="gambar-layanan" alt="gambar layanan PT Ghaffar Farm Bersaudara">
-                        </div>
-                        <div class="right-layanan">
-                            <h2>Mengapa Ghaffar Farm Bersaudara?</h2>
-                            <p>
-                                <?= $layanan['mengapa_ghaffar']; ?>
-                            </p>
-                            <p>
+                    <div class="left-layanan">
+                        <img src="assets/images/layanan/<?= htmlspecialchars(basename($layanan['foto'])); ?>"
+                            class="gambar-layanan" alt="gambar layanan PT Ghaffar Farm Bersaudara">
+                    </div>
+                    <div class="right-layanan">
+                        <h2>Mengapa Ghaffar Farm Bersaudara?</h2>
+                        <p>
+                            <?= nl2br(htmlspecialchars($layanan['mengapa_ghaffar'])); ?>
+                        </p>
+                        <p>
 
-                            </p>
-                            <h2>Kelebihan Ghaffar Farm Bersaudara</h2>
-                            <p>
-                                <?= $layanan['kelebihan']; ?>
-                            </p>
+                        </p>
+                        <h2>Kelebihan Ghaffar Farm Bersaudara</h2>
+                        <p>
+                            <?= nl2br(htmlspecialchars($layanan['kelebihan'])); ?>
+                        </p>
                         <?php endforeach; ?>
-                        </div>
+                    </div>
                 </div>
             </div>
             <div class="content-section-jangka-investasi">
@@ -201,20 +217,21 @@ include 'config/functions.php'; ?>
                         <h3 style="color: #FEF5EA;">Jangka Investasi:</h3>
                         <?php $investasian = getAllData('investasi');
                         foreach ($investasian as $investasi) : ?>
-                            <p name="deskripsi-investasi">
-                                <?= $investasi['jangka_investasi']; ?>
-                            </p>
+                        <p name="deskripsi-investasi">
+                            <?= $investasi['jangka_investasi']; ?>
+                        </p>
 
-                            <h3 style="color: #FEF5EA;">Nilai Investasi:</h3>
-                            <p name="deskripsi-nilai">
-                                <?= $investasi['jlh_investasi']; ?>
-                            </p>
+                        <h3 style="color: #FEF5EA;">Nilai Investasi:</h3>
+                        <p name="deskripsi-nilai">
+                            <?= $investasi['jlh_investasi']; ?>
+                        </p>
                     </div>
                 </div>
                 <div class="right-jangka-investasi">
-                    <img src="assets/images/investasi/<?= htmlspecialchars(basename($investasi['foto'])); ?>" class="gambar-jangka-investasi" alt="gambar tentang PT Ghaffar Farm Bersaudara" width="100%">
+                    <img src="assets/images/investasi/<?= htmlspecialchars(basename($investasi['foto'])); ?>"
+                        class="gambar-jangka-investasi" alt="gambar tentang PT Ghaffar Farm Bersaudara" width="100%">
                 </div>
-            <?php endforeach; ?>
+                <?php endforeach; ?>
             </div>
             <div class="container my-5">
                 <div class="row">
@@ -264,10 +281,11 @@ include 'config/functions.php'; ?>
                         <?php
                         $dataLegalitas = getAllData('legalitas');
                         foreach ($dataLegalitas as $legalitas) : ?>
-                            <a href="assets/pdf/legalitas/<?= $legalitas['legalitas']; ?>" class="list-group-item list-group-item-action btn-download" download>
-                                <i class="fas fa-download"></i> <span style="opacity: 0.5;">Sertifikat Standar Perizinan
-                                    Ambulatori</span>
-                            </a>
+                        <a href="assets/pdf/legalitas/<?= $legalitas['legalitas']; ?>"
+                            class="list-group-item list-group-item-action btn-download" download>
+                            <i class="fas fa-download"></i> <span style="opacity: 0.5;">Sertifikat Standar Perizinan
+                                Ambulatori</span>
+                        </a>
                         <?php endforeach; ?>
                     </div>
                 </div>
@@ -297,7 +315,8 @@ include 'config/functions.php'; ?>
                                 $relativePath = str_replace("C:\\laragon\\www\\company-profile\\", "", $absolutePath);
                                 $relativePath = str_replace("\\", "/", $relativePath);
                             ?>
-                                <img src="<?= htmlspecialchars($relativePath); ?>" class="marquee-image" alt="<?= htmlspecialchars($sponsor['sponsor']); ?>">
+                            <img src="<?= htmlspecialchars($relativePath); ?>" class="marquee-image"
+                                alt="<?= htmlspecialchars($sponsor['sponsor']); ?>">
                             <?php endforeach; ?>
 
                         </div>
@@ -323,32 +342,35 @@ include 'config/functions.php'; ?>
                         <tbody>
                             <?php $datakontak = getAllData('kontak');
                             foreach ($datakontak as $kontak) : ?>
-                                <tr>
-                                    <td><i class="fas fa-phone icon"></i></td>
-                                    <td><?= $kontak['no_hp'] ?></td>
-                                </tr>
-                                <tr>
-                                    <td><i class="fab fa-whatsapp icon"></i></td>
-                                    <td><?= $kontak['no_wa'] ?></td>
-                                </tr>
-                                <tr>
-                                    <td><i class="fab fa-instagram icon"></i></td>
-                                    <td><?= $kontak['ig'] ?></td>
-                                </tr>
-                                <tr>
-                                    <td><i class="fab fa-facebook icon"></i></td>
-                                    <td><?= $kontak['fb'] ?></td>
-                                </tr>
+                            <tr>
+                                <td><i class="fas fa-phone icon"></i></td>
+                                <td><?= $kontak['no_hp'] ?></td>
+                            </tr>
+                            <tr>
+                                <td><i class="fab fa-whatsapp icon"></i></td>
+                                <td><?= $kontak['no_wa'] ?></td>
+                            </tr>
+                            <tr>
+                                <td><i class="fab fa-instagram icon"></i></td>
+                                <td><?= $kontak['ig'] ?></td>
+                            </tr>
+                            <tr>
+                                <td><i class="fab fa-facebook icon"></i></td>
+                                <td><?= $kontak['fb'] ?></td>
+                            </tr>
                         </tbody>
                     </table>
 
                 </div>
                 <div class="view-map">
 
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.796557337123!2d100.65034387435526!3d-0.18924338540971586!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e2ab31ac2dc3b05%3A0x23c5173ad15bb109!2sCV.GHAFFAR%20FARM%20BERSAUDARA!5e0!3m2!1sid!2sid!4v1721993524153!5m2!1sid!2sid" width="447" height="295" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.796557337123!2d100.65034387435526!3d-0.18924338540971586!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e2ab31ac2dc3b05%3A0x23c5173ad15bb109!2sCV.GHAFFAR%20FARM%20BERSAUDARA!5e0!3m2!1sid!2sid!4v1721993524153!5m2!1sid!2sid"
+                        width="447" height="295" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
                     <p style="text-align: left; width: 447px;"><?= $kontak['alamat'] ?></p>
                 </div>
-            <?php endforeach; ?>
+                <?php endforeach; ?>
             </div>
             <div class="right-footer">
                 <h2 style="text-align: left; padding: 28px; margin: 20px auto; padding-bottom: 5px !important;">Company
@@ -367,7 +389,8 @@ include 'config/functions.php'; ?>
                         <form action="admin/add_pesan.php" method="POST" onsubmit="return validateForm()">
                             <label style="text-align: left; ">Punya pertanyaan atau saran? silahkan kirimkan pesan
                                 anda....</label>
-                            <textarea name="pesan_pengunjung" id="pesan" rows="5" placeholder="Tuliskan Pesan anda disini.." required></textarea>
+                            <textarea name="pesan_pengunjung" id="pesan" rows="5"
+                                placeholder="Tuliskan Pesan anda disini.." required></textarea>
                             <input type="email" name="email" id="email" placeholder="Email" required>
                             <input type="submit" value="insert pesan">
                         </form>
@@ -381,20 +404,20 @@ include 'config/functions.php'; ?>
 
 
     <script>
-        document.getElementById('whatsappIcon').addEventListener('click', function() {
-            var popup = document.getElementById('whatsappPopup');
-            if (popup.style.display === 'none' || popup.style.display === '') {
-                popup.style.display = 'block';
-            } else {
-                popup.style.display = 'none';
-            }
-        });
-
-        function sendMessage() {
-            var message = document.getElementById('whatsappMessage').value;
-            var url = 'https://wa.me/6283167961562?text=' + encodeURIComponent(message);
-            window.open(url, '_blank');
+    document.getElementById('whatsappIcon').addEventListener('click', function() {
+        var popup = document.getElementById('whatsappPopup');
+        if (popup.style.display === 'none' || popup.style.display === '') {
+            popup.style.display = 'block';
+        } else {
+            popup.style.display = 'none';
         }
+    });
+
+    function sendMessage() {
+        var message = document.getElementById('whatsappMessage').value;
+        var url = 'https://wa.me/6283167961562?text=' + encodeURIComponent(message);
+        window.open(url, '_blank');
+    }
     </script>
 
 
