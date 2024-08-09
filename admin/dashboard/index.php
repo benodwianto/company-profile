@@ -43,7 +43,18 @@ $adminData = getAdminDataBySessionId();
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($data_admin as $admin) : ?>
+                                    <?php
+                                    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+                                    $recordsPerPage = 10;
+
+                                    $search = isset($_GET['search']) ? $_GET['search'] : null;
+                                    $startDate = isset($_GET['start_date']) ? $_GET['start_date'] : null;
+                                    $endDate = isset($_GET['end_date']) ? $_GET['end_date'] : null;
+                                    $pesan_pengunjung = getDataWithPagination($page, $recordsPerPage, $startDate, $endDate);
+                                    $totalPages = getTotalPages($recordsPerPage, $startDate, $endDate);
+
+
+                                    foreach ($data_admin as $admin) : ?>
                                         <tr>
                                             <td><?= $admin['username'] ?></td>
                                             <td><i class=""></i> <?= timeAgo($admin['lastLoginTime']) ?></td>
@@ -58,29 +69,17 @@ $adminData = getAdminDataBySessionId();
                 <!-- Card Baru untuk Pesan Pengunjung -->
                 <h5 class="ms-4 mt-4">Pesan Pengunjung</h5>
 
-                <!-- Filter berdasarkan tanggal dan pencarian pesan -->
-                <!-- Form Pencarian Pesan -->
-                <div class="ms-4 mb-4">
-                    <form action="" method="get" class="d-flex align-items-center">
-                        <div class="input-group me-2">
-                            <span class="input-group-text"><i class="fas fa-search"></i></span>
-                            <input type="text" name="search" class="form-control" placeholder="Cari pesan...">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Cari</button>
-                    </form>
-                </div>
-
                 <!-- Form Filter Berdasarkan Tanggal -->
                 <div class="ms-4 mb-4">
                     <form action="" method="get" class="d-flex align-items-center">
                         <div class="input-group me-2">
                             <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                            <input type="date" name="date" class="form-control">
+                            <input type="date" name="start_date" class="form-control">
+                            <input type="date" name="end_date" class="form-control ms-2">
                         </div>
                         <button type="submit" class="btn btn-primary">Filter</button>
                     </form>
                 </div>
-
 
                 <?php foreach ($pesan_pengunjung as $pesan) : ?>
                     <div class="card ms-4 m-4 shadow-sm border-0 rounded-3">
@@ -92,17 +91,19 @@ $adminData = getAdminDataBySessionId();
                                         <?= htmlspecialchars($pesan['pesan_pengunjung']) ?></p>
                                 </div>
                                 <div class="message-time text-muted fs-6">
-                                    20.18 Senin 29 Agustus
+                                    <?= timeAgo($pesan['tanggal']) ?>
                                 </div>
                             </div>
                         </div>
                     </div>
                 <?php endforeach; ?>
 
-
+                <!-- Tampilkan tautan paginasi -->
+                <div class="ms-4 mt-4">
+                    <?= generatePaginationLinks($page, $totalPages); ?>
+                </div>
             </div>
         </div>
-    </div>
 </article>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

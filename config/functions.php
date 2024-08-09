@@ -120,54 +120,48 @@ function insertSponsor($sponsor, $fileInputName)
 
 
 
-function updateSponsor($id, $sponsor, $fileInputName)
+function updateSponsor($id, $sponsor, $fotoFileInputName)
 {
     global $conn;
     $targetDirectory = __DIR__ . "/../assets/images/sponsor/";
-    $oldFilePath = null;
+    $oldFotoPath = null;
 
     // Ambil path foto lama dari database
     $sql = "SELECT foto FROM sponsor WHERE id=?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('i', $id);
     $stmt->execute();
-    $stmt->bind_result($oldFilePath);
+    $stmt->bind_result($oldFotoPath);
     $stmt->fetch();
     $stmt->close();
 
     // Handle file upload jika ada file
-    $newFilePath = $oldFilePath; // Gunakan path foto lama secara default
-    if (isset($_FILES[$fileInputName]) && $_FILES[$fileInputName]['error'] === UPLOAD_ERR_OK) {
-        $uploadResult = uploadImage($fileInputName, $targetDirectory, $oldFilePath);
+    $newFotoPath = $oldFotoPath; // Gunakan path foto lama secara default
+    if (isset($_FILES[$fotoFileInputName]) && $_FILES[$fotoFileInputName]['error'] === UPLOAD_ERR_OK) {
+        $uploadResult = uploadImage($fotoFileInputName, $targetDirectory, $oldFotoPath);
 
-        if (strpos($uploadResult, 'Sorry') === 0) {
-            // Set session message for file upload error
-            $_SESSION['message'] = $uploadResult;
-            $_SESSION['message_type'] = 'error';
-
-            // Redirect back to the sponsor page
-            header("Location: HalamanSponsor.php?id=$id");
+        if ($uploadResult === false) {
+            header("Location: update_sponsor.php?id=$id");
             exit();
         } else {
-            $newFilePath = $uploadResult;
+            $newFotoPath = $uploadResult;
         }
     }
 
     // Update data di database
     $sql = "UPDATE sponsor SET sponsor=?, foto=? WHERE id=?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('ssi', $sponsor, $newFilePath, $id);
-
+    $stmt->bind_param('ssi', $sponsor, $newFotoPath, $id);
     if ($stmt->execute()) {
-        $_SESSION['message'] = 'Sponsor berhasil diperbarui';
+        $_SESSION['message'] = "Berhasil memperbarui sponsor";
         $_SESSION['message_type'] = 'success';
     } else {
-        $_SESSION['message'] = 'Terjadi kesalahan saat memperbarui sponsor' . $conn->error;
+        $_SESSION['message'] = "Gagal memperbarui sponsor " . $stmt->error;
         $_SESSION['message_type'] = 'error';
     }
     $stmt->close();
 
-    header("Location: HalamanSponsor.php?id=$id");
+    header("Location: ../dashboard/HalamanSponsor.php?id=$id");
     exit();
 }
 
@@ -207,7 +201,6 @@ function deleteSponsor($id)
     }
     $stmt->close();
 }
-
 
 
 function updateHome($id, $deskripsi_dashboard)
@@ -1032,4 +1025,99 @@ function timeAgo($timestamp)
         $numberOfUnits = floor($time / $unit);
         return $numberOfUnits . ' ' . $text . ' yang lalu';
     }
+}
+
+function getDataWithPagination($page = 1, $recordsPerPage = 10, $startDate = null, $endDate = null)
+{
+    global $conn;
+
+    $offset = ($page - 1) * $recordsPerPage;
+
+    // Build the query with optional date filtering
+    $sql = "SELECT * FROM pesan WHERE 1=1";
+
+    if ($startDate) {
+        $sql .= " AND tanggal >= ?";
+    }
+    if ($endDate) {
+        $sql .= " AND tanggal <= ?";
+    }
+
+    $sql .= " LIMIT ? OFFSET ?";
+
+    $stmt = $conn->prepare($sql);
+
+    // Bind parameters based on the presence of date filters
+    if ($startDate && $endDate) {
+        $stmt->bind_param('ssii', $startDate, $endDate, $recordsPerPage, $offset);
+    } elseif ($startDate) {
+        $stmt->bind_param('sii', $startDate, $recordsPerPage, $offset);
+    } elseif ($endDate) {
+        $stmt->bind_param('sii', $endDate, $recordsPerPage, $offset);
+    } else {
+        $stmt->bind_param('ii', $recordsPerPage, $offset);
+    }
+
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $data = [];
+    while ($row = $result->fetch_assoc()) {
+        $data[] = $row;
+    }
+
+    $stmt->close();
+
+    return $data;
+}
+
+function getTotalPages($recordsPerPage = 10, $startDate = null, $endDate = null)
+{
+    global $conn;
+
+    // Build the query with optional date filtering
+    $sql = "SELECT COUNT(*) FROM pesan WHERE 1=1";
+
+    if ($startDate) {
+        $sql .= " AND tanggal >= ?";
+    }
+    if ($endDate) {
+        $sql .= " AND tanggal <= ?";
+    }
+
+    $stmt = $conn->prepare($sql);
+
+    // Bind parameters based on the presence of date filters
+    if ($startDate && $endDate) {
+        $stmt->bind_param('ss', $startDate, $endDate);
+    } elseif ($startDate) {
+        $stmt->bind_param('s', $startDate);
+    } elseif ($endDate) {
+        $stmt->bind_param('s', $endDate);
+    }
+
+    $stmt->execute();
+    $stmt->bind_result($totalRecords);
+    $stmt->fetch();
+
+    $stmt->close();
+
+    $totalPages = ceil($totalRecords / $recordsPerPage);
+
+    return $totalPages;
+}
+
+function generatePaginationLinks($currentPage, $totalPages)
+{
+    $paginationLinks = '';
+
+    for ($i = 1; $i <= $totalPages; $i++) {
+        if ($i == $currentPage) {
+            $paginationLinks .= "<strong>$i</strong> ";
+        } else {
+            $paginationLinks .= "<a href='?page=$i'>$i</a> ";
+        }
+    }
+
+    return $paginationLinks;
 }
