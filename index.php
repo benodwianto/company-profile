@@ -418,6 +418,7 @@ include 'config/functions.php'; ?>
     function toggleText(id) {
         const textContainer = document.getElementById('textContainer' + id);
         const toggleText = document.getElementById('toggleText' + id);
+        const icon = toggleText.nextElementSibling.querySelector('i'); // Menemukan ikon di dalam tombol
         const maxHeight = textContainer.scrollHeight; // tinggi konten sebenarnya
         let currentHeight = textContainer.style.maxHeight === '0px' ? 0 : maxHeight;
         const increment = 30; // perubahan height per tick
@@ -430,6 +431,7 @@ include 'config/functions.php'; ?>
                 if (currentHeight >= maxHeight) {
                     clearInterval(expandInterval);
                     toggleText.innerText = 'Tutup Teks';
+                    icon.classList.replace("fa-eye", "fa-eye-slash");
                 } else {
                     currentHeight += increment;
                     textContainer.style.maxHeight = currentHeight + 'px';
@@ -442,6 +444,7 @@ include 'config/functions.php'; ?>
                     clearInterval(collapseInterval);
                     textContainer.style.maxHeight = '0px';
                     toggleText.innerText = 'Lihat Teks';
+                    icon.classList.replace("fa-eye-slash", "fa-eye");
                 } else {
                     currentHeight -= increment;
                     textContainer.style.maxHeight = currentHeight + 'px';
