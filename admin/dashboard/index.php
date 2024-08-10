@@ -24,14 +24,16 @@ $adminData = getAdminDataBySessionId();
     <div class="container ml-0">
         <div class="content">
             <div class="content-page" id="halaman-dashboard">
-                <h5 class="ms-4 mt-2">Informasi Admin</h5>
-                <div class="card ms-4 shadow-sm">
+                <h3 class="ms-4 mt-2 mb-4">Informasi Admin</h3>
+                <div class="card ms-4 shadow-lg">
                     <div class="card-body">
-                        <h5 class="card-title">Profile</h5>
-                        <div class="admin-info">
-                            <img src="../../assets/images/logo.jpg" alt="Admin Photo" class="profile-img" width="100" height="100">
-                            <p><strong>Username:</strong> <?= $adminData['username'] ?></p>
-                            <p><strong>Status:</strong> <?= $adminData['status'] ?></p>
+                        <div class="card shadow-sm col-lg-3 mx-auto"> <!-- Menggunakan mx-auto untuk memposisikan kolom di tengah -->
+                            <h5 class="card-title text-center mt-4">Profile</h5>
+                            <div class="admin-info text-center">
+                                <img src="../../assets/images/profile.png" alt="Admin Photo" class="profile-img" width="70" height="100">
+                                <p>Username : <?= htmlspecialchars($adminData['username']) ?></p>
+                                <p>Status : <?= htmlspecialchars($adminData['status']) ?></p>
+                            </div>
                         </div>
                         <?php if ($_SESSION['status'] === 'Admin') : ?>
                             <h5 class="mt-4">Daftar Admin</h5>
@@ -53,10 +55,9 @@ $adminData = getAdminDataBySessionId();
                                     $pesan_pengunjung = getDataWithPagination($page, $recordsPerPage, $startDate, $endDate);
                                     $totalPages = getTotalPages($recordsPerPage, $startDate, $endDate);
 
-
                                     foreach ($data_admin as $admin) : ?>
                                         <tr>
-                                            <td><?= $admin['username'] ?></td>
+                                            <td><?= htmlspecialchars($admin['username']) ?></td>
                                             <td><i class=""></i> <?= timeAgo($admin['lastLoginTime']) ?></td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -67,7 +68,7 @@ $adminData = getAdminDataBySessionId();
                     </div>
                 </div>
                 <!-- Card Baru untuk Pesan Pengunjung -->
-                <h5 class="ms-4 mt-4">Pesan Pengunjung</h5>
+                <h4 class="ms-4 mt-5">Pesan Pengunjung</h4>
 
                 <!-- Form Filter Berdasarkan Tanggal -->
                 <div class="ms-4 mb-4">
@@ -103,6 +104,7 @@ $adminData = getAdminDataBySessionId();
                     <?= generatePaginationLinks($page, $totalPages); ?>
                 </div>
             </div>
+
         </div>
 </article>
 
