@@ -11,9 +11,12 @@ if (isset($_GET['delete'])) {
     exit;
 }
 
-// Ambil data produk untuk ditampilkan
-$sql = "SELECT id, sponsor, foto FROM sponsor";
-$result = $conn->query($sql);
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$searchQuery = isset($_GET['search']) ? $_GET['search'] : null;
+
+$recordsPerPage = 9;
+$sponsors = getSponsorWithPagination($page, $recordsPerPage, $searchQuery);
+$totalPages = getTotalSponsorPages($recordsPerPage, $searchQuery);
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -35,19 +38,28 @@ $result = $conn->query($sql);
     <?php include 'aside.php'; ?>
     <article class="contracted">
         <?php include '../dashboard/nav.php'; ?>
-        <div class="container mt-5">
+        <div class="container mt-1">
             <div class="content" style="padding-top: 100px">
                 <div class="content-page" id="halaman-produk">
                     <div class="container mt-5">
                         <h2>Daftar Sponsor</h2>
-
+                        <!-- Form Pencarian Produk -->
+                        <div class="mb-4">
+                            <form action="" method="get" class="d-flex align-items-center">
+                                <div class="input-group me-2">
+                                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                                    <input type="text" name="search" class="form-control" placeholder="Cari sponsor..." value="<?= $searchQuery; ?>">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Cari</button>
+                            </form>
+                        </div>
                         <!-- Menampilkan data produk -->
                         <div class="product-container">
-                            <?php if ($result->num_rows > 0) : ?>
-                                <?php while ($row = $result->fetch_assoc()) : ?>
+                            <?php if (count($sponsors) > 0) : ?>
+                                <?php foreach ($sponsors as $row) : ?>
                                     <div class="product-card">
                                         <img src="../../assets/images/sponsor/<?= htmlspecialchars(basename($row['foto'])); ?> " style="width: 150px;"
-                                        alt="<?= htmlspecialchars($row['sponsor']); ?>" class="sponsor-image">
+                                            alt="<?= htmlspecialchars($row['sponsor']); ?>" class="sponsor-image">
                                         <h4><?= htmlspecialchars($row['sponsor']); ?></h4>
                                         <div class="product-icons">
                                             <a href="../sponsor/update_sponsor.php?id=<?= htmlspecialchars($row['id']); ?>"
@@ -58,17 +70,21 @@ $result = $conn->query($sql);
                                                     class="fa fa-trash"></i></a>
                                         </div>
                                     </div>
-                                <?php endwhile; ?>
+                                <?php endforeach; ?>
+                                <div class="product-card add-product">
+                                    <a href="../sponsor/add_produk.php" class="add-product-link">
+                                        <i class="fa fa-plus"></i>
+                                        <p>Tambah Sponsor</p>
+                                    </a>
+                                </div>
                             <?php else : ?>
-                                <p>No data found in the database.</p>
+                                <h6>Tidak ada sponsor yang ditemukan</h6>
                             <?php endif; ?>
-                            <div class="product-card add-product">
-                                <a href="../sponsor/add_produk.php" class="add-product-link">
-                                    <i class="fa fa-plus"></i>
-                                    <p>Tambah Sponsor</p>
-                                </a>
-                            </div>
                         </div>
+                    </div>
+                    <!-- Menampilkan pagination -->
+                    <div class=" pagination mt-4 mb-4">
+                        <?= generatePaginationLinks($page, $totalPages); ?>
                     </div>
                 </div>
             </div>

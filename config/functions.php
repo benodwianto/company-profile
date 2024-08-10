@@ -1205,3 +1205,87 @@ function generateProdukPaginationLinks($currentPage, $totalPages)
 
     return $paginationLinks;
 }
+
+// Sponsor
+function getSponsorWithPagination($page = 1, $recordsPerPage = 10, $searchQuery = null)
+{
+    global $conn;
+
+    $offset = ($page - 1) * $recordsPerPage;
+
+    // Build the query with optional search filtering
+    $sql = "SELECT * FROM Sponsor WHERE 1=1";
+
+    if ($searchQuery) {
+        $sql .= " AND sponsor LIKE ?";
+    }
+
+    $sql .= " LIMIT ? OFFSET ?";
+
+    $stmt = $conn->prepare($sql);
+
+    // Bind parameters based on the presence of a search query
+    if ($searchQuery) {
+        $searchQuery = "%" . $searchQuery . "%";
+        $stmt->bind_param('sii', $searchQuery, $recordsPerPage, $offset);
+    } else {
+        $stmt->bind_param('ii', $recordsPerPage, $offset);
+    }
+
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $data = [];
+    while ($row = $result->fetch_assoc()) {
+        $data[] = $row;
+    }
+
+    $stmt->close();
+
+    return $data;
+}
+
+function getTotalSponsorPages($recordsPerPage = 10, $searchQuery = null)
+{
+    global $conn;
+
+    // Build the query with optional search filtering
+    $sql = "SELECT COUNT(*) FROM sponsor WHERE 1=1";
+
+    if ($searchQuery) {
+        $sql .= " AND sponsor LIKE ?";
+    }
+
+    $stmt = $conn->prepare($sql);
+
+    // Bind parameters based on the presence of a search query
+    if ($searchQuery) {
+        $searchQuery = "%" . $searchQuery . "%";
+        $stmt->bind_param('s', $searchQuery);
+    }
+
+    $stmt->execute();
+    $stmt->bind_result($totalRecords);
+    $stmt->fetch();
+
+    $stmt->close();
+
+    $totalPages = ceil($totalRecords / $recordsPerPage);
+
+    return $totalPages;
+}
+
+function generateSponsorPaginationLinks($currentPage, $totalPages)
+{
+    $paginationLinks = '';
+
+    for ($i = 1; $i <= $totalPages; $i++) {
+        if ($i == $currentPage) {
+            $paginationLinks .= "<strong>$i</strong> ";
+        } else {
+            $paginationLinks .= "<a href='?page=$i'>$i</a> ";
+        }
+    }
+
+    return $paginationLinks;
+}

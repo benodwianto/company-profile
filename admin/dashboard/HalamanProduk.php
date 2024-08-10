@@ -14,7 +14,7 @@ if (isset($_GET['delete'])) {
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $searchQuery = isset($_GET['search']) ? $_GET['search'] : null;
 
-$recordsPerPage = 10;
+$recordsPerPage = 9;
 $produk = getProdukWithPagination($page, $recordsPerPage, $searchQuery);
 $totalPages = getTotalProdukPages($recordsPerPage, $searchQuery);
 ?>
@@ -39,7 +39,7 @@ $totalPages = getTotalProdukPages($recordsPerPage, $searchQuery);
     <?php include 'aside.php'; ?>
     <article class="contracted">
         <?php include '../dashboard/nav.php'; ?>
-        <div class="container mt-5">
+        <div class="container mt-2">
             <div class="content" style="padding-top: 100px">
                 <div class="content-page" id="halaman-produk">
                     <div class="container mt-5">
@@ -73,15 +73,17 @@ $totalPages = getTotalProdukPages($recordsPerPage, $searchQuery);
                                         </div>
                                     </div>
                                 <?php endforeach; ?>
+                                <div class="product-card add-product">
+                                    <a href="../produk/add_produk.php" class="add-product-link">
+                                        <i class="fa fa-plus"></i>
+                                        <p>Tambah Produk</p>
+                                    </a>
+                                </div>
                             <?php else : ?>
-                                <p>No data found in the database.</p>
+                                <div class="no-data text-center mt-5">
+                                    <h6>Tidak ada data produk ditemukan</h6>
+                                </div>
                             <?php endif; ?>
-                            <div class="product-card add-product">
-                                <a href="../produk/add_produk.php" class="add-product-link">
-                                    <i class="fa fa-plus"></i>
-                                    <p>Tambah Produk</p>
-                                </a>
-                            </div>
                         </div>
                         <!-- Menampilkan pagination -->
                         <div class="pagination mt-4 mb-4">
