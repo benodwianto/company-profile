@@ -11,10 +11,14 @@ if (isset($_GET['delete'])) {
     exit;
 }
 
-// Ambil data produk untuk ditampilkan
-$sql = "SELECT id, jenis_sapi, deskripsi_produk, foto FROM produk";
-$result = $conn->query($sql);
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$searchQuery = isset($_GET['search']) ? $_GET['search'] : null;
+
+$recordsPerPage = 10;
+$produk = getProdukWithPagination($page, $recordsPerPage, $searchQuery);
+$totalPages = getTotalProdukPages($recordsPerPage, $searchQuery);
 ?>
+
 <!DOCTYPE html>
 <html lang="id">
 
@@ -41,26 +45,36 @@ $result = $conn->query($sql);
                     <div class="container mt-5">
                         <h2>Daftar Produk</h2>
 
+                        <!-- Form Pencarian Produk -->
+                        <div class="mb-4">
+                            <form action="" method="get" class="d-flex align-items-center">
+                                <div class="input-group me-2">
+                                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                                    <input type="text" name="search" class="form-control" placeholder="Cari produk..." value="<?= $searchQuery; ?>">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Cari</button>
+                            </form>
+                        </div>
                         <!-- Menampilkan data produk -->
                         <div class="product-container">
-                            <?php if ($result->num_rows > 0) : ?>
-                            <?php while ($row = $result->fetch_assoc()) : ?>
-                            <div class="product-card">
-                                <img src="../../assets/images/produk/<?= htmlspecialchars(basename($row['foto'])); ?>"
-                                    alt="<?= htmlspecialchars($row['jenis_sapi']); ?>" class="product-image">
-                                <h4><?= htmlspecialchars($row['jenis_sapi']); ?></h4>
-                                <div class="product-icons">
-                                    <a href="../produk/update_produk.php?id=<?= htmlspecialchars($row['id']); ?>"
-                                        class="icon-link"><i class="fa fa-edit"></i></a>
-                                    <a href="../produk/delete_produk.php?id=<?= htmlspecialchars($row['id']); ?>"
-                                        class="icon-link"
-                                        onclick="return confirm('Are you sure you want to delete this item?');"><i
-                                            class="fa fa-trash"></i></a>
-                                </div>
-                            </div>
-                            <?php endwhile; ?>
+                            <?php if (count($produk) > 0) : ?>
+                                <?php foreach ($produk as $row) : ?>
+                                    <div class="product-card">
+                                        <img src="../../assets/images/produk/<?= htmlspecialchars(basename($row['foto'])); ?>"
+                                            alt="<?= htmlspecialchars($row['jenis_sapi']); ?>" class="product-image">
+                                        <h4><?= htmlspecialchars($row['jenis_sapi']); ?></h4>
+                                        <div class="product-icons">
+                                            <a href="../produk/update_produk.php?id=<?= htmlspecialchars($row['id']); ?>"
+                                                class="icon-link"><i class="fa fa-edit"></i></a>
+                                            <a href="../produk/delete_produk.php?id=<?= htmlspecialchars($row['id']); ?>"
+                                                class="icon-link"
+                                                onclick="return confirm('Are you sure you want to delete this item?');"><i
+                                                    class="fa fa-trash"></i></a>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
                             <?php else : ?>
-                            <p>No data found in the database.</p>
+                                <p>No data found in the database.</p>
                             <?php endif; ?>
                             <div class="product-card add-product">
                                 <a href="../produk/add_produk.php" class="add-product-link">
@@ -68,6 +82,10 @@ $result = $conn->query($sql);
                                     <p>Tambah Produk</p>
                                 </a>
                             </div>
+                        </div>
+                        <!-- Menampilkan pagination -->
+                        <div class="pagination mt-4 mb-4">
+                            <?= generatePaginationLinks($page, $totalPages); ?>
                         </div>
                     </div>
                 </div>

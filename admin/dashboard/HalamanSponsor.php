@@ -46,7 +46,7 @@ $result = $conn->query($sql);
                             <?php if ($result->num_rows > 0) : ?>
                                 <?php while ($row = $result->fetch_assoc()) : ?>
                                     <div class="product-card">
-                                        <img src="../../assets/images/sponsor/<?= htmlspecialchars(basename($row['foto'])); ?> " style="width: 50px;"
+                                        <img src="../../assets/images/sponsor/<?= htmlspecialchars(basename($row['foto'])); ?> " style="width: 150px;"
                                         alt="<?= htmlspecialchars($row['sponsor']); ?>" class="sponsor-image">
                                         <h4><?= htmlspecialchars($row['sponsor']); ?></h4>
                                         <div class="product-icons">
