@@ -24,28 +24,30 @@ $adminData = getAdminDataBySessionId();
     <div class="container ml-0">
         <div class="content">
             <div class="content-page" id="halaman-dashboard">
-                <h3 class="ms-4 mt-2 mb-4">Informasi Admin</h3>
+                <h5 class="ms-4 mt-2">Informasi Admin</h5>
                 <div class="card ms-4 shadow-lg">
                     <div class="card-body">
-                        <div class="card shadow-sm col-lg-3 mx-auto"> <!-- Menggunakan mx-auto untuk memposisikan kolom di tengah -->
+                        <div class="card shadow-sm col-lg-3 mx-auto">
+                            <!-- Menggunakan mx-auto untuk memposisikan kolom di tengah -->
                             <h5 class="card-title text-center mt-4">Profile</h5>
                             <div class="admin-info text-center">
-                                <img src="../../assets/images/profile.png" alt="Admin Photo" class="profile-img" width="70" height="100">
+                                <img src="../../assets/images/profile.png" alt="Admin Photo" class="profile-img"
+                                    width="70" height="100">
                                 <p>Username : <?= htmlspecialchars($adminData['username']) ?></p>
                                 <p>Status : <?= htmlspecialchars($adminData['status']) ?></p>
                             </div>
                         </div>
                         <?php if ($_SESSION['status'] === 'Admin') : ?>
-                            <h5 class="mt-4">Daftar Admin</h5>
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Username</th>
-                                        <th>Terakhir Login</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
+                        <h6 class="mt-4 ms-1 font-bold opacity-50">Daftar Admin</h6>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Terakhir Login</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
                                     $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
                                     $recordsPerPage = 10;
 
@@ -56,19 +58,19 @@ $adminData = getAdminDataBySessionId();
                                     $totalPages = getTotalPages($recordsPerPage, $startDate, $endDate);
 
                                     foreach ($data_admin as $admin) : ?>
-                                        <tr>
-                                            <td><?= htmlspecialchars($admin['username']) ?></td>
-                                            <td><i class=""></i> <?= timeAgo($admin['lastLoginTime']) ?></td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
+                                <tr>
+                                    <td><?= htmlspecialchars($admin['username']) ?></td>
+                                    <td><i class=""></i> <?= timeAgo($admin['lastLoginTime']) ?></td>
+                                </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
                         <?php endif; ?>
 
                     </div>
                 </div>
                 <!-- Card Baru untuk Pesan Pengunjung -->
-                <h4 class="ms-4 mt-5">Pesan Pengunjung</h4>
+                <h5 class="ms-4 mt-5">Pesan Pengunjung</h5>
 
                 <!-- Form Filter Berdasarkan Tanggal -->
                 <div class="ms-4 mb-4">
@@ -83,20 +85,21 @@ $adminData = getAdminDataBySessionId();
                 </div>
 
                 <?php foreach ($pesan_pengunjung as $pesan) : ?>
-                    <div class="card ms-4 m-4 shadow-sm border-0 rounded-3">
-                        <div class="card-body">
-                            <div class="visitor-message d-flex justify-content-between align-items-center border p-3 rounded-3 bg-light">
-                                <div class="message-content">
-                                    <p class="mb-1"><strong>Email:</strong> <?= htmlspecialchars($pesan['email']) ?></p>
-                                    <p class="mb-0"><strong>Pesan:</strong>
-                                        <?= htmlspecialchars($pesan['pesan_pengunjung']) ?></p>
-                                </div>
-                                <div class="message-time text-muted fs-6">
-                                    <?= timeAgo($pesan['tanggal']) ?>
-                                </div>
+                <div class="card ms-4 m-4 shadow-sm border-0 rounded-3">
+                    <div class="card-body">
+                        <div
+                            class="visitor-message d-flex justify-content-between align-items-center border p-3 rounded-3 bg-light">
+                            <div class="message-content">
+                                <p class="mb-1"><strong>Email:</strong> <?= htmlspecialchars($pesan['email']) ?></p>
+                                <p class="mb-0"><strong>Pesan:</strong>
+                                    <?= htmlspecialchars($pesan['pesan_pengunjung']) ?></p>
+                            </div>
+                            <div class="message-time text-muted fs-6">
+                                <?= timeAgo($pesan['tanggal']) ?>
                             </div>
                         </div>
                     </div>
+                </div>
                 <?php endforeach; ?>
 
                 <!-- Tampilkan tautan paginasi -->

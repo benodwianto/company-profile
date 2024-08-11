@@ -34,39 +34,49 @@ $result = $conn->query($sql);
     <div class="container mt-2">
         <div class="content">
             <div class="content-page" id="halaman-kontak">
-                <h3 class="card-title ms-4 mb-4">Halaman Kontak</h3>
+                <h5 class="card-title ms-4 mb-4">Halaman Kontak</h5>
                 <div class="card ms-4 shadow-lg">
                     <div class="card-header">
-                    <form action="" method="post" class="row g-3 p-4">
-                        <?php while ($row = $result->fetch_assoc()) : ?>
+                        <form action="" method="post" class="row g-3 p-4">
+                            <?php while ($row = $result->fetch_assoc()) : ?>
                             <input type="hidden" name="id" value="<?= htmlspecialchars($row['id']); ?>">
 
                             <div class="col-md-6">
-                                <label for="no_hp" class="form-label"><h6>No. HP : </h6></label>
+                                <label for="no_hp" class="form-label">
+                                    <h6>No. HP : </h6>
+                                </label>
                                 <input type="text" name="no_hp" id="no_hp" class="form-control"
                                     value="<?= htmlspecialchars($row['no_hp']); ?>" required>
                             </div>
 
                             <div class="col-md-6">
-                                <label for="no_wa" class="form-label"><h6>No. WA :</h6></label>
+                                <label for="no_wa" class="form-label">
+                                    <h6>No. WA :</h6>
+                                </label>
                                 <input type="text" name="no_wa" id="no_wa" class="form-control"
                                     value="<?= htmlspecialchars($row['no_wa']); ?>" required>
                             </div>
 
                             <div class="col-md-6">
-                                <label for="ig" class="form-label"><h6>Instagram :</h6></label>
+                                <label for="ig" class="form-label">
+                                    <h6>Instagram :</h6>
+                                </label>
                                 <input type="text" name="ig" id="ig" class="form-control"
                                     value="<?= htmlspecialchars($row['ig']); ?>" required>
                             </div>
 
                             <div class="col-md-6">
-                                <label for="fb" class="form-label"><h6>Facebook :</h6></label>
+                                <label for="fb" class="form-label">
+                                    <h6>Facebook :</h6>
+                                </label>
                                 <input type="text" name="fb" id="fb" class="form-control"
                                     value="<?= htmlspecialchars($row['fb']); ?>" required>
                             </div>
 
                             <div class="col-12">
-                                <label for="alamat" class="form-label"><h6>Alamat :</h6></label>
+                                <label for="alamat" class="form-label">
+                                    <h6>Alamat :</h6>
+                                </label>
                                 <textarea name="alamat" id="alamat" class="form-control" rows="3"
                                     required><?= htmlspecialchars($row['alamat']); ?></textarea>
                             </div>
@@ -74,13 +84,13 @@ $result = $conn->query($sql);
                             <div class="col-12">
                                 <input type="submit" value="Update Kontak" class="btn btn-primary">
                             </div>
-                        <?php endwhile; ?>
-                    </form>
+                            <?php endwhile; ?>
+                        </form>
 
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 </article>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="../../assets/js/scriptDashboard.js"></script>

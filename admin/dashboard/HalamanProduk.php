@@ -43,14 +43,15 @@ $totalPages = getTotalProdukPages($recordsPerPage, $searchQuery);
             <div class="content" style="padding-top: 100px">
                 <div class="content-page" id="halaman-produk">
                     <div class="container mt-5">
-                        <h2>Daftar Produk</h2>
+                        <h5>Daftar Produk</h5>
 
                         <!-- Form Pencarian Produk -->
                         <div class="mb-4">
                             <form action="" method="get" class="d-flex align-items-center">
                                 <div class="input-group me-2">
                                     <span class="input-group-text"><i class="fas fa-search"></i></span>
-                                    <input type="text" name="search" class="form-control" placeholder="Cari produk..." value="<?= $searchQuery; ?>">
+                                    <input type="text" name="search" class="form-control" placeholder="Cari produk..."
+                                        value="<?= $searchQuery; ?>">
                                 </div>
                                 <button type="submit" class="btn btn-primary">Cari</button>
                             </form>
@@ -58,35 +59,36 @@ $totalPages = getTotalProdukPages($recordsPerPage, $searchQuery);
                         <!-- Menampilkan data produk -->
                         <div class="product-container">
                             <?php if (count($produk) > 0) : ?>
-                                <?php foreach ($produk as $row) : ?>
-                                    <div class="product-card">
-                                        <img src="../../assets/images/produk/<?= htmlspecialchars(basename($row['foto'])); ?>"
-                                            alt="<?= htmlspecialchars($row['jenis_sapi']); ?>" class="product-image">
-                                        <h4><?= htmlspecialchars($row['jenis_sapi']); ?></h4>
-                                        <div class="product-icons">
-                                            <a href="../produk/update_produk.php?id=<?= htmlspecialchars($row['id']); ?>"
-                                                class="icon-link"><i class="fa fa-edit"></i></a>
-                                            <a href="../produk/delete_produk.php?id=<?= htmlspecialchars($row['id']); ?>"
-                                                class="icon-link"
-                                                onclick="return confirm('Are you sure you want to delete this item?');"><i
-                                                    class="fa fa-trash"></i></a>
-                                        </div>
-                                    </div>
-                                <?php endforeach; ?>
-                                <div class="product-card add-product">
-                                    <a href="../produk/add_produk.php" class="add-product-link">
-                                        <i class="fa fa-plus"></i>
-                                        <p>Tambah Produk</p>
-                                    </a>
+                            <?php foreach ($produk as $row) : ?>
+                            <div class="product-card">
+                                <img src="../../assets/images/produk/<?= htmlspecialchars(basename($row['foto'])); ?>"
+                                    alt="<?= htmlspecialchars($row['jenis_sapi']); ?>" class="product-image">
+                                <p class="nama-sponsordanproduk"><?= htmlspecialchars($row['jenis_sapi']); ?></p>
+                                <div class="product-icons">
+                                    <a href="../produk/update_produk.php?id=<?= htmlspecialchars($row['id']); ?>"
+                                        class="icon-link"><i class="fa fa-edit"></i></a>
+                                    <a href="../produk/delete_produk.php?id=<?= htmlspecialchars($row['id']); ?>"
+                                        class="icon-link"
+                                        onclick="return confirm('Are you sure you want to delete this item?');"><i
+                                            class="fa fa-trash"></i></a>
                                 </div>
+                            </div>
+                            <?php endforeach; ?>
+                            <div class="product-card add-product">
+                                <a href="../produk/add_produk.php" class="add-product-link">
+                                    <i class="fa fa-plus"></i>
+                                    <p>Tambah Produk</p>
+                                </a>
+                            </div>
                             <?php else : ?>
-                                <div class="no-data text-center mt-5">
-                                    <h6>Tidak ada data produk ditemukan</h6>
-                                </div>
+                            <div class="no-data text-center mt-5">
+                                <h6>Tidak ada data produk ditemukan</h6>
+                            </div>
                             <?php endif; ?>
                         </div>
                         <!-- Menampilkan pagination -->
-                        <div class="pagination mt-4 mb-4">
+                        <div class="pagination mt-4 mb-4 p-10">
+                            <p class="m-10">Page</p>
                             <?= generatePaginationLinks($page, $totalPages); ?>
                         </div>
                     </div>

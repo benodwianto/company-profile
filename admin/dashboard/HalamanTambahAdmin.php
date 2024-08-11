@@ -45,21 +45,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="container mt-5">
         <div class="content">
             <div class="content-page content-input-admin" id="halaman-tambah-admin">
-                <h2>Form Input Admin Baru</h2>
+                <h5>Form Input Admin Baru</h5>
                 <?php if (isset($resultMessage)) : ?>
-                    <p><?= htmlspecialchars($resultMessage); ?></p>
+                <p><?= htmlspecialchars($resultMessage); ?></p>
                 <?php endif; ?>
                 <form action="" method="post">
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
                         <div class="col-md-6">
-                            <input type="text" class="form-control" id="username" name="username" placeholder="Masukkan username" required>
+                            <input type="text" class="form-control" id="username" name="username"
+                                placeholder="Masukkan username" required>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
                         <div class="col-md-6">
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan password" required>
+                            <input type="password" class="form-control" id="password" name="password"
+                                placeholder="Masukkan password" required>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary" value="Add Admin">Tambah</button>
@@ -67,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 <!-- Tabel -->
                 <div class="mt-5">
-                    <h2>Daftar Pengguna</h2>
+                    <h5>Daftar Pengguna</h5>
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -78,12 +80,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </thead>
                         <tbody>
                             <?php foreach ($admins as $index => $admin) : ?>
-                                <tr>
-                                    <td><?= $index + 1; ?></td>
-                                    <td><?= htmlspecialchars($admin['username']); ?></td>
-                                    <td><a href="../user/delete_admin.php?id=<?= $admin['id']; ?>"><i class="bi bi-trash"></i></a>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td><?= $index + 1; ?></td>
+                                <td><?= htmlspecialchars($admin['username']); ?></td>
+                                <td><a href="../user/delete_admin.php?id=<?= $admin['id']; ?>"><i
+                                            class="bi bi-trash"></i></a>
+                                </td>
+                            </tr>
                             <?php endforeach; ?>
                         </tbody>
                     </table>

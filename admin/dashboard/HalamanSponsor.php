@@ -42,13 +42,14 @@ $totalPages = getTotalSponsorPages($recordsPerPage, $searchQuery);
             <div class="content" style="padding-top: 100px">
                 <div class="content-page" id="halaman-produk">
                     <div class="container mt-5">
-                        <h2>Daftar Sponsor</h2>
+                        <h5>Daftar Sponsor</h5>
                         <!-- Form Pencarian Produk -->
                         <div class="mb-4">
                             <form action="" method="get" class="d-flex align-items-center">
                                 <div class="input-group me-2">
                                     <span class="input-group-text"><i class="fas fa-search"></i></span>
-                                    <input type="text" name="search" class="form-control" placeholder="Cari sponsor..." value="<?= $searchQuery; ?>">
+                                    <input type="text" name="search" class="form-control" placeholder="Cari sponsor..."
+                                        value="<?= $searchQuery; ?>">
                                 </div>
                                 <button type="submit" class="btn btn-primary">Cari</button>
                             </form>
@@ -56,34 +57,36 @@ $totalPages = getTotalSponsorPages($recordsPerPage, $searchQuery);
                         <!-- Menampilkan data produk -->
                         <div class="product-container">
                             <?php if (count($sponsors) > 0) : ?>
-                                <?php foreach ($sponsors as $row) : ?>
-                                    <div class="product-card">
-                                        <img src="../../assets/images/sponsor/<?= htmlspecialchars(basename($row['foto'])); ?> " style="width: 150px;"
-                                            alt="<?= htmlspecialchars($row['sponsor']); ?>" class="sponsor-image">
-                                        <h4><?= htmlspecialchars($row['sponsor']); ?></h4>
-                                        <div class="product-icons">
-                                            <a href="../sponsor/update_sponsor.php?id=<?= htmlspecialchars($row['id']); ?>"
-                                                class="icon-link"><i class="fa fa-edit"></i></a>
-                                            <a href="../sponsor/delete_sponsor.php?id=<?= htmlspecialchars($row['id']); ?>"
-                                                class="icon-link"
-                                                onclick="return confirm('Are you sure you want to delete this item?');"><i
-                                                    class="fa fa-trash"></i></a>
-                                        </div>
-                                    </div>
-                                <?php endforeach; ?>
-                                <div class="product-card add-product">
-                                    <a href="../sponsor/add_produk.php" class="add-product-link">
-                                        <i class="fa fa-plus"></i>
-                                        <p>Tambah Sponsor</p>
-                                    </a>
+                            <?php foreach ($sponsors as $row) : ?>
+                            <div class="product-card">
+                                <img src="../../assets/images/sponsor/<?= htmlspecialchars(basename($row['foto'])); ?> "
+                                    style="width: 150px;" alt="<?= htmlspecialchars($row['sponsor']); ?>"
+                                    class="sponsor-image">
+                                <p class="nama-sponsordanproduk"><?= htmlspecialchars($row['sponsor']); ?></p>
+                                <div class="product-icons">
+                                    <a href="../sponsor/update_sponsor.php?id=<?= htmlspecialchars($row['id']); ?>"
+                                        class="icon-link"><i class="fa fa-edit"></i></a>
+                                    <a href="../sponsor/delete_sponsor.php?id=<?= htmlspecialchars($row['id']); ?>"
+                                        class="icon-link"
+                                        onclick="return confirm('Are you sure you want to delete this item?');"><i
+                                            class="fa fa-trash"></i></a>
                                 </div>
+                            </div>
+                            <?php endforeach; ?>
+                            <div class="product-card add-product">
+                                <a href="../sponsor/add_produk.php" class="add-product-link">
+                                    <i class="fa fa-plus"></i>
+                                    <p>Tambah Sponsor</p>
+                                </a>
+                            </div>
                             <?php else : ?>
-                                <h6>Tidak ada sponsor yang ditemukan</h6>
+                            <h6>Tidak ada sponsor yang ditemukan</h6>
                             <?php endif; ?>
                         </div>
                     </div>
                     <!-- Menampilkan pagination -->
-                    <div class=" pagination mt-4 mb-4">
+                    <div class=" pagination mt-4 mb-4 d-flex">
+                        <p class="m-10">Page</p>
                         <?= generatePaginationLinks($page, $totalPages); ?>
                     </div>
                 </div>

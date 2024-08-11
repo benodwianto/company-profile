@@ -1113,7 +1113,8 @@ function generatePaginationLinks($currentPage, $totalPages)
 
     for ($i = 1; $i <= $totalPages; $i++) {
         if ($i == $currentPage) {
-            $paginationLinks .= "<strong>$i</strong> ";
+            // Tambahkan class 'active' pada link yang aktif
+            $paginationLinks .= "<a href='?page=$i' class='active'>$i</a> ";
         } else {
             $paginationLinks .= "<a href='?page=$i'>$i</a> ";
         }
@@ -1121,6 +1122,7 @@ function generatePaginationLinks($currentPage, $totalPages)
 
     return $paginationLinks;
 }
+
 
 // produk paginasi
 function getProdukWithPagination($page = 1, $recordsPerPage = 10, $searchQuery = null)
