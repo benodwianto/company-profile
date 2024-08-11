@@ -26,8 +26,8 @@ $adminData = getAdminDataBySessionId();
             <div class="content-page" id="halaman-dashboard">
                 <h5 class="ms-4 mt-2">Informasi Admin</h5>
                 <div class="card ms-4 shadow-lg">
-                    <div class="card-body">
-                        <div class="card shadow-sm col-lg-3 mx-auto">
+                    <div class="card-body d-flex ">
+                        <div class="card shadow-sm col-lg-3 ">
                             <!-- Menggunakan mx-auto untuk memposisikan kolom di tengah -->
                             <h5 class="card-title text-center mt-4">Profile</h5>
                             <div class="admin-info text-center">
@@ -38,16 +38,17 @@ $adminData = getAdminDataBySessionId();
                             </div>
                         </div>
                         <?php if ($_SESSION['status'] === 'Admin') : ?>
-                        <h6 class="mt-4 ms-1 font-bold opacity-50">Daftar Admin</h6>
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Username</th>
-                                    <th>Terakhir Login</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
+                        <div class="tebel ms-4 col-6">
+                            <h6 class="mt-4 ms-1 font-bold opacity-50">Daftar Admin</h6>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Username</th>
+                                        <th>Terakhir Login</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
                                     $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
                                     $recordsPerPage = 10;
 
@@ -58,15 +59,15 @@ $adminData = getAdminDataBySessionId();
                                     $totalPages = getTotalPages($recordsPerPage, $startDate, $endDate);
 
                                     foreach ($data_admin as $admin) : ?>
-                                <tr>
-                                    <td><?= htmlspecialchars($admin['username']) ?></td>
-                                    <td><i class=""></i> <?= timeAgo($admin['lastLoginTime']) ?></td>
-                                </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                        <?php endif; ?>
-
+                                    <tr>
+                                        <td><?= htmlspecialchars($admin['username']) ?></td>
+                                        <td><i class=""></i> <?= timeAgo($admin['lastLoginTime']) ?></td>
+                                    </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                            <?php endif; ?>
+                        </div>
                     </div>
                 </div>
                 <!-- Card Baru untuk Pesan Pengunjung -->
