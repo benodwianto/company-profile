@@ -19,7 +19,10 @@
     <aside>
         <ul>
             <li class="menu" id="Dashboard-btn"><a href="index.php" class="menu-link"
-                    data-target="#halaman-dashboard"><i class="bi bi-house"></i><span>Dashboard</span></a>
+                    data-target="#halaman-dashboard"><i class="bi bi-speedometer"></i><span>Dashboard</span></a>
+            </li>
+            <li class="menu" id="Dashboard-btn"><a href="HalamanHome.php" class="menu-link"
+                    data-target="#halaman-dashboard"><i class="bi bi-house-door"></i><span>Home</span></a>
             </li>
             <li class="menu" id="Tentang-btn"><a href="HalamanTentang.php" class="menu-link"
                     data-target="#halaman-tentang"><i class="bi bi-info-circle"></i><span>Tentang</span></a></li>

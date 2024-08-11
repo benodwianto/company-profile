@@ -207,16 +207,33 @@ function updateHome($id, $deskripsi_dashboard)
 {
     global $conn;
 
+    // Pastikan id dan deskripsi_dashboard tidak kosong
+    if (empty($id) || empty($deskripsi_dashboard)) {
+        $_SESSION['message'] = 'ID atau Deskripsi tidak boleh kosong';
+        $_SESSION['message_type'] = 'error';
+        return false; // Indicate failure
+    }
+
+    // Persiapkan SQL untuk pembaruan data
     $sql = "UPDATE home SET deskripsi_dashboard=? WHERE id=?";
     $stmt = $conn->prepare($sql);
+
+    if ($stmt === false) {
+        $_SESSION['message'] = 'Gagal menyiapkan statement: ' . $conn->error;
+        $_SESSION['message_type'] = 'error';
+        return false; // Indicate failure
+    }
+
+    // Bind parameter
     $stmt->bind_param('si', $deskripsi_dashboard, $id);
 
+    // Eksekusi statement
     if ($stmt->execute()) {
         $stmt->close();
         $conn->close();
 
         // Set session message for successful update
-        $_SESSION['message'] = 'Deskripsi dashboard berhasil diperbarui';
+        $_SESSION['message'] = 'Deskripsi Home berhasil diperbarui';
         $_SESSION['message_type'] = 'success';
 
         return true; // Indicate success
@@ -225,12 +242,13 @@ function updateHome($id, $deskripsi_dashboard)
         $conn->close();
 
         // Set session message for error during update
-        $_SESSION['message'] = 'Terjadi kesalahan saat memperbarui deskripsi dashboard: ' . $conn->error;
+        $_SESSION['message'] = 'Terjadi kesalahan saat memperbarui deskripsi dashboard: ' . $stmt->error;
         $_SESSION['message_type'] = 'error';
 
         return false; // Indicate failure
     }
 }
+
 
 function insertAdmin($username, $password, $petugas)
 {
