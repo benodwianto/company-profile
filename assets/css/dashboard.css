@@ -228,21 +228,17 @@ article .content {
     object-fit: cover;
 }
 
+
 .admin-info {
     margin-top: 10px;
 }
 
-.status-online {
-    color: green;
-}
 
-.status-offline {
-    color: red;
-}
 
 .visitor-message {
     margin-top: 10px;
 }
+
 /* CSS Kustom untuk Card Pesan Pengunjung */
 .visitor-message {
     position: relative;

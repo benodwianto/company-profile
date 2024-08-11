@@ -27,14 +27,17 @@ $adminData = getAdminDataBySessionId();
                 <h5 class="ms-4 mt-2">Informasi Admin</h5>
                 <div class="card ms-4 shadow-lg">
                     <div class="card-body d-flex ">
-                        <div class="card shadow-sm col-lg-3 ">
+                        <div class="card shadow-sm col-lg-3" style="background-color: #951C11;">
                             <!-- Menggunakan mx-auto untuk memposisikan kolom di tengah -->
-                            <h5 class="card-title text-center mt-4">Profile</h5>
-                            <div class="admin-info text-center">
+                            <h5 class="card-title text-center mt-4 text-light">Profile</h5>
+                            <div class="admin-info text-center p-2 text-light">
                                 <img src="../../assets/images/profile.png" alt="Admin Photo" class="profile-img"
                                     width="70" height="100">
-                                <p>Username : <?= htmlspecialchars($adminData['username']) ?></p>
-                                <p>Status : <?= htmlspecialchars($adminData['status']) ?></p>
+                                <p>Username <span>:</span>
+                                    <strong> <?= htmlspecialchars($adminData['username']) ?>
+                                </p></strong>
+                                <p>Status<span>:</span> <strong><?= htmlspecialchars($adminData['status']) ?></strong>
+                                </p>
                             </div>
                         </div>
                         <?php if ($_SESSION['status'] === 'Admin') : ?>
