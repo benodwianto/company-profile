@@ -483,6 +483,7 @@ input[type="file"] {
 .btn-file:hover {
     background-color: var(--primary-color);
     border-color: var(--primary-color);
+    color: white!important;
 }
 
 .file-name {
