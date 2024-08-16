@@ -47,7 +47,7 @@ $totalPages = getTotalProdukPages($recordsPerPage, $searchQuery);
 
                         <!-- Form Pencarian Produk -->
                         <div class="mb-4">
-                            <form action="" method="get" class="d-flex align-items-center">
+                            <form action="" method="get" class="d-flex align-items-center w-50">
                                 <div class="input-group me-2">
                                     <span class="input-group-text"><i class="fas fa-search"></i></span>
                                     <input type="text" name="search" class="form-control" placeholder="Cari produk..."
