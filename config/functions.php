@@ -985,7 +985,7 @@ function insertPesan($pesan_pengunjung, $email)
         $_SESSION['message_type'] = 'error';
     }
     $stmt->close();
-    header('Location: ../index.php');
+    header('Location: ../index.php#footer');
     exit();
 }
 
@@ -1061,17 +1061,18 @@ function getDataWithPagination($page = 1, $recordsPerPage = 10, $startDate = nul
         $sql .= " AND tanggal <= ?";
     }
 
-    $sql .= " LIMIT ? OFFSET ?";
+    // Add ordering, limit and offset
+    $sql .= " ORDER BY tanggal DESC LIMIT ? OFFSET ?";
 
     $stmt = $conn->prepare($sql);
 
     // Bind parameters based on the presence of date filters
     if ($startDate && $endDate) {
-        $stmt->bind_param('ssii', $startDate, $endDate, $recordsPerPage, $offset);
+        $stmt->bind_param('ssi', $startDate, $endDate, $recordsPerPage, $offset);
     } elseif ($startDate) {
-        $stmt->bind_param('sii', $startDate, $recordsPerPage, $offset);
+        $stmt->bind_param('si', $startDate, $recordsPerPage, $offset);
     } elseif ($endDate) {
-        $stmt->bind_param('sii', $endDate, $recordsPerPage, $offset);
+        $stmt->bind_param('si', $endDate, $recordsPerPage, $offset);
     } else {
         $stmt->bind_param('ii', $recordsPerPage, $offset);
     }
@@ -1088,6 +1089,7 @@ function getDataWithPagination($page = 1, $recordsPerPage = 10, $startDate = nul
 
     return $data;
 }
+
 
 function getTotalPages($recordsPerPage = 10, $startDate = null, $endDate = null)
 {
@@ -1120,10 +1122,12 @@ function getTotalPages($recordsPerPage = 10, $startDate = null, $endDate = null)
 
     $stmt->close();
 
+    // Calculate total pages
     $totalPages = ceil($totalRecords / $recordsPerPage);
 
     return $totalPages;
 }
+
 
 function generatePaginationLinks($currentPage, $totalPages)
 {

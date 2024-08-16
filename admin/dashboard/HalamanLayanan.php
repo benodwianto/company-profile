@@ -1,6 +1,7 @@
 <?php
 session_start();
 include '../../config/functions.php';
+
 if (!isset($_SESSION['admin_id'])) {
     // Jika belum login, arahkan ke halaman login
     header("Location: ../login.php");
@@ -15,11 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $mengapa_ghaffar = isset($_POST['mengapa_ghaffar']) ? $_POST['mengapa_ghaffar'] : null;
 
         // Periksa apakah ada file yang di-upload
-        if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
-            $fotoFileInputName = 'foto';
-        } else {
-            $fotoFileInputName = null; // Tidak ada file baru
-        }
+        $fotoFileInputName = isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK ? 'foto' : null;
 
         // Validasi nilai yang tidak boleh null
         if ($id && $mengapa_ghaffar && $kelebihan) {
@@ -35,11 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $jlh_investasi = isset($_POST['jlh_investasi']) ? $_POST['jlh_investasi'] : null;
 
         // Periksa apakah ada file yang di-upload
-        if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
-            $fotoFileInputName = 'foto';
-        } else {
-            $fotoFileInputName = null; // Tidak ada file baru
-        }
+        $fotoFileInputName = isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK ? 'foto' : null;
 
         // Validasi nilai yang tidak boleh null
         if ($id && $jangka_investasi && $jlh_investasi) {
@@ -84,7 +77,7 @@ $resultInvestasi = $conn->query($sqlInvestasi);
                             <label for="kelebihan">
                                 <h6>Kelebihan</h6>
                             </label>
-                            <textarea class="form-control" name="kelebihan" id="deskripsiSingkat" rows="10"
+                            <textarea class="form-control" name="kelebihan" id="kelebihan" rows="10"
                                 placeholder="Masukkan kelebihan di sini..."><?= htmlspecialchars($rowlayanan['kelebihan']); ?></textarea>
                         </div>
                         <div class="mb-3">
@@ -92,27 +85,23 @@ $resultInvestasi = $conn->query($sqlInvestasi);
                                 <h6>Unggah gambar</h6>
                             </label>
                             <div class="input-group">
-                                <?php if ($rowlayanan['foto']) : ?>
-                                <img src="../../assets/images/layanan/<?= htmlspecialchars(basename($rowlayanan['foto'])); ?>"
-                                    alt="Gambar layanan" width="200" height="200">
-                                <?php else : ?>
                                 <img id="previewlayanan"
-                                    src="https://community.softr.io/uploads/db9110/original/2X/7/74e6e7e382d0ff5d7773ca9a87e6f6f8817a68a6.jpeg"
-                                    alt="Preview" width="50px" height="50px">
-                                <?php endif; ?>
+                                    src="<?= !empty($rowlayanan['foto']) ? '../../assets/images/layanan/' . htmlspecialchars(basename($rowlayanan['foto'])) : 'https://community.softr.io/uploads/db9110/original/2X/7/74e6e7e382d0ff5d7773ca9a87e6f6f8817a68a6.jpeg'; ?>"
+                                    alt="Preview" width="200" height="200">
                                 <div class="inputan d-flex flex-row">
                                     <input type="file" name="foto" class="form-control d-none" id="inputGambarlayanan">
                                     <label class="input-group-text rounded"
                                         style="transition: background-color 0.3s, color 0.3s; background-color: #f8f9fa; color: #212529;"
                                         onmouseover="this.style.backgroundColor='#951C11'; this.style.color='#fff';"
                                         onmouseout="this.style.backgroundColor='#f8f9fa'; this.style.color='#212529';"
-                                        for="inputGambarLayanan">Choose file</label>
+                                        for="inputGambarlayanan">Choose file</label>
                                     <small class="form-text text-muted m-3" id="fileInfolayanan">No file chosen</small>
                                 </div>
                             </div>
-
                             <small class="form-text text-muted">Please upload image size less than 1000KB</small>
                         </div>
+
+
                         <?php endwhile; ?>
                         <?php else : ?>
                         <p>Tidak ada data di database</p>
@@ -124,8 +113,8 @@ $resultInvestasi = $conn->query($sqlInvestasi);
                 </div>
 
                 <!-- Form Investasi -->
-                <h3 class="card-title mt-5 ms-4 mb-0">Halaman Investasi</h3>
-                <div class="card  shadow-lg mt-3 mb-5">
+                <h5 class="card-title mt-3">Halaman Investasi</h5>
+                <div class="card shadow-lg mb-5">
                     <form action="" method="post" enctype="multipart/form-data" class="p-4">
                         <?php if ($resultInvestasi->num_rows > 0) : ?>
                         <?php while ($rowInvestasi = $resultInvestasi->fetch_assoc()) : ?>
@@ -152,20 +141,15 @@ $resultInvestasi = $conn->query($sqlInvestasi);
                                 <h6>Unggah Gambar</h6>
                             </label>
                             <div class="input-group">
-                                <?php if ($rowInvestasi['foto']) : ?>
-                                <img src="../../assets/images/investasi/<?= htmlspecialchars(basename($rowInvestasi['foto'])); ?>"
-                                    alt="Foto investasi" width="200" height="200">
-                                <?php else : ?>
                                 <img id="previewInvestasi"
-                                    src="https://community.softr.io/uploads/db9110/original/2X/7/74e6e7e382d0ff5d7773ca9a87e6f6f8817a68a6.jpeg"
-                                    alt="Preview" width="50px" height="50px">
-                                <?php endif; ?>
+                                    src="<?= !empty($rowInvestasi['foto']) ? '../../assets/images/investasi/' . htmlspecialchars(basename($rowInvestasi['foto'])) : 'https://community.softr.io/uploads/db9110/original/2X/7/74e6e7e382d0ff5d7773ca9a87e6f6f8817a68a6.jpeg'; ?>"
+                                    alt="Preview" width="200" height="200">
                                 <div class="inputan d-flex flex-row">
                                     <input type="file" name="foto" class="form-control d-none"
                                         id="inputGambarInvestasi">
                                     <label class="input-group-text rounded"
                                         style="transition: background-color 0.3s, color 0.3s; background-color: #f8f9fa; color: #212529;"
-                                        onmouseover="this.style.backgroundColor='#007bff'; this.style.color='#fff';"
+                                        onmouseover="this.style.backgroundColor='#951C11'; this.style.color='#fff';"
                                         onmouseout="this.style.backgroundColor='#f8f9fa'; this.style.color='#212529';"
                                         for="inputGambarInvestasi">Choose file</label>
                                     <small class="form-text text-muted m-3" id="fileInfoInvestasi">No file
@@ -174,6 +158,7 @@ $resultInvestasi = $conn->query($sqlInvestasi);
                             </div>
                             <small class="form-text text-muted">Please upload image size less than 1000KB</small>
                         </div>
+
                         <?php endwhile; ?>
                         <?php else : ?>
                         <p>No data found in the database.</p>
@@ -195,30 +180,61 @@ $resultInvestasi = $conn->query($sqlInvestasi);
 <script src="../../bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('inputGambar').addEventListener('change', function(event) {
+    const inputGambarlayanan = document.getElementById('inputGambarlayanan');
+    const previewlayanan = document.getElementById('previewlayanan');
+    const fileInfolayanan = document.getElementById('fileInfolayanan');
+
+    inputGambarlayanan.addEventListener('change', function(event) {
         const file = event.target.files[0];
-        const preview = document.getElementById('previewlayanan');
-        const fileInfo = document.getElementById('fileInfolayanan');
 
         if (file) {
             const reader = new FileReader();
 
             reader.onload = function(e) {
-                preview.src = e.target.result;
-                preview.style.width = '200px'; // Menyesuaikan ukuran pratinjau
-                preview.style.height = '200px'; // Menyesuaikan ukuran pratinjau
+                previewlayanan.src = e.target.result;
+                previewlayanan.style.width = '200px'; // Menyesuaikan ukuran pratinjau
+                previewlayanan.style.height = '200px'; // Menyesuaikan ukuran pratinjau
+                fileInfolayanan.textContent = file.name;
             }
 
             reader.readAsDataURL(file);
-            fileInfo.textContent = file.name;
         } else {
-            preview.src =
-                "https://community.softr.io/uploads/db9110/original/2X/7/74e6e7e382d0ff5d7773ca9a87e6f6f8817a68a6.jpeg";
-            preview.style.width = '50px'; // Ukuran default jika tidak ada file
-            preview.style.height = '50px'; // Ukuran default jika tidak ada file
-            fileInfo.textContent = "No file chosen";
+            previewlayanan.src = previewlayanan.dataset.defaultSrc;
+            previewlayanan.style.width = '200px'; // Menyesuaikan ukuran pratinjau
+            previewlayanan.style.height = '200px'; // Menyesuaikan ukuran pratinjau
+            fileInfolayanan.textContent = "No file chosen";
         }
     });
+
+    const inputGambarInvestasi = document.getElementById('inputGambarInvestasi');
+    const previewInvestasi = document.getElementById('previewInvestasi');
+    const fileInfoInvestasi = document.getElementById('fileInfoInvestasi');
+
+    inputGambarInvestasi.addEventListener('change', function(event) {
+        const file = event.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                previewInvestasi.src = e.target.result;
+                previewInvestasi.style.width = '200px'; // Menyesuaikan ukuran pratinjau
+                previewInvestasi.style.height = '200px'; // Menyesuaikan ukuran pratinjau
+                fileInfoInvestasi.textContent = file.name;
+            }
+
+            reader.readAsDataURL(file);
+        } else {
+            previewInvestasi.src = previewInvestasi.dataset.defaultSrc;
+            previewInvestasi.style.width = '50px'; // Menyesuaikan ukuran pratinjau
+            previewInvestasi.style.height = '50px'; // Menyesuaikan ukuran pratinjau
+            fileInfoInvestasi.textContent = "No file chosen";
+        }
+    });
+
+    // Set default source for preview images
+    previewlayanan.dataset.defaultSrc = previewlayanan.src;
+    previewInvestasi.dataset.defaultSrc = previewInvestasi.src;
 });
 </script>
 

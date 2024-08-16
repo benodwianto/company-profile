@@ -178,19 +178,30 @@ function validateForm() {
   // Basic XSS protection by sanitizing input
   var regex = /<\/?[^>]+(>|$)/g;
   if (regex.test(pesan)) {
-    alert("Pesan mengandung karakter tidak valid.");
-    return false;
+      Swal.fire({
+        icon: "error",
+        title: "Pesan tidak valid",
+        text: "Pesan mengandung karakter tidak valid.",
+        confirmButtonText: "OK",
+      });
+      return false;
   }
 
   // Basic email format validation
   var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailPattern.test(email)) {
-    alert("Format email tidak valid.");
-    return false;
+      Swal.fire({
+        icon: "error",
+        title: "Email tidak valid",
+        text: "Format email tidak valid.",
+        confirmButtonText: "OK",
+      });
+      return false;
   }
 
   return true;
 }
+
 
 // dropdown
 function toggleDropdown(event) {

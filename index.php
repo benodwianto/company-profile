@@ -27,10 +27,6 @@ include 'config/functions.php'; ?>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
 
 
-
-    <style>
-
-    </style>
 </head>
 
 <body>
@@ -399,6 +395,13 @@ include 'config/functions.php'; ?>
     </footer>
 
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="assets/js/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script src="bootstrap-5.3.3-dist/js/jquery.min.js"></script>
+    <script src="bootstrap-5.3.3-dist/js/popper.min.js"></script>
+    <script src="bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
     <script>
     document.getElementById('whatsappIcon').addEventListener('click', function() {
         var popup = document.getElementById('whatsappPopup');
@@ -414,6 +417,7 @@ include 'config/functions.php'; ?>
         var url = 'https://wa.me/6283167961562?text=' + encodeURIComponent(message);
         window.open(url, '_blank');
     }
+
 
     function toggleText(id) {
         const textContainer = document.getElementById('textContainer' + id);
@@ -456,15 +460,6 @@ include 'config/functions.php'; ?>
 
 
 
-    <script src="assets/js/script.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js">
-    </script>
-    <script src="bootstrap-5.3.3-dist/js/jquery.min.js"></script>
-    <!-- Popper.js -->
-    <script src="bootstrap-5.3.3-dist/js/popper.min.js"></script>
-    <!-- Bootstrap JS -->
-    <script src="bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
 
 </body>
 

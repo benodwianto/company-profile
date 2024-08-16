@@ -74,7 +74,7 @@ $totalPages = getTotalSponsorPages($recordsPerPage, $searchQuery);
                             </div>
                             <?php endforeach; ?>
                             <div class="product-card add-product">
-                                <a href="../sponsor/add_produk.php" class="add-product-link">
+                                <a href="../sponsor/add_sponsor.php" class="add-product-link">
                                     <i class="fa fa-plus"></i>
                                     <p>Tambah Sponsor</p>
                                 </a>
