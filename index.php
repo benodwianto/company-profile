@@ -76,7 +76,7 @@ include 'config/functions.php'; ?>
                 <?php
                 $dataHome = getAllData('home');
                 foreach ($dataHome as $home) : ?>
-                <?= $home['deskripsi_dashboard']; ?>
+                    <?= $home['deskripsi_dashboard']; ?>
                 <?php endforeach; ?>
             </p>
             <button class="btn-jumbotron"><a href="#produk-kami">Lihat Produk</a></button>
@@ -90,16 +90,16 @@ include 'config/functions.php'; ?>
                     <?php
                     $dataTentangKami = getAllData('tentang');
                     foreach ($dataTentangKami as $tentang_kami) : ?>
-                    <img src="assets/images/tentang/<?= htmlspecialchars(basename($tentang_kami['foto'])); ?>"
-                        class="gambar-tentangkami" alt="gambar tentang PT Ghaffar Farm Bersaudara" width="300px">
-                    <div class="background"></div>
+                        <img src="assets/images/tentang/<?= htmlspecialchars(basename($tentang_kami['foto'])); ?>"
+                            class="gambar-tentangkami" alt="gambar tentang PT Ghaffar Farm Bersaudara" width="300px">
+                        <div class="background"></div>
                 </div>
                 <div class="right-tentangkami">
                     <h2 name="judul-tentang-kami"> Tentang Kami<span class="line tentangkami"></span></h2>
 
                     <p name="deskripsi-tentang-kami" style="text-align: left; width: 70%;">
                         <?= nl2br(htmlspecialchars($tentang_kami['deskripsi_tentang'])); ?>
-                        <?php endforeach;
+                    <?php endforeach;
                     ?>
 
                     </p>
@@ -119,7 +119,7 @@ include 'config/functions.php'; ?>
 
                         <h3 style="color: #FEF5EA;">MISI</h3>
                         <p name="deskripsi-misi">
-                            <?php echo $visi_misi['misi'];
+                        <?php echo $visi_misi['misi'];
                             endforeach; ?>
                         </p>
                     </div>
@@ -139,29 +139,29 @@ include 'config/functions.php'; ?>
                 <p style="opacity: 0.5;">Jenis Sapi yang Diternakkan</p>
                 <div class="content-section-produk-kami-card">
                     <?php
-            $produks = getAllData('produk');
-            foreach ($produks as $produk) : ?>
-                    <?php $uniqueId = uniqid(); ?>
-                    <div class="card" style="width: 20rem; height: auto; position: relative;">
-                        <h1 style="text-align: center; font-size: x-large;">
-                            <?= htmlspecialchars($produk['jenis_sapi']); ?>
-                        </h1>
-                        <img src="assets/images/produk/<?= htmlspecialchars(basename($produk['foto'])); ?>"
-                            class="card-img-top" alt="<?= htmlspecialchars($produk['jenis_sapi']); ?>"
-                            style="height: 200px; object-fit: cover;">
-                        <div class="card-body">
-                            <div id="textContainer<?= $uniqueId ?>" style="max-height: 0; overflow: hidden;">
-                                <p class="card-text"><?= htmlspecialchars($produk['deskripsi_produk']); ?></p>
-                            </div>
-                            <div class="toggle-container">
-                                <span class="toggle-text" id="toggleText<?= $uniqueId ?>">Lihat Teks</span>
-                                <button class="btn toggle-btn" type="button" onclick="toggleText('<?= $uniqueId ?>')"
-                                    style="background-color: #951C11; color: white;">
-                                    <i class="fas fa-eye"></i>
-                                </button>
+                    $produks = getAllData('produk');
+                    foreach ($produks as $produk) : ?>
+                        <?php $uniqueId = uniqid(); ?>
+                        <div class="card" style="width: 20rem; height: auto; position: relative;">
+                            <h1 style="text-align: center; font-size: x-large;">
+                                <?= htmlspecialchars($produk['jenis_sapi']); ?>
+                            </h1>
+                            <img src="assets/images/produk/<?= htmlspecialchars(basename($produk['foto'])); ?>"
+                                class="card-img-top" alt="<?= htmlspecialchars($produk['jenis_sapi']); ?>"
+                                style="height: 200px; object-fit: cover;">
+                            <div class="card-body">
+                                <div id="textContainer<?= $uniqueId ?>" style="max-height: 0; overflow: hidden;">
+                                    <p class="card-text"><?= htmlspecialchars($produk['deskripsi_produk']); ?></p>
+                                </div>
+                                <div class="toggle-container">
+                                    <span class="toggle-text" id="toggleText<?= $uniqueId ?>">Lihat Teks</span>
+                                    <button class="btn toggle-btn" type="button" onclick="toggleText('<?= $uniqueId ?>')"
+                                        style="background-color: #951C11; color: white;">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -182,24 +182,24 @@ include 'config/functions.php'; ?>
                     <?php
                     $layanans = getAllData('layanan');
                     foreach ($layanans as $layanan) : ?>
-                    <div class="left-layanan">
-                        <img src="assets/images/layanan/<?= htmlspecialchars(basename($layanan['foto'])); ?>"
-                            class="gambar-layanan" alt="gambar layanan PT Ghaffar Farm Bersaudara">
-                    </div>
-                    <div class="right-layanan">
-                        <h2>Mengapa Ghaffar Farm Bersaudara?</h2>
-                        <p>
-                            <?= nl2br(htmlspecialchars($layanan['mengapa_ghaffar'])); ?>
-                        </p>
-                        <p>
+                        <div class="left-layanan">
+                            <img src="assets/images/layanan/<?= htmlspecialchars(basename($layanan['foto'])); ?>"
+                                class="gambar-layanan" alt="gambar layanan PT Ghaffar Farm Bersaudara">
+                        </div>
+                        <div class="right-layanan">
+                            <h2>Mengapa Ghaffar Farm Bersaudara?</h2>
+                            <p>
+                                <?= nl2br(htmlspecialchars($layanan['mengapa_ghaffar'])); ?>
+                            </p>
+                            <p>
 
-                        </p>
-                        <h2>Kelebihan Ghaffar Farm Bersaudara</h2>
-                        <p>
-                            <?= nl2br(htmlspecialchars($layanan['kelebihan'])); ?>
-                        </p>
+                            </p>
+                            <h2>Kelebihan Ghaffar Farm Bersaudara</h2>
+                            <p>
+                                <?= nl2br(htmlspecialchars($layanan['kelebihan'])); ?>
+                            </p>
                         <?php endforeach; ?>
-                    </div>
+                        </div>
                 </div>
             </div>
             <div class="content-section-jangka-investasi">
@@ -209,21 +209,21 @@ include 'config/functions.php'; ?>
                         <h3 style="color: #FEF5EA;">Jangka Investasi:</h3>
                         <?php $investasian = getAllData('investasi');
                         foreach ($investasian as $investasi) : ?>
-                        <p name="deskripsi-investasi">
-                            <?= $investasi['jangka_investasi']; ?>
-                        </p>
+                            <p name="deskripsi-investasi">
+                                <?= $investasi['jangka_investasi']; ?>
+                            </p>
 
-                        <h3 style="color: #FEF5EA;">Nilai Investasi:</h3>
-                        <p name="deskripsi-nilai">
-                            <?= $investasi['jlh_investasi']; ?>
-                        </p>
+                            <h3 style="color: #FEF5EA;">Nilai Investasi:</h3>
+                            <p name="deskripsi-nilai">
+                                <?= $investasi['jlh_investasi']; ?>
+                            </p>
                     </div>
                 </div>
                 <div class="right-jangka-investasi">
                     <img src="assets/images/investasi/<?= htmlspecialchars(basename($investasi['foto'])); ?>"
                         class="gambar-jangka-investasi" alt="gambar tentang PT Ghaffar Farm Bersaudara" width="100%">
                 </div>
-                <?php endforeach; ?>
+            <?php endforeach; ?>
             </div>
             <div class="container my-5">
                 <div class="row">
@@ -273,11 +273,11 @@ include 'config/functions.php'; ?>
                         <?php
                         $dataLegalitas = getAllData('legalitas');
                         foreach ($dataLegalitas as $legalitas) : ?>
-                        <a href="assets/pdf/legalitas/<?= $legalitas['legalitas']; ?>"
-                            class="list-group-item list-group-item-action btn-download" download>
-                            <i class="fas fa-download"></i> <span style="opacity: 0.5;">Sertifikat Standar Perizinan
-                                Ambulatori</span>
-                        </a>
+                            <a href="assets/pdf/legalitas/<?= $legalitas['legalitas']; ?>"
+                                class="list-group-item list-group-item-action btn-download" download>
+                                <i class="fas fa-download"></i> <span style="opacity: 0.5;">Sertifikat Standar Perizinan
+                                    Ambulatori</span>
+                            </a>
                         <?php endforeach; ?>
                     </div>
                 </div>
@@ -307,8 +307,8 @@ include 'config/functions.php'; ?>
                                 $relativePath = str_replace("C:\\laragon\\www\\company-profile\\", "", $absolutePath);
                                 $relativePath = str_replace("\\", "/", $relativePath);
                             ?>
-                            <img src="<?= htmlspecialchars($relativePath); ?>" class="marquee-image"
-                                alt="<?= htmlspecialchars($sponsor['sponsor']); ?>">
+                                <img src="<?= htmlspecialchars($relativePath); ?>" class="marquee-image"
+                                    alt="<?= htmlspecialchars($sponsor['sponsor']); ?>">
                             <?php endforeach; ?>
 
                         </div>
@@ -334,22 +334,22 @@ include 'config/functions.php'; ?>
                         <tbody>
                             <?php $datakontak = getAllData('kontak');
                             foreach ($datakontak as $kontak) : ?>
-                            <tr>
-                                <td><i class="fas fa-phone icon"></i></td>
-                                <td><?= $kontak['no_hp'] ?></td>
-                            </tr>
-                            <tr>
-                                <td><i class="fab fa-whatsapp icon"></i></td>
-                                <td><?= $kontak['no_wa'] ?></td>
-                            </tr>
-                            <tr>
-                                <td><i class="fab fa-instagram icon"></i></td>
-                                <td><?= $kontak['ig'] ?></td>
-                            </tr>
-                            <tr>
-                                <td><i class="fab fa-facebook icon"></i></td>
-                                <td><?= $kontak['fb'] ?></td>
-                            </tr>
+                                <tr>
+                                    <td><i class="fas fa-phone icon"></i></td>
+                                    <td><?= $kontak['no_hp'] ?></td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fab fa-whatsapp icon"></i></td>
+                                    <td><?= $kontak['no_wa'] ?></td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fab fa-instagram icon"></i></td>
+                                    <td><?= $kontak['ig'] ?></td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fab fa-facebook icon"></i></td>
+                                    <td><?= $kontak['fb'] ?></td>
+                                </tr>
                         </tbody>
                     </table>
 
@@ -362,7 +362,7 @@ include 'config/functions.php'; ?>
                         referrerpolicy="no-referrer-when-downgrade"></iframe>
                     <p style="text-align: left;"><?= $kontak['alamat'] ?></p>
                 </div>
-                <?php endforeach; ?>
+            <?php endforeach; ?>
             </div>
             <div class="right-footer">
                 <h2 style="text-align: left; padding: 28px; margin: 20px auto; padding-bottom: 5px !important;">Company
@@ -384,7 +384,7 @@ include 'config/functions.php'; ?>
                             <textarea name="pesan_pengunjung" id="pesan" rows="5"
                                 placeholder="Tuliskan Pesan anda disini.." required></textarea>
                             <input type="email" name="email" id="email" placeholder="Email" required>
-                            <input type="submit" value="insert pesan">
+                            <input type="submit" value="Kirim pesan">
                         </form>
                     </div>
                 </div>
@@ -403,59 +403,59 @@ include 'config/functions.php'; ?>
     <script src="bootstrap-5.3.3-dist/js/popper.min.js"></script>
     <script src="bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
     <script>
-    document.getElementById('whatsappIcon').addEventListener('click', function() {
-        var popup = document.getElementById('whatsappPopup');
-        if (popup.style.display === 'none' || popup.style.display === '') {
-            popup.style.display = 'block';
-        } else {
-            popup.style.display = 'none';
+        document.getElementById('whatsappIcon').addEventListener('click', function() {
+            var popup = document.getElementById('whatsappPopup');
+            if (popup.style.display === 'none' || popup.style.display === '') {
+                popup.style.display = 'block';
+            } else {
+                popup.style.display = 'none';
+            }
+        });
+
+        function sendMessage() {
+            var message = document.getElementById('whatsappMessage').value;
+            var url = 'https://wa.me/6283167961562?text=' + encodeURIComponent(message);
+            window.open(url, '_blank');
         }
-    });
-
-    function sendMessage() {
-        var message = document.getElementById('whatsappMessage').value;
-        var url = 'https://wa.me/6283167961562?text=' + encodeURIComponent(message);
-        window.open(url, '_blank');
-    }
 
 
-    function toggleText(id) {
-        const textContainer = document.getElementById('textContainer' + id);
-        const toggleText = document.getElementById('toggleText' + id);
-        const icon = toggleText.nextElementSibling.querySelector('i'); // Menemukan ikon di dalam tombol
-        const maxHeight = textContainer.scrollHeight; // tinggi konten sebenarnya
-        let currentHeight = textContainer.style.maxHeight === '0px' ? 0 : maxHeight;
-        const increment = 30; // perubahan height per tick
-        const intervalTime = 30; // interval waktu per tick
+        function toggleText(id) {
+            const textContainer = document.getElementById('textContainer' + id);
+            const toggleText = document.getElementById('toggleText' + id);
+            const icon = toggleText.nextElementSibling.querySelector('i'); // Menemukan ikon di dalam tombol
+            const maxHeight = textContainer.scrollHeight; // tinggi konten sebenarnya
+            let currentHeight = textContainer.style.maxHeight === '0px' ? 0 : maxHeight;
+            const increment = 30; // perubahan height per tick
+            const intervalTime = 30; // interval waktu per tick
 
-        if (currentHeight === 0) {
-            // Expand
-            textContainer.style.display = 'block';
-            const expandInterval = setInterval(() => {
-                if (currentHeight >= maxHeight) {
-                    clearInterval(expandInterval);
-                    toggleText.innerText = 'Tutup Teks';
-                    icon.classList.replace("fa-eye", "fa-eye-slash");
-                } else {
-                    currentHeight += increment;
-                    textContainer.style.maxHeight = currentHeight + 'px';
-                }
-            }, intervalTime);
-        } else {
-            // Collapse
-            const collapseInterval = setInterval(() => {
-                if (currentHeight <= 0) {
-                    clearInterval(collapseInterval);
-                    textContainer.style.maxHeight = '0px';
-                    toggleText.innerText = 'Lihat Teks';
-                    icon.classList.replace("fa-eye-slash", "fa-eye");
-                } else {
-                    currentHeight -= increment;
-                    textContainer.style.maxHeight = currentHeight + 'px';
-                }
-            }, intervalTime);
+            if (currentHeight === 0) {
+                // Expand
+                textContainer.style.display = 'block';
+                const expandInterval = setInterval(() => {
+                    if (currentHeight >= maxHeight) {
+                        clearInterval(expandInterval);
+                        toggleText.innerText = 'Tutup Teks';
+                        icon.classList.replace("fa-eye", "fa-eye-slash");
+                    } else {
+                        currentHeight += increment;
+                        textContainer.style.maxHeight = currentHeight + 'px';
+                    }
+                }, intervalTime);
+            } else {
+                // Collapse
+                const collapseInterval = setInterval(() => {
+                    if (currentHeight <= 0) {
+                        clearInterval(collapseInterval);
+                        textContainer.style.maxHeight = '0px';
+                        toggleText.innerText = 'Lihat Teks';
+                        icon.classList.replace("fa-eye-slash", "fa-eye");
+                    } else {
+                        currentHeight -= increment;
+                        textContainer.style.maxHeight = currentHeight + 'px';
+                    }
+                }, intervalTime);
+            }
         }
-    }
     </script>
 
 

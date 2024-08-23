@@ -78,11 +78,26 @@ if ($id) {
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="foto" class="form-label">Foto:</label>
-                                    <input type="file" name="foto" id="foto" class="form-control">
-                                    <?php if (!empty($row['foto'])) : ?>
-                                        <img src="../../assets/images/produk/<?= htmlspecialchars(basename($row['foto'])); ?>" alt="foto produk" class="img-thumbnail mt-2" width="100">
-                                    <?php endif; ?>
+                                    <label for="inputGambarProduk" class="form-label">
+                                        <h6>Unggah Gambar</h6>
+                                    </label>
+                                    <div class="input-group">
+                                        <img id="previewProduk"
+                                            src="<?= !empty($row['foto']) ? '../../assets/images/Produk/' . htmlspecialchars(basename($row['foto'])) : 'https://community.softr.io/uploads/db9110/original/2X/7/74e6e7e382d0ff5d7773ca9a87e6f6f8817a68a6.jpeg'; ?>"
+                                            alt="Preview" width="400" height="400">
+                                        <div class="inputan d-flex flex-row">
+                                            <input type="file" name="foto" class="form-control d-none"
+                                                id="inputGambarProduk">
+                                            <label class="input-group-text rounded"
+                                                style="transition: background-color 0.3s, color 0.3s; background-color: #f8f9fa; color: #212529;"
+                                                onmouseover="this.style.backgroundColor='#951C11'; this.style.color='#fff';"
+                                                onmouseout="this.style.backgroundColor='#f8f9fa'; this.style.color='#212529';"
+                                                for="inputGambarProduk">Choose file</label>
+                                            <small class="form-text text-muted m-3" id="fileInfoProduk">No file
+                                                chosen</small>
+                                        </div>
+                                    </div>
+                                    <small class="form-text text-muted">Please upload image size less than 1000KB</small>
                                 </div>
 
                                 <button type="submit" class="btn btn-primary">Update Produk</button>
@@ -105,6 +120,37 @@ if ($id) {
 
     <script src="../../assets/js/scriptDashboard.js"></script>
     <script src="../../bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputGambarProduk = document.getElementById('inputGambarProduk');
+            const previewProduk = document.getElementById('previewProduk');
+            const fileInfoProduk = document.getElementById('fileInfoProduk');
+
+            inputGambarProduk.addEventListener('change', function(event) {
+                const file = event.target.files[0];
+
+                if (file) {
+                    const reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        previewProduk.src = e.target.result;
+                        previewProduk.style.width = '200px'; // Menyesuaikan ukuran pratinjau
+                        previewProduk.style.height = '200px'; // Menyesuaikan ukuran pratinjau
+                        fileInfoProduk.textContent = file.name;
+                    }
+
+                    reader.readAsDataURL(file);
+                } else {
+                    previewProduk.src = previewProduk.dataset.defaultSrc;
+                    previewProduk.style.width = '200px'; // Menyesuaikan ukuran pratinjau
+                    previewProduk.style.height = '200px'; // Menyesuaikan ukuran pratinjau
+                    fileInfoProduk.textContent = "No file chosen";
+                }
+            });
+
+            previewProduk.dataset.defaultSrc = previewProduk.src;
+        });
+    </script>
 </body>
 
 </html>

@@ -1045,7 +1045,7 @@ function timeAgo($timestamp)
     }
 }
 
-function getDataWithPagination($page = 1, $recordsPerPage = 10, $startDate = null, $endDate = null)
+function getDataWithPagination($page = 1, $recordsPerPage = 6, $startDate = null, $endDate = null)
 {
     global $conn;
 
@@ -1061,24 +1061,29 @@ function getDataWithPagination($page = 1, $recordsPerPage = 10, $startDate = nul
         $sql .= " AND tanggal <= ?";
     }
 
-    // Add ordering, limit and offset
+    // Add ordering, limit, and offset
     $sql .= " ORDER BY tanggal DESC LIMIT ? OFFSET ?";
 
     $stmt = $conn->prepare($sql);
 
     // Bind parameters based on the presence of date filters
     if ($startDate && $endDate) {
-        $stmt->bind_param('ssi', $startDate, $endDate, $recordsPerPage, $offset);
+        $stmt->bind_param('ssii', $startDate, $endDate, $recordsPerPage, $offset);
     } elseif ($startDate) {
-        $stmt->bind_param('si', $startDate, $recordsPerPage, $offset);
+        $stmt->bind_param('sii', $startDate, $recordsPerPage, $offset);
     } elseif ($endDate) {
-        $stmt->bind_param('si', $endDate, $recordsPerPage, $offset);
+        $stmt->bind_param('sii', $endDate, $recordsPerPage, $offset);
     } else {
         $stmt->bind_param('ii', $recordsPerPage, $offset);
     }
 
     $stmt->execute();
     $result = $stmt->get_result();
+
+    if ($result === false) {
+        // Handle query error (optional)
+        die('Error executing the query: ' . $stmt->error);
+    }
 
     $data = [];
     while ($row = $result->fetch_assoc()) {
@@ -1090,8 +1095,7 @@ function getDataWithPagination($page = 1, $recordsPerPage = 10, $startDate = nul
     return $data;
 }
 
-
-function getTotalPages($recordsPerPage = 10, $startDate = null, $endDate = null)
+function getTotalPages($recordsPerPage = 6, $startDate = null, $endDate = null)
 {
     global $conn;
 
@@ -1128,7 +1132,6 @@ function getTotalPages($recordsPerPage = 10, $startDate = null, $endDate = null)
     return $totalPages;
 }
 
-
 function generatePaginationLinks($currentPage, $totalPages)
 {
     $paginationLinks = '';
@@ -1144,6 +1147,7 @@ function generatePaginationLinks($currentPage, $totalPages)
 
     return $paginationLinks;
 }
+
 
 
 // produk paginasi

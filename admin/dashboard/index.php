@@ -9,24 +9,20 @@ if (!isset($_SESSION['admin_id'])) {
 }
 
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-$recordsPerPage = 10;
+$recordsPerPage = 6;
 
-$search = isset($_GET['search']) ? $_GET['search'] : null;
 $startDate = isset($_GET['start_date']) ? $_GET['start_date'] : null;
 $endDate = isset($_GET['end_date']) ? $_GET['end_date'] : null;
-$pesan_pengunjung = getDataWithPagination($page, $recordsPerPage, $startDate, $endDate);
+
+$data = getDataWithPagination($page, $recordsPerPage, $startDate, $endDate);
 $totalPages = getTotalPages($recordsPerPage, $startDate, $endDate);
 
 $admins = getAllData('admin');
-$pesan_pengunjung = getAllData('pesan');
 $info_login = getAllData('pesan');
 $data_admin = getAllAdminsWithLastLoginTime();
 $adminData = getAdminDataBySessionId();
 
-?>
-
-
-<?php include 'aside.php'; ?>
+include 'aside.php'; ?>
 <article class="contracted">
     <?php include 'nav.php'; ?>
     <div class="container ml-0">
@@ -77,36 +73,42 @@ $adminData = getAdminDataBySessionId();
 
                 <!-- Form Filter Berdasarkan Tanggal -->
                 <div class="ms-4 mb-4">
-                    <form action="" method="get" class="d-flex align-items-center">
+                    <form action="" method="get" class="d-flex align-items-center w-50">
                         <div class="input-group me-2">
                             <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                            <input type="date" name="start_date" class="form-control">
-                            <input type="date" name="end_date" class="form-control ms-2">
+                            <input type="date" name="start_date" value="<?php echo isset($_GET['start_date']) ? $_GET['start_date'] : ''; ?>" class="form-control">
+                            <input type="date" name="end_date" value="<?php echo isset($_GET['end_date']) ? $_GET['end_date'] : ''; ?>" class="form-control ms-2">
                         </div>
                         <button type="submit" class="btn btn-primary">Filter</button>
                     </form>
                 </div>
 
-                <?php foreach ($pesan_pengunjung as $pesan) : ?>
-                    <div class="card ms-4 m-4 shadow-sm border-0 rounded-3">
-                        <div class="card-body">
-                            <div
-                                class="visitor-message d-flex justify-content-between align-items-center border p-3 rounded-3 bg-light">
-                                <div class="message-content">
-                                    <p class="mb-1"><strong>Email:</strong> <?= htmlspecialchars($pesan['email']) ?></p>
-                                    <p class="mb-0"><strong>Pesan:</strong>
-                                        <?= htmlspecialchars($pesan['pesan_pengunjung']) ?></p>
-                                </div>
-                                <div class="message-time text-muted fs-6">
-                                    <?= timeAgo($pesan['tanggal']) ?>
-                                </div>
+                <div class="card ms-4 m-4 shadow-sm border-0 rounded-3">
+                    <div class="card-body">
+                        <?php if (empty($data)) : ?>
+                            <div class="alert alert-info" role="alert">
+                                Tidak ada pesan yang ditemukan untuk tanggal yang dipilih.
                             </div>
-                        </div>
+                        <?php else : ?>
+                            <?php foreach ($data as $pesan) : ?>
+                                <div
+                                    class="visitor-message d-flex justify-content-between align-items-center border p-3 rounded-3 bg-light">
+                                    <div class="message-content">
+                                        <p class="mb-1"><strong>Email:</strong> <?= htmlspecialchars($pesan['email']) ?></p>
+                                        <p class="mb-0"><strong>Pesan:</strong>
+                                            <?= htmlspecialchars($pesan['pesan_pengunjung']) ?></p>
+                                    </div>
+                                    <div class="message-time text-muted fs-6">
+                                        <?= timeAgo($pesan['tanggal']) ?>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </div>
-                <?php endforeach; ?>
-
-                <!-- Tampilkan tautan paginasi -->
-                <div class="ms-4 mt-4">
+                </div>
+                <!-- Menampilkan pagination -->
+                <div class="pagination mt-4 mb-4 d-flex">
+                    <p class="m-10">Page</p>
                     <?= generatePaginationLinks($page, $totalPages); ?>
                 </div>
             </div>
