@@ -186,18 +186,21 @@ function deleteSponsor($id)
 
     if ($stmt->execute()) {
         // Hapus file dari server jika ada
-        if ($filePath && file_exists($filePath)) {
-            unlink($filePath);
+        if ($filePath) {
+            $fullPath = '../../assets/images/sponsor/' . $filePath; // Sesuaikan dengan path file foto Anda
+            if (file_exists($fullPath)) {
+                unlink($fullPath);
+            }
         }
         $_SESSION['message'] = 'Sponsor berhasil dihapus';
         $_SESSION['message_type'] = 'success';
 
-        return true; // Indicate success
+        return true; // Indikasikan keberhasilan
     } else {
-        $_SESSION['message'] = 'Terjadi kesalahan saat menghapus sponsor' . $conn->error;
+        $_SESSION['message'] = 'Terjadi kesalahan saat menghapus sponsor: ' . $conn->error;
         $_SESSION['message_type'] = 'error';
 
-        return false; // Indicate failure
+        return false; // Indikasikan kegagalan
     }
     $stmt->close();
 }
@@ -829,6 +832,14 @@ function deleteProduk($id)
     $stmt->fetch();
     $stmt->close();
 
+    // Jika foto ada, hapus file dari server
+    if ($oldFotoPath) {
+        $filePath = '../../assets/images/produk/' . $oldFotoPath;
+        if (file_exists($filePath)) {
+            unlink($filePath);
+        }
+    }
+
     // Hapus data dari database
     $sql = "DELETE FROM produk WHERE id=?";
     $stmt = $conn->prepare($sql);
@@ -844,10 +855,8 @@ function deleteProduk($id)
 
     header("Location: ../dashboard/HalamanProduk.php");
     exit();
-
-    header("Location: ../dashboard/HalamanProduk.php");
-    exit();
 }
+
 
 
 function updateTentang($id, $deskripsi_tentang, $fotoFileInputName)

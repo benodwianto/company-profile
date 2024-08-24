@@ -77,20 +77,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <?php
                         $no = 1;
                         foreach ($dataLegalitas as $legalitas) : ?>
-                        <tr>
-                            <td><?= $no++; ?></td>
-                            <td><?= htmlspecialchars($legalitas['sertifikat']); ?></td>
+                            <tr>
+                                <td><?= $no++; ?></td>
+                                <td><?= htmlspecialchars($legalitas['sertifikat']); ?></td>
 
-                            <td>
-                                <a href="../../assets/pdf/legalitas/<?= htmlspecialchars(basename($legalitas['legalitas'])); ?>"
-                                    class="btn btn-secondary btn-sm"
-                                    download="<?= htmlspecialchars(basename($legalitas['legalitas'])); ?>">
-                                    View
-                                </a>
-                                <a href="../legalitas/delete_legalitas.php?id=<?= htmlspecialchars($legalitas['id']); ?>"
-                                    class="btn btn-danger btn-sm delete-button">Delete</a>
-                            </td>
-                        </tr>
+                                <td>
+                                    <a href="../../assets/pdf/legalitas/<?= htmlspecialchars(basename($legalitas['legalitas'])); ?>"
+                                        class="btn btn-secondary btn-sm"
+                                        download="<?= htmlspecialchars(basename($legalitas['legalitas'])); ?>">
+                                        View
+                                    </a>
+                                    <a href="../legalitas/delete_legalitas.php?id=<?= htmlspecialchars($legalitas['id']); ?>"
+                                        class="btn btn-danger btn-sm delete-button">Delete</a>
+                                </td>
+                            </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
@@ -104,35 +104,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <script src="../../bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
 <script src="../../assets/js/scriptDashboard.js"></script>
 <script>
-document.getElementById("legalitas-upload").addEventListener("change", function() {
-    var fileName = this.files[0] ? this.files[0].name : "No File Chosen";
-    document.querySelector(".file-name").textContent = fileName;
-});
+    document.getElementById("legalitas-upload").addEventListener("change", function() {
+        var fileName = this.files[0] ? this.files[0].name : "No File Chosen";
+        document.querySelector(".file-name").textContent = fileName;
+    });
 
-$(document).ready(function() {
-    // Konfirmasi penghapusan menggunakan SweetAlert2
-    $('body').on('click', '.delete-button', function(e) {
-        e.preventDefault();
+    $(document).ready(function() {
+        // Konfirmasi penghapusan menggunakan SweetAlert2
+        $('body').on('click', '.delete-button', function(e) {
+            e.preventDefault();
 
-        var link = $(this).attr('href'); // Ambil URL penghapusan dari atribut href
+            var link = $(this).attr('href'); // Ambil URL penghapusan dari atribut href
 
-        Swal.fire({
-            title: 'Apakah Anda Yakin?',
-            text: "Anda tidak akan dapat memulihkan item ini",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!',
-            cancelButtonText: 'Cancel'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href =
-                    link; // Redirect ke URL penghapusan jika dikonfirmasi
-            }
+            Swal.fire({
+                title: 'Apakah Anda Yakin?',
+                text: "Anda tidak akan dapat memulihkan item ini",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, tetap hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href =
+                        link; // Redirect ke URL penghapusan jika dikonfirmasi
+                }
+            });
         });
     });
-});
 </script>
 
 

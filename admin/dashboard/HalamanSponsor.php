@@ -67,8 +67,7 @@ $totalPages = getTotalSponsorPages($recordsPerPage, $searchQuery);
                                             <a href="../sponsor/update_sponsor.php?id=<?= htmlspecialchars($row['id']); ?>"
                                                 class="icon-link"><i class="fa fa-edit"></i></a>
                                             <a href="../sponsor/delete_sponsor.php?id=<?= htmlspecialchars($row['id']); ?>"
-                                                class="icon-link"
-                                                onclick="return confirm('Are you sure you want to delete this item?');"><i
+                                                class="icon-link delete-button"><i
                                                     class="fa fa-trash"></i></a>
                                         </div>
                                     </div>
@@ -95,8 +94,32 @@ $totalPages = getTotalSponsorPages($recordsPerPage, $searchQuery);
     </article>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../../assets/js/scriptDashboard.js"></script>
+    <script src="../../assets/js/confirmation_delete.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../../bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('body').on('click', '.delete-button', function(e) {
+                e.preventDefault();
+                var link = $(this).closest('a').attr('href'); // Pastikan mengambil href dari elemen <a>
+
+                Swal.fire({
+                    title: 'Apakah Anda Yakin?',
+                    text: "Anda tidak akan dapat memulihkan item ini",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, tetap hapus!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = link; // Redirect ke URL penghapusan jika dikonfirmasi
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
