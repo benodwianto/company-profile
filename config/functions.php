@@ -988,7 +988,7 @@ function insertPesan($pesan_pengunjung, $email)
     $stmt->bind_param('ss', $pesan_pengunjung, $email);
 
     if ($stmt->execute()) {
-        $_SESSION['message'] = "Pesan berhasil mengirim";
+        $_SESSION['message'] = "Berhasil mengirim pesan";
         $_SESSION['message_type'] = 'success';
     } else {
         $_SESSION['message'] = "Gagal mengirim Pesan " . $stmt->error;
@@ -998,6 +998,28 @@ function insertPesan($pesan_pengunjung, $email)
     header('Location: ../index.php#footer');
     exit();
 }
+
+function deletePesan($id)
+{
+    global $conn;
+
+    // Delete data dari database berdasarkan id
+    $sql = "DELETE FROM pesan WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i', $id); // 'i' indicates the type is integer
+
+    if ($stmt->execute()) {
+        $_SESSION['message'] = "Pesan berhasil dihapus";
+        $_SESSION['message_type'] = 'success';
+    } else {
+        $_SESSION['message'] = "Gagal menghapus pesan: " . $stmt->error;
+        $_SESSION['message_type'] = 'error';
+    }
+    $stmt->close();
+    header('Location: dashboard');
+    exit();
+}
+
 
 function getAllAdminsWithLastLoginTime()
 {

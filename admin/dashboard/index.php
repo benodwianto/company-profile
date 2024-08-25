@@ -96,11 +96,29 @@ include 'aside.php'; ?>
                                     <div class="message-content">
                                         <p class="mb-1"><strong>Email:</strong> <?= htmlspecialchars($pesan['email']) ?></p>
                                         <p class="mb-0"><strong>Pesan:</strong>
-                                            <?= htmlspecialchars($pesan['pesan_pengunjung']) ?></p>
+                                            <?php
+                                            $pesan_panjang = strlen($pesan['pesan_pengunjung']);
+                                            if ($pesan_panjang > 100): ?>
+                                                <span class="teks-singkat">
+                                                    <?= htmlspecialchars(substr($pesan['pesan_pengunjung'], 0, 100)); ?>...
+                                                </span>
+                                                <span class="teks-lengkap d-none">
+                                                    <?= htmlspecialchars($pesan['pesan_pengunjung']); ?>
+                                                </span>
+                                                <a href="javascript:void(0);" class="baca-selengkapnya text-decoration-none">Selengkapnya</a>
+                                            <?php else: ?>
+                                                <span>
+                                                    <?= htmlspecialchars($pesan['pesan_pengunjung']); ?>
+                                                </span>
+                                            <?php endif; ?>
+                                        </p>
+
                                     </div>
                                     <div class="message-time text-muted fs-6">
-                                        <?= timeAgo($pesan['tanggal']) ?>
+                                        <?= timeAgo($pesan['tanggal']) ?> | <a href="../delete_pesan.php?id=<?= htmlspecialchars($pesan['id']); ?>"
+                                            class="icon-link"><i class="fa fa-trash delete-button" style="font-size:15px"></i></a>
                                     </div>
+
                                 </div>
                             <?php endforeach; ?>
                         <?php endif; ?>
@@ -120,6 +138,47 @@ include 'aside.php'; ?>
 <script src="../../assets/js/scriptDashboard.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="../../bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('body').on('click', '.delete-button', function(e) {
+            e.preventDefault();
+            var link = $(this).closest('a').attr('href'); // Pastikan mengambil href dari elemen <a>
+
+            Swal.fire({
+                title: 'Apakah Anda Yakin?',
+                text: "Anda tidak akan dapat memulihkan item ini",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, tetap hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = link; // Redirect ke URL penghapusan jika dikonfirmasi
+                }
+            });
+        });
+    });
+
+    document.querySelectorAll('.baca-selengkapnya').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            var teksSingkat = this.previousElementSibling.previousElementSibling;
+            var teksLengkap = this.previousElementSibling;
+
+            if (teksLengkap.classList.contains('d-none')) {
+                teksSingkat.classList.add('d-none');
+                teksLengkap.classList.remove('d-none');
+                this.textContent = 'Tampilkan lebih sedikit';
+            } else {
+                teksSingkat.classList.remove('d-none');
+                teksLengkap.classList.add('d-none');
+                this.textContent = 'Selengkapnya';
+            }
+        });
+    });
+</script>
 </body>
 
 </html>

@@ -548,3 +548,6 @@ input[type="file"] {
     border-color: #dee2e6;
 }
 
+.d-none {
+    display: none;
+}
