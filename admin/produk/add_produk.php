@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <?php endif; ?>
 
                     <!-- Formulir input untuk insert produk baru -->
-                    <form action="" method="post" enctype="multipart/form-data" class="form-insert">
+                    <form action="" method="post" enctype="multipart/form-data" class="form-update">
                         <div class="mb-3">
                             <label for="jenis_sapi" class="form-label">Jenis Sapi:</label>
                             <input type="text" name="jenis_sapi" id="jenis_sapi" class="form-control" required>

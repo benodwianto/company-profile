@@ -659,7 +659,7 @@ function insertLegalitas($fileInputNameLegalitas, $sertifikat)
 function deleteLegalitas($id)
 {
     global $conn;
-    $targetDirectory = __DIR__ . "../../assets/pdf/legalitas/";
+    $targetDirectory = "../../assets/pdf/legalitas/";
 
     // Ambil nama file dari database
     $sql = "SELECT legalitas FROM legalitas WHERE id=?";
@@ -681,7 +681,7 @@ function deleteLegalitas($id)
         // Hapus file dari server
         if ($fileName && file_exists($filePath)) {
             if (unlink($filePath)) {
-                $_SESSION['message'] = "Berhasil menghapus data Legalitas";
+                $_SESSION['message'] = "Berhasil menghapus data Legalitas dan file terkait";
                 $_SESSION['message_type'] = 'success';
             } else {
                 $_SESSION['message'] = "Gagal menghapus file: " . $filePath;
@@ -699,6 +699,7 @@ function deleteLegalitas($id)
     header("Location: ../dashboard/HalamanLegalitas.php");
     exit();
 }
+
 function deleteAdmin($username)
 {
     global $conn;
