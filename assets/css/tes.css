@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 :root {
     --primary-color: #951C11;
     --primary-color-bl: rgba(149, 28, 17, 0);
     --secondary-color: #F1F1D5;
     --base-dark: #262020;
     --base-light: #FEF5EA;
+    --white:white;
 }
 
 
@@ -41,9 +42,9 @@ body {
 }
 
 p {
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
     font-weight: 400;
+    font-size: 0.9rem;
 }
 
 nav {
@@ -64,7 +65,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Merriweather', sans-serif;
     font-weight: 700;
     color: #353535;
     margin: 0 0 15px 0;
@@ -447,7 +448,7 @@ main {
 section {
     margin-bottom: 40px;
     height: 100dvh;
-    background-color: #F1F1D5;
+    background-color: var(--white);
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 
                 0 6px 20px rgba(0, 0, 0, 0.1); /* Menambahkan efek bayangan */
@@ -517,9 +518,9 @@ section .content-section-1 .right-tentangkami {
    
 }
 
-section .content-section-1 .right-tentangkami .line.tentangkami {
-    margin-left: -30px !important;
+.line {
     height: 10px;
+    width: 200px;
 }
 .left-tentangkami {
     display: flex; /* Mengaktifkan Flexbox di dalam div ini */
@@ -627,20 +628,54 @@ section .content-section-produk-kami {
     -ms-overflow-style: none; /* Untuk Internet Explorer dan Edge */
 }
 .card {
-    /* position: relative; */
-    flex: 0 0 auto; /* Menghindari card untuk menyusut atau membesar */
+    flex: 0 0 auto; 
     width: 350px;
     height: fit-content!important;
     margin-left:auto;
     margin-right:auto;
-    /* Lebar card yang telah ditentukan */
     padding: 40px;
     overflow: hidden;
     background-color: var(--primary-color-bl) !important;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 
-                0 6px 20px rgba(0, 0, 0, 0.1); /* Menambahkan efek bayangan */
+                0 6px 20px rgba(0, 0, 0, 0.1); 
+                transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+.card:hover {
+    transform: translateY(-5px); 
+}
+.ghaffar-farm-section {
+    font-family: 'Poppins', sans-serif;
+}
+.ghaffar-farm-section .gf-card {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
 }
 
+.ghaffar-farm-section .gf-card:hover {
+    transform: translateY(-5px);
+ 
+}
+
+.ghaffar-farm-section .icon-wrapper {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.75rem;
+}
+
+.ghaffar-farm-section .card-title {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.ghaffar-farm-section .card-text {
+    font-size: 0.875rem;
+}
 
 .toggle-container {
     position: absolute;
@@ -702,6 +737,9 @@ section .content-section-produk-kami {
     padding-top:15dvh;
  
 }
+.list-icon {
+    color: var(--primary-color);
+}
 
 .content-section-layanan-kami {
     display: flex;
@@ -713,7 +751,7 @@ section .content-section-produk-kami {
     height: fit-content;
     display: flex;
     flex-direction: column;
-    width: 100dvw;
+    width: 100%;
 
 
 }
@@ -1190,15 +1228,15 @@ section .line {
     justify-content: center !important;
     margin: auto;
     background-color: var(--primary-color);
-    width: 10dvw;
-    height: 10px;
+    width: 100px;
+    height: 5px;
     border-radius: 20px;
     transition: width 1s ease, transform 1s ease; /* Transisi untuk animasi */
 }
 
 /* Animasi saat elemen terlihat */
 section .line.animate {
-    width: 20dvw;
+    width: 100px;
     animation: pulsate 1.5s , colorChange 3s ;
 }
 
@@ -1446,6 +1484,133 @@ footer p {
     
     
 }
+/* ---------------- workflow ----------------- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+.ghaffar-investment-flow {
+    font-family: 'Poppins', sans-serif;
+    padding: 4rem 0;
+    background-color: #f8f9fa;
+}
+
+.ghaffar-investment-flow h2 {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 2rem;
+}
+
+.ghaffar-investment-flow .line {
+    width: 50px;
+    height: 3px;
+    background-color: #3498db;
+    margin: 0 auto 3rem;
+}
+
+.ghaffar-investment-flow .flow-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.ghaffar-investment-flow .flow-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    width: 250px;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.ghaffar-investment-flow .flow-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.ghaffar-investment-flow .flow-icon {
+    font-size: 2.5rem;
+    color: #3498db;
+    margin-bottom: 1rem;
+}
+
+.ghaffar-investment-flow .flow-title {
+    font-weight: 500;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.flow-description {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+}
+
+.ghaffar-investment-flow .flow-card:not(:last-child)::after {
+    content: '\f061';
+    /* Unicode for right arrow */
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    position: absolute;
+    top: 50%;
+    right: -1.5rem;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+    color: #3498db;
+    animation: arrowPulse 2s infinite;
+}
+
+@keyframes arrowPulse {
+    0% {
+        opacity: 1;
+        transform: translateY(-50%) scale(1);
+    }
+
+    50% {
+        opacity: 0.7;
+        transform: translateY(-50%) scale(1.1);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(-50%) scale(1);
+    }
+}
+
+@media (max-width: 768px) {
+    .ghaffar-investment-flow .flow-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .ghaffar-investment-flow .flow-card:not(:last-child)::after {
+        content: '\f063';
+        /* Unicode for down arrow */
+        top: auto;
+        bottom: -2rem;
+        right: 50%;
+        transform: translateX(50%);
+    }
+
+    @keyframes arrowPulse {
+        0% {
+            opacity: 1;
+            transform: translateX(50%) scale(1);
+        }
+
+        50% {
+            opacity: 0.7;
+            transform: translateX(50%) scale(1.1);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateX(50%) scale(1);
+        }
+    }
+}
+/* ---------------end workflow --------------- */
 
 /* Responsif untuk tampilan mobile */
 @media (max-width: 991px) {
@@ -1509,9 +1674,15 @@ footer p {
 
    
    
-    .nav-text {
-        font-size: 18px;
+    .nav-text{
+        font-size: 15px;
         width: 147px;
+            margin-left: 10px;
+            font-weight: 600;
+            color: white;
+            font-family: 'Merriweather', serif;
+            
+      
     }
     .logo {
         width: 39px;

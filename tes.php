@@ -154,11 +154,13 @@ include 'config/functions.php';
                             alt="gambar tentang CV Ghaffar Farm Bersaudara">
                         <?php endforeach; ?>
                     </div>
+
                     <div class="right-tentangkami d-flex align-items-center" style="height: 100%;">
                         <p class="text-left" style="width: 100%; text-align: left;">
                             <?= nl2br(htmlspecialchars($tentang_kami['deskripsi_tentang'])); ?>
                         </p>
                     </div>
+
 
                 </div>
 
@@ -305,8 +307,7 @@ echo "</div>";
 
             echo "<li class='list-item'>
                     <div class='list-content'>
-                        $icon
-                        <span class='list-text'>$poin</span>
+                        <span class='list-text'> $icon $poin</span>
                     </div>
                   </li>";
         }
@@ -351,7 +352,7 @@ echo "</div>";
                             <div class="card w-100 h-100">
                                 <div class="card-body">
                                     <h1 class="card-title h4 h-sm-3">Penjualan Daging Segar dan Beku</h1>
-                                    <p class="card-text">
+                                    <p class="flow-description">
                                         Kami menyediakan berbagai jenis daging segar dan beku dengan kualitas terbaik,
                                         langsung dari peternak ke konsumen.
                                     </p>
@@ -365,7 +366,7 @@ echo "</div>";
                             <div class="card w-100 h-100">
                                 <div class="card-body">
                                     <h1 class="card-title h4 h-sm-3">Penjualan Daging Qurban</h1>
-                                    <p class="card-text">
+                                    <p class="flow-description">
                                         Dapatkan daging qurban yang telah diproses sesuai syariah dengan harga yang
                                         terjangkau dan kualitas terjamin.
                                     </p>
@@ -377,58 +378,159 @@ echo "</div>";
                         </div>
                     </div>
                 </div>
-                <section class="container my-5">
-                    <h2 class="section-heading">Kenapa Harus di PT. Ghaffar Farm Bersaudara?</h2>
-                    <p class="section-content">
+                <img src="assets/images/ghaffar.png" alt="">
+                <section class="ghaffar-farm-section container my-4 py-5 h-auto">
+                    <h2 class="text-center text-danger mb-3 fs-3">Kenapa Harus di PT. Ghaffar Farm Bersaudara?</h2>
+                    <p class="text-center mx-auto mb-4 small" style="max-width: 700px;">
                         PT. GHAFFAR FARM BERSAUDARA menyiapkan sapi di Farm Balung Kab. Lima Puluh Kota atau kandang
-                        mitra
-                        kami. Kami memastikan bahwa hewan qurban yang disediakan:
+                        mitra kami. Kami memastikan bahwa hewan qurban yang disediakan:
                     </p>
-                    <ul class="section-content">
-                        <li>Di bawah pengawasan dokter hewan.</li>
-                        <li>Aqad jual-beli melewati akta notaris sesuai syariat Islam.</li>
-                        <li>Dapat diantarkan ke alamat konsumen sesuai permintaan.</li>
-                        <li>Garansi sapi (mati, sakit, patah, cacat) sebelum serah terima hari-H.</li>
-                        <li>Meliputi wilayah Sumatera Barat dan Riau (sesuai permintaan).</li>
-                        <li>Jenis sapi: Sapi Bali, dapat disalurkan sesuai permintaan jamaah ke seluruh wilayah
-                            Indonesia,
-                            daerah pengembangan Islam, dll.</li>
-                    </ul>
+                    <div class="row g-3 justify-content-center">
+                        <div class="col-xl-4 col-lg-3 col-md-4 col-sm-6">
+                            <div class="gf-card h-100 text-center">
+                                <div class="card-body d-flex flex-column align-items-center p-2">
+                                    <div class="icon-wrapper bg-success bg-opacity-10">
+                                        <i class="fas fa-user-md text-success"></i>
+                                    </div>
+                                    <h5 class="card-title mb-2">Pengawasan Profesional</h5>
+                                    <p class="flow-description">Di bawah pengawasan dokter hewan.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-3 col-md-4 col-sm-6">
+                            <div class="gf-card h-100 text-center">
+                                <div class="card-body d-flex flex-column align-items-center p-2">
+                                    <div class="icon-wrapper bg-info bg-opacity-10">
+                                        <i class="fas fa-gavel text-info"></i>
+                                    </div>
+                                    <h5 class="card-title mb-2">Aqad Syar'i</h5>
+                                    <p class="flow-description">Aqad jual-beli sesuai syariat Islam.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-3 col-md-4 col-sm-6">
+                            <div class="gf-card h-100 text-center">
+                                <div class="card-body d-flex flex-column align-items-center p-2">
+                                    <div class="icon-wrapper bg-warning bg-opacity-10">
+                                        <i class="fas fa-truck text-warning"></i>
+                                    </div>
+                                    <h5 class="card-title mb-2">Layanan Antar</h5>
+                                    <p class="flow-description">Diantarkan ke alamat konsumen.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-3 col-md-4 col-sm-6">
+                            <div class="gf-card h-100 text-center">
+                                <div class="card-body d-flex flex-column align-items-center p-2">
+                                    <div class="icon-wrapper bg-danger bg-opacity-10">
+                                        <i class="fas fa-shield-alt text-danger"></i>
+                                    </div>
+                                    <h5 class="card-title mb-2">Garansi Penuh</h5>
+                                    <p class="flow-description">Garansi sapi sebelum serah terima.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-3 col-md-4 col-sm-6">
+                            <div class="gf-card h-100 text-center">
+                                <div class="card-body d-flex flex-column align-items-center p-2">
+                                    <div class="icon-wrapper bg-primary bg-opacity-10">
+                                        <i class="fas fa-map-marker-alt text-primary"></i>
+                                    </div>
+                                    <h5 class="card-title mb-2">Jangkauan Luas</h5>
+                                    <p class="card-text">Meliputi Sumatera Barat dan Riau.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </section>
 
-                <!-- Work Flow Section -->
-                <section class="container my-5">
-                    <h2 class="section-heading">Alur Kerja</h2>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h3>Alur Kerja Perusahaan</h3>
-                            <p class="section-content">
-                                PT. GHAFFAR FARM BERSAUDARA menyediakan pelatihan 1 kali tahun tentang pemotongan dan
-                                pengelolaan daging qurban yang ASUH (Aman, Sehat, Utuh, Halal) dan bersertifikat. Free
-                                plastik dan deterjen.
-                            </p>
+                <section id="w" name="workflow" class="workflow ghaffar-investment-flow h-auto">
+                    <div class="content-section-workflow container">
+                        <h2 id="judul-alur-kerja" class="text-center">Alur Kerja Perusahaan</h2>
+                        <div class="line"></div>
+                        <div class="flow-container">
+                            <div class="flow-card">
+                                <i class="flow-icon fas fa-user-edit"></i>
+                                <h3 class="flow-title">Pendaftaran</h3>
+                                <p class="flow-description">Nasabah mendaftar dan mengisi formulir</p>
+                            </div>
+                            <div class="flow-card">
+                                <i class="flow-icon fas fa-file-signature"></i>
+                                <h3 class="flow-title">Aqad</h3>
+                                <p class="flow-description">Penandatanganan aqad jual beli di notaris</p>
+                            </div>
+                            <div class="flow-card">
+                                <i class="flow-icon fas fa-piggy-bank"></i>
+                                <h3 class="flow-title">Tabungan</h3>
+                                <p class="flow-description">Nasabah menabung hingga 80% pada bulan ke-8</p>
+                            </div>
+                            <div class="flow-card">
+                                <i class="flow-icon fas fa-check-circle"></i>
+                                <h3 class="flow-title">Pelunasan</h3>
+                                <p class="flow-description">Nasabah melunasi 100% tabungan pada bulan ke-10</p>
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <h3>Alur Kerja Nasabah</h3>
-                            <ul class="section-content">
-                                <li>Nasabah mendatangki kantor dan mengisi formulir/ melalui agen marketing.</li>
-                                <li>Nasabah menandatangani aqad jual beli di notaris.</li>
-                                <li>Nasabah membuka buku tabungan dan menyetorkan kesanggupan dana melalui Bank Nagari,
-                                    BSI
-                                    / BRI / Melalui rekening PT. GHAFFAR FARM BERSAUDARA.</li>
-                                <li>Nasabah mencukupkan tabungan sampai 100% pada bulan ke-10.</li>
-                            </ul>
+                    </div>
+                    <div class="content-section-workflow container">
+                        <h2 id="judul-alur-kerja" class="text-center">Alur Kerja Nasabah</h2>
+                        <div class="line"></div>
+                        <div class="flow-container">
+                            <div class="flow-card">
+                                <i class="flow-icon fas fa-user-edit"></i>
+                                <h3 class="flow-title">Pendaftaran</h3>
+                                <p class="flow-description">Nasabah mendatangi kantor dan mengisi formulir/ melalui agen
+                                    marketing.</p>
+                            </div>
+                            <div class="flow-card">
+                                <i class="flow-icon fas fa-file-signature"></i>
+                                <h3 class="flow-title">Aqad</h3>
+                                <p class="flow-description">Jika tabungan nasabah belum mencukupi sampai waktu yang
+                                    ditentukan, maka tabungan akan diakomodasikan ke tahun berikutnya.</p>
+                            </div>
+                            <div class="flow-card">
+                                <i class="flow-icon fas fa-piggy-bank"></i>
+                                <h3 class="flow-title">Tabungan</h3>
+                                <p class="flow-description">PT. GHAFFAR FARM BERSAUDARA menyiapkan sapi di Farm Balung
+                                    Kab.
+                                    Lima Puluh Kota atau kandang mitra PT. Ghaffar Farm Bersaudara.</p>
+                            </div>
+                            <div class="flow-card">
+                                <i class="flow-icon fas fa-check-circle"></i>
+                                <h3 class="flow-title">Pelunasan</h3>
+                                <p class="flow-description">Nasabah melunasi 100% tabungan pada bulan ke-10</p>
+                            </div>
                         </div>
                     </div>
                 </section>
             </section>
 
 
-            <section id="l" name="legalitas" class="legalitas">
-                <div class="content-section-legalitas">
-                    <h2 id="judul-produk-kami">Kemitraan</h2>
+            <section id="l" name="legalitas" class="legalitas ghaffar-investment-flow">
+                <div class="content-section-legalitas container">
+                    <h2 id="judul-produk-kami" class="text-center">Kemitraan</h2>
                     <div class="line"></div>
-
+                    <div class="flow-container">
+                        <div class="flow-card">
+                            <i class="flow-icon fas fa-handshake"></i>
+                            <h3 class="flow-title">Pendaftaran</h3>
+                            <p class="flow-description">Daftar sebagai mitra investor kami</p>
+                        </div>
+                        <div class="flow-card">
+                            <i class="flow-icon fas fa-coins"></i>
+                            <h3 class="flow-title">Investasi</h3>
+                            <p class="flow-description">Pilih paket investasi yang sesuai</p>
+                        </div>
+                        <div class="flow-card">
+                            <i class="flow-icon fas fa-chart-line"></i>
+                            <h3 class="flow-title">Pertumbuhan</h3>
+                            <p class="flow-description">Pantau perkembangan investasi Anda</p>
+                        </div>
+                        <div class="flow-card">
+                            <i class="flow-icon fas fa-hand-holding-usd"></i>
+                            <h3 class="flow-title">Keuntungan</h3>
+                            <p class="flow-description">Terima bagi hasil dari investasi</p>
+                        </div>
+                    </div>
                 </div>
             </section>
 
