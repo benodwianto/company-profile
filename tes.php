@@ -11,7 +11,7 @@ include 'config/functions.php';
     <meta charset="UTF-8">
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1, minimum-scale=1">
-    <title>CV Ghaffar Farm Bersaudara - Sentra Pemasok Daging Sapi</title>
+    <title>CV Ghaffar Farm Bersaudara - Baru setiap hari</title>
     <meta name="description"
         content="CV Ghaffar Farm Bersaudara adalah perusahaan yang bergerak dalam penggemukan sapi dan pemasok daging untuk kebutuhan hotel, restoran, swalayan, dan lainnya. Kami menyediakan sapi qurban berkualitas super.">
     <meta name="keywords"
