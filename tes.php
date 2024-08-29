@@ -142,33 +142,51 @@ include 'config/functions.php';
         </nav>
 
         <main>
-            <section class="tentangkami active" id="tentang-kami">
-                <h2 class="hello p-1">Tentang Kami<span class="line tentangkamii"></span></h2>
-                <div class="card d-flex flex-column flex-lg-row" style="width: 98%;">
-                    <div class="left-tentangkami">
-                        <?php
-            $dataTentangKami = getAllData('tentang');
-            foreach ($dataTentangKami as $tentang_kami) : ?>
-                        <img src="assets/images/tentang/<?= htmlspecialchars(basename($tentang_kami['foto'])); ?>"
-                            class="gambar-tentangkami rounded-circle img-fluid mb-3"
-                            alt="gambar tentang CV Ghaffar Farm Bersaudara">
-                        <?php endforeach; ?>
+            <section class="tentangkami active" id="tentang-kami"><br>
+                <h2 class="hello p-1">Tentang Kami<span class="line tentangkamii"></span></h2><br>
+                <div class="container-fluid px-4">
+                    <div class="row align-items-stretch">
+                        <div class="col-lg-6 mb-4 mb-lg-0">
+                            <div class="h-100 position-relative overflow-hidden">
+                                <?php
+                    $dataTentangKami = getAllData('tentang');
+                    foreach ($dataTentangKami as $tentang_kami) : ?>
+                                <img src="assets/images/tentang/<?= htmlspecialchars(basename($tentang_kami['foto'])); ?>"
+                                    class="img-fluid w-100 h-100 object-fit-cover" alt="CV Ghaffar Farm Bersaudara"
+                                    style="object-position: center;">
+                                <?php endforeach; ?>
+                                <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50"></div>
+                                <div
+                                    class="position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center text-white text-center p-4">
+                                    <h4 class="h2 mb-3">CV Ghaffar Farm Bersaudara</h4>
+                                    <p class="mb-0">Keunggulan dalam Peternakan</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="bg-light h-100 p-4 p-lg-5">
+                                <h3 class="mb-4" style="color: #951c11;">Selamat Datang..</h3>
+                                <p class="lead">
+                                    <?= nl2br(htmlspecialchars($tentang_kami['deskripsi_tentang'])); ?>
+                                </p>
+                                <div
+                                    class="d-flex flex-column flex-md-row justify-content-center align-items-center mt-4">
+                                    <a href="#layanan" class="btn btn-outline-danger me-md-2 mb-3 mb-md-0">Pelajari
+                                        Lebih
+                                        Lanjut</a>
+                                    <a href="#footer" class="btn btn-danger">Hubungi Kami</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="right-tentangkami d-flex align-items-center" style="height: 100%;">
-                        <p class="text-left" style="width: 100%; text-align: left;">
-                            <?= nl2br(htmlspecialchars($tentang_kami['deskripsi_tentang'])); ?>
-                        </p>
-                    </div>
-
-
                 </div>
 
                 <br>
                 <div class="content-section-visimisi" id="visi-misi">
                     <div class="left-visimisi">
                         <div class="left-visimisi-content">
-                            <h2 style="color: #951c11; text-align: center">Visi Misi</h2>
+                            <h2 style="color: #FEF5EA; text-align: center">Visi Misi</h2>
                             <div class="card" style="background-color: #FEF5EA!important;">
                                 <h3 style="color: #951c11;">VISI</h3>
                                 <p name="deskripsi-visi">
@@ -380,7 +398,7 @@ echo "</div>";
                 </div>
                 <img src="assets/images/ghaffar.png" alt="">
                 <section class="ghaffar-farm-section container my-4 py-5 h-auto">
-                    <h2 class="text-center text-danger mb-3 fs-3">Kenapa Harus di PT. Ghaffar Farm Bersaudara?</h2>
+                    <h2 class="text-center mb-3 fs-3">Kenapa Harus di PT. Ghaffar Farm Bersaudara?</h2>
                     <p class="text-center mx-auto mb-4 small" style="max-width: 700px;">
                         PT. GHAFFAR FARM BERSAUDARA menyiapkan sapi di Farm Balung Kab. Lima Puluh Kota atau kandang
                         mitra kami. Kami memastikan bahwa hewan qurban yang disediakan:
@@ -710,7 +728,7 @@ echo "</div>";
 
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.796557337123!2d100.65034387435526!3d-0.18924338540971586!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e2ab31ac2dc3b05%3A0x23c5173ad15bb109!2sCV.GHAFFAR%20FARM%20BERSAUDARA!5e0!3m2!1sid!2sid!4v1721993524153!5m2!1sid!2sid"
-                            width="100%" height="295" style="border:0;" allowfullscreen="" loading="lazy"
+                            width="100%" height="295" style="border:0;" allowfullscreen=""
                             referrerpolicy="no-referrer-when-downgrade"></iframe>
                         <p style="text-align: left;"><?= $kontak['alamat'] ?></p>
                     </div>
