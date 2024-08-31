@@ -17,7 +17,7 @@ include 'config/functions.php';
     <meta name="keywords"
         content="CV Ghaffar Farm Bersaudara, penggemukan sapi, pemasok daging, sapi qurban, daging sapi lokal">
     <meta name="author" content="CV Ghaffar Farm Bersaudara">
-    <link rel="canonical" href="https://www.ghaffarfarm.com/">
+    <link rel="canonical" href="https://www.ghaffarfarmbersaudara.com/">
     <link rel="stylesheet" href="assets/css/tes.css?v=1.0.1">
     <link rel="stylesheet" href="bootstrap-5.3.3-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -48,7 +48,7 @@ include 'config/functions.php';
     <!-- ini bagian konten header -->
 
     <div id="content">
-        <div class="jumbotron">
+        <div class="jumbotron" id="header">
             <div id="jumbotronCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000"
                 data-bs-wrap="true">
                 <!-- Indicators (Optional) -->
@@ -89,7 +89,7 @@ include 'config/functions.php';
 
             <!-- Jumbotron Content -->
             <div class="jumbotron-content d-flex flex-column justify-content-start align-items-center align-items-sm-start justify-content-sm-center p-1"
-                id="header">
+                id="">
                 <h1>CV Ghaffar Farm Bersaudara</h1>
                 <p>BARU SETIAP HARI</p>
                 <p>
@@ -123,8 +123,9 @@ include 'config/functions.php';
                     <li class="nav-item"><a class="nav-link" href="#header">Home</a></li>
                     <li class="nav-item dropdown">
                         <a class="nav-link" href="#tentang-kami" onclick="toggleDropdown(event)">
-                            Tentang Kami <span class="dropdown-icon">&#10095;</span>
+                            Tentang Kami <i class="fa fa-caret-down dropdown-icon"></i>
                         </a>
+
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#tentang-kami">Tentang Kami</a></li>
                             <li><a class="dropdown-item" href="#visi-misi">Visi & Misi</a></li>
@@ -132,9 +133,23 @@ include 'config/functions.php';
                         </ul>
                     </li>
                     <li class="nav-item"><a class="nav-link" href="#produk-kami">Produk</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#layanan">Layanan</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="#layanan" onclick="toggleDropdown(event)">
+                            Layanan <i class="fa fa-caret-down dropdown-icon"></i>
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#layanan">Layanan</a></li>
+                            <li><a class="dropdown-item" href="#investasi">investasi</a></li>
+                            <li><a class="dropdown-item" href="#cara-investasi">alur kemitraan investasi</a>
+                            </li>
+
+                        </ul>
+                    </li>
                     <li class="nav-item"><a class="nav-link" href="#legalitas">Legalitas</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#footer">Hubungi Kami</a></li>
+                    <button class="btn btn-danger nav-item" onclick="window.location.href='#footer'">Hubungi
+                        Kami</button>
+
                 </ul>
 
 
@@ -142,9 +157,10 @@ include 'config/functions.php';
         </nav>
 
         <main>
-            <section class="tentangkami active" id="tentang-kami"><br>
-                <h2 class="hello p-1">Tentang Kami<span class="line tentangkamii"></span></h2><br>
-                <div class="container-fluid px-4">
+            <section class="tentangkami active" id="tentang-kami"><br><br>
+                <h2 class="hello p-2">Tentang Kami</h2>
+                <div class="line"></div>
+                <div class="container-fluid px-4 mt-4">
                     <div class="row align-items-stretch">
                         <div class="col-lg-6 mb-4 mb-lg-0">
                             <div class="h-100 position-relative overflow-hidden">
@@ -186,7 +202,7 @@ include 'config/functions.php';
                 <div class="content-section-visimisi" id="visi-misi">
                     <div class="left-visimisi">
                         <div class="left-visimisi-content">
-                            <h2 style="color: #FEF5EA; text-align: center">Visi Misi</h2>
+                            <h2 style="color: #951c11; text-align: center">Visi Misi</h2>
                             <div class="card" style="background-color: #FEF5EA!important;">
                                 <h3 style="color: #951c11;">VISI</h3>
                                 <p name="deskripsi-visi">
@@ -208,9 +224,9 @@ include 'config/functions.php';
                         </div>
                     </div>
                     <br>
-                    <div class="right-visimisi">
+                    <div class="right-visimisi mx-sm-5 my-auto">
                         <img src="assets/images/visi_misi/<?= htmlspecialchars(basename($visi_misi['foto'])); ?>"
-                            class="gambar-visimisi" alt="gambar tentang CV Ghaffar Farm Bersaudara">
+                            class="gambar-visimisi rounded" alt="gambar tentang CV Ghaffar Farm Bersaudara">
                     </div>
                 </div>
             </section>
@@ -228,6 +244,7 @@ include 'config/functions.php';
                     foreach ($produks as $produk) : ?>
                         <?php $uniqueId = uniqid(); ?>
                         <div class="card" style="width: 20rem; height: auto; position: relative;">
+
                             <h1 style="text-align: center; font-size: x-large;">
                                 <?= htmlspecialchars($produk['jenis_sapi']); ?>
                             </h1>
@@ -259,6 +276,8 @@ include 'config/functions.php';
                 <div class="content-section-layanan">
                     <h2 id="judul-produk-kami">Layanan</h2>
                     <div class="line"></div>
+
+
                     <br><br>
                     <?php
     $layanans = getAllData('layanan');
@@ -340,7 +359,7 @@ echo "</div>";
                     </div>
 
                 </div>
-                <div class="content-section-jangka-investasi">
+                <div class="content-section-jangka-investasi" id="investasi">
                     <div class="left-jangka-investasi">
                         <div class="left-jangka-investasi-content">
                             <h2 style="color: #FEF5EA; width: 100%;">INVESTASI</h2>
@@ -364,7 +383,7 @@ echo "</div>";
                     </div>
                     <?php endforeach; ?>
                 </div>
-                <div class="container my-5">
+                <div class="container my-5" id="Penjualan Produk">
                     <div class="row">
                         <div class="col-lg-6 col-12 mb-4">
                             <div class="card w-100 h-100">
@@ -396,7 +415,37 @@ echo "</div>";
                         </div>
                     </div>
                 </div>
-                <img src="assets/images/ghaffar.png" alt="">
+                <div id="cara-investasi" name="legalitas" class="legalitas ghaffar-investment-flow">
+                    <div class="content-section-legalitas container">
+                        <h2 id="judul-produk-kami" class="text-center">Kemitraan</h2>
+                        <div class="line"></div>
+                        <p style="opacity: 0.5;">Investasi</p>
+                        <div class="flow-container">
+                            <div class="flow-card">
+                                <i class="flow-icon fas fa-handshake"></i>
+                                <h3 class="flow-title">Pendaftaran</h3>
+                                <p class="flow-description">Daftar sebagai mitra investor kami</p>
+                            </div>
+                            <div class="flow-card">
+                                <i class="flow-icon fas fa-coins"></i>
+                                <h3 class="flow-title">Investasi</h3>
+                                <p class="flow-description">Pilih paket investasi yang sesuai</p>
+                            </div>
+                            <div class="flow-card">
+                                <i class="flow-icon fas fa-chart-line"></i>
+                                <h3 class="flow-title">Pertumbuhan</h3>
+                                <p class="flow-description">Pantau perkembangan investasi Anda</p>
+                            </div>
+                            <div class="flow-card">
+                                <i class="flow-icon fas fa-hand-holding-usd"></i>
+                                <h3 class="flow-title">Keuntungan</h3>
+                                <p class="flow-description">Terima bagi hasil dari investasi</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <img src="assets/images/tabungan.gif" class="gambar-layanan m-auto"
+                    alt="gambar layanan CV Ghaffar Farm Bersaudara">
                 <section class="ghaffar-farm-section container my-4 py-5 h-auto">
                     <h2 class="text-center mb-3 fs-3">Kenapa Harus di PT. Ghaffar Farm Bersaudara?</h2>
                     <p class="text-center mx-auto mb-4 small" style="max-width: 700px;">
@@ -465,7 +514,8 @@ echo "</div>";
                 <section id="w" name="workflow" class="workflow ghaffar-investment-flow h-auto">
                     <div class="content-section-workflow container">
                         <h2 id="judul-alur-kerja" class="text-center">Alur Kerja Perusahaan</h2>
-                        <div class="line"></div>
+                        <span class="line"></span>
+                        <p style="opacity: 0.5;">Tabungan</p>
                         <div class="flow-container">
                             <div class="flow-card">
                                 <i class="flow-icon fas fa-user-edit"></i>
@@ -489,9 +539,11 @@ echo "</div>";
                             </div>
                         </div>
                     </div>
+                    <br><br>
                     <div class="content-section-workflow container">
                         <h2 id="judul-alur-kerja" class="text-center">Alur Kerja Nasabah</h2>
                         <div class="line"></div>
+                        <p style="opacity: 0.5;">Tabungan</p>
                         <div class="flow-container">
                             <div class="flow-card">
                                 <i class="flow-icon fas fa-user-edit"></i>
@@ -523,36 +575,8 @@ echo "</div>";
             </section>
 
 
-            <section id="l" name="legalitas" class="legalitas ghaffar-investment-flow">
-                <div class="content-section-legalitas container">
-                    <h2 id="judul-produk-kami" class="text-center">Kemitraan</h2>
-                    <div class="line"></div>
-                    <div class="flow-container">
-                        <div class="flow-card">
-                            <i class="flow-icon fas fa-handshake"></i>
-                            <h3 class="flow-title">Pendaftaran</h3>
-                            <p class="flow-description">Daftar sebagai mitra investor kami</p>
-                        </div>
-                        <div class="flow-card">
-                            <i class="flow-icon fas fa-coins"></i>
-                            <h3 class="flow-title">Investasi</h3>
-                            <p class="flow-description">Pilih paket investasi yang sesuai</p>
-                        </div>
-                        <div class="flow-card">
-                            <i class="flow-icon fas fa-chart-line"></i>
-                            <h3 class="flow-title">Pertumbuhan</h3>
-                            <p class="flow-description">Pantau perkembangan investasi Anda</p>
-                        </div>
-                        <div class="flow-card">
-                            <i class="flow-icon fas fa-hand-holding-usd"></i>
-                            <h3 class="flow-title">Keuntungan</h3>
-                            <p class="flow-description">Terima bagi hasil dari investasi</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
-            <section id="legalitas" name="legalitas" class="legalitas">
+            <section id="legalitas" name="legalitas" class="legalitas h-auto">
                 <div class="content-section-legalitas">
                     <h2 id="judul-produk-kami">Legalitas</h2>
                     <div class="line"></div>
@@ -577,13 +601,13 @@ echo "</div>";
 
 
 
-            <section id="kerjasama" name="kerjasama" class="kerjasama">
+            <section id="kerjasama" name="kerjasama" class="kerjasama h-auto py-5">
                 <div class="content-section-kerjasama">
                     <h2>Support Partner</h2>
                     <div class="line"></div>
-                    <h6 name="deskripsi-kerjasama" style="opacity: 0.6;">Kami Telah Bekerjasama dengan Berbagai
+                    <p name="deskripsi-kerjasama" style="opacity: 0.6;">Kami Telah Bekerjasama dengan Berbagai
                         Perusahaan
-                        dan Brand.</h6>
+                        dan Brand.</p>
                     <p>Kami melayani bisnis penggemukan sapi oleh perusahaan kami dengan sistim kemitraan dengan
                         berbagai
                         usaha peternakan lainnya yang berada di pulau Sumatera, Riau, Jawa dan bahkan daerah Nusa
@@ -609,16 +633,23 @@ echo "</div>";
                         </div>
                     </div>
                 </div>
-                <div class="whatsapp-icon" id="whatsappIcon">
-                    <i class="fa fa-whatsapp" aria-hidden="true" style="font-size: 30px;"></i>
+
+                <div class="popup-container">
+                    <div class="whatsapp-icon" id="whatsappIcon">
+                        <i class="fa fa-whatsapp" aria-hidden="true" style="font-size: 30px;"></i>
+                    </div>
+                    <div class="whatsapp-popup" id="whatsappPopup">
+                        <textarea id="whatsappMessage" placeholder="Ketik pesan anda disini..."></textarea>
+                        <button onclick="sendMessage()">Send</button>
+                    </div>
+
+                    <a href="#header" id="back-to-top" class="back-to-top">
+                        <i class="fas fa-chevron-up"></i>
+                    </a>
                 </div>
 
-                <div class="whatsapp-popup" id="whatsappPopup">
-                    <textarea id="whatsappMessage" placeholder="Ketik pesan anda disini..."></textarea>
-                    <button onclick="sendMessage()">Send</button>
-                </div>
             </section>
-            <section class="qa-section h-auto">
+            <section class="qa-section h-auto py-5">
                 <div class="container">
                     <h2 class="qa-header">Frequently Asked Questions (FAQ)</h2>
                     <div class="accordion" id="qaAccordion">
@@ -694,6 +725,7 @@ echo "</div>";
                     </div>
                 </div>
             </section>
+
         </main>
         <footer id="footer">
             <div class="footer">

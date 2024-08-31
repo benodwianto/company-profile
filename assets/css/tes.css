@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
 :root {
     --primary-color: #951C11;
     --primary-color-bl: rgba(149, 28, 17, 0);
@@ -15,6 +16,7 @@ html{
     margin: 0;
 overflow-x: hidden; /* Menghilangkan scroll horizontal */
      /* Menghilangkan scroll vertikal */
+     scroll-behavior: smooth;
 }
 
 
@@ -70,6 +72,10 @@ h6 {
     color: #353535;
     margin: 0 0 15px 0;
     padding: 0;
+}
+
+.btn-danger {
+    background-color: var(--primary-color)!important;
 }
 
 h4,
@@ -142,6 +148,8 @@ nav ul li a {
 
 .dropdown-item {
     color: var(--base-dark) !important;
+  
+    
 }
 .nav-link:hover {
     background-color: #F1F1D5 !important; /* Warna saat hover */
@@ -208,8 +216,8 @@ nav li a .logo {
     padding: 0;
     margin: 0;
     width: 100%;
-    border: none !important; /* Menghilangkan border dengan prioritas tinggi */
-    box-shadow: none !important; /* Menghilangkan shadow dengan prioritas tinggi */
+    border: none !important; 
+    box-shadow: none !important; 
    
 }
 .dropdown.open .dropdown-icon{
@@ -221,14 +229,16 @@ nav li a .logo {
     text-decoration: none;
     color: #000;
     display: block;
-    text-align: center;
+    text-align: left;
     align-items: center;
-    
+    white-space: wrap!important;
     padding: 10px 10px!important;
+   
 }
+
 .navbar-nav li a {
   
-    text-align: center;
+    text-align: left;
    
 }
 
@@ -269,7 +279,9 @@ nav li a .logo {
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7));
     z-index: 1;
 }
-
+.jumbotron {
+    z-index: 100;
+}
 .jumbotron-content {
     position: absolute;
     top: 50%;
@@ -277,7 +289,7 @@ nav li a .logo {
     transform: translate(-50%, -50%);
     color: white; /* Agar teks terlihat di atas gambar */
     text-align: center; /* Ubah jika ingin text align left */
-    z-index: 10; /* Pastikan konten berada di atas gambar */
+    z-index: 1002; /* Pastikan konten berada di atas gambar */
 }
 button.btn-jumbotron {
     width: 10dvw; 
@@ -447,11 +459,11 @@ main {
 
 section {
     margin-bottom: 40px;
-    height: 100dvh;
+    /* height: 100dvh; */
     background-color: var(--white);
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 
-                0 6px 20px rgba(0, 0, 0, 0.1); /* Menambahkan efek bayangan */
+    
+
 }
 
 
@@ -478,21 +490,31 @@ display: flex;
 flex-direction: row;
 height: fit-content;
 margin-top:15dvh;
+width: 100dvw;
 
 
 }
 .tentangkami .content-section-visimisi .right-visimisi {
 display: flex;
 flex-direction: row;
-width: 100dvw;
+width: 60dvw;
+height: fit-content;
 
+}
+.gambar-visimisi {
+    height: 300px;
+    object-fit: cover;
 }
 
 .tentangkami .content-section-visimisi .left-visimisi {
 display: flex;
 flex-direction: row;
-background-color:#951c11;
-width: 100dvw;
+background: rgba(149, 28, 17, 0.21);
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(5px);
+-webkit-backdrop-filter: blur(5px);
+border: 1px solid rgba(149, 28, 17, 0.3);
+width: 50dvw;
 
 }
 .tentangkami .content-section-visimisi .left-visimisi .left-visimisi-content {
@@ -851,7 +873,6 @@ section .content-section-produk-kami {
  
 }
 .unduh-legalitas{
-   
    width: fit-content;
    margin: auto;
    padding: 20px;
@@ -864,7 +885,7 @@ section .content-section-produk-kami {
 }
 .unduh-legalitas  .list-group .btn-download{
     display: inline;
-    border-radius: 25px;
+    border-radius: 15px;
     background-color: var(--base-light);
     gap: 10px; 
     
@@ -1267,22 +1288,42 @@ section .line.animate {
 }
 
 /* akhir line style */
+.popup-container {
+    position: fixed;
+    bottom: 10px;
+    right: 0;
+    background: rgba(149, 28, 17, 0.087);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(149, 28, 17, 0.3);
+    padding: 20px; /* Memberikan padding di sekitar konten */
+    border-radius: 10px; /* Membuat sudut melengkung */
+border-top-right-radius: 0;
+border-bottom-right-radius: 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Menambahkan bayangan untuk efek elevasi */
+    width: 70px; /* Batas lebar maksimal */
+    margin: 0 auto; /* Agar center jika di dalam div yang lebih besar */
+    height: 160px;
+    z-index: 99;
 
+}
 .whatsapp-icon {
     position: fixed;
     bottom: 20px;
-    right: 20px;
+    right: 8px;
     background-color: #25d366;
     color: white;
     border-radius: 50%;
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
+    
 }
 
 .whatsapp-popup {
@@ -1485,7 +1526,6 @@ footer p {
     
 }
 /* ---------------- workflow ----------------- */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
 .ghaffar-investment-flow {
     font-family: 'Poppins', sans-serif;
@@ -1496,14 +1536,14 @@ footer p {
 .ghaffar-investment-flow h2 {
     font-weight: 600;
     color: #2c3e50;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
 .ghaffar-investment-flow .line {
     width: 50px;
     height: 3px;
-    background-color: #3498db;
-    margin: 0 auto 3rem;
+    background-color: var(--primary-color);
+    margin: 0 auto 1rem;
 }
 
 .ghaffar-investment-flow .flow-container {
@@ -1532,7 +1572,7 @@ footer p {
 
 .ghaffar-investment-flow .flow-icon {
     font-size: 2.5rem;
-    color: #3498db;
+    color: var(--primary-color);
     margin-bottom: 1rem;
 }
 
@@ -1557,7 +1597,7 @@ footer p {
     right: -1.5rem;
     transform: translateY(-50%);
     font-size: 1.5rem;
-    color: #3498db;
+    color: var(--primary-color);
     animation: arrowPulse 2s infinite;
 }
 
@@ -1611,6 +1651,22 @@ footer p {
     }
 }
 /* ---------------end workflow --------------- */
+/* ----------------back to top---------------- */
+.back-to-top {
+    position: fixed;
+    bottom: 90px;
+    right: 8px;
+    color: var(--primary-color); /* Warna ikon */
+    border: none;
+    border-radius: 50%;
+    padding: 15px;
+    font-size: 30px;
+    text-align: center;
+    text-decoration: none;
+    z-index: 99;
+    transition: background-color 0.3s ease;
+}
+
 
 /* Responsif untuk tampilan mobile */
 @media (max-width: 991px) {
@@ -1841,6 +1897,7 @@ footer p {
         top: 50%;
         bottom: 0;
     left: 50%;
+  
         
     }
     .jumbotron-content h1 {
@@ -1870,30 +1927,84 @@ footer p {
         font-size: 1em;
         text-align: center;
         display: none;
-   
-     
-        
-      
+       
      
     }
     button.btn-jumbotron {
-        background-color: #F1F1D5;
-        border: none;
-        height: 50px!important;
-        border-radius: 36px;
-       position: absolute;
-      bottom: 0;
-        padding: 10px;
-        width: 70%;
-    
-       
+        background: rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 1);
+    height: 50px !important;
+    padding: 10px;
+    width: 70%;
+    font-family: "Poppins", "serif";
+    position: absolute;
+    bottom: -200px;
+    text-align: center;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
        
     }
+    .btn-jumbotron::before,
+    .btn-jumbotron::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.2),
+            transparent
+        );
+    }
+    
+    .btn-jumbotron::before {
+        left: -100%;
+        transform: skewX(-30deg);
+        animation: shine-left 3s infinite;
+    }
+    
+    .btn-jumbotron::after {
+        right: -100%;
+        transform: skewX(30deg);
+        animation: shine-right 3s infinite;
+    }
+    
+    @keyframes shine-left {
+        0% {
+            left: -100%;
+        }
+        100% {
+            left: 100%;
+        }
+    }
+    
+    @keyframes shine-right {
+        0% {
+            right: -100%;
+        }
+        100% {
+            right: 100%;
+        }
+    
+    
+   
+}
     .jumbotron-content button a {
         font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
         font-weight:400; 
         font-size: 16px;
-        color: black;
+        color: white;
         margin: 10px;
         text-decoration: none;
         padding: 40px;
@@ -2275,7 +2386,7 @@ tbody {
     flex-direction: column; 
     
 }
-}
+
 /* Untuk tampilan di atas 768px, sembunyikan tombol "selengkapnya" */
 @media (min-width: 769px) {
     .dots {
@@ -2295,4 +2406,4 @@ tbody {
         font-size: 0.8rem;
 }
 
-} 
+}}
