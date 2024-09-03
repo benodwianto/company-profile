@@ -119,8 +119,8 @@ include 'config/functions.php';
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
 
-                <ul class="navbar-nav m-auto">
-                    <li class="nav-item"><a class="nav-link" href="#header">Home</a></li>
+                <ul class="navbar-nav m-auto flex-wrap">
+                    <li class="nav-item px-3"><a class="nav-link" href="#header">Home</a></li>
                     <li class="nav-item dropdown">
                         <a class="nav-link" href="#tentang-kami" onclick="toggleDropdown(event)">
                             Tentang Kami <i class="fa fa-caret-down dropdown-icon"></i>
@@ -132,9 +132,9 @@ include 'config/functions.php';
 
                         </ul>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="#produk-kami">Produk</a></li>
+                    <li class="nav-item px-3"><a class="nav-link" href="#produk-kami">Produk</a></li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link" href="#layanan" onclick="toggleDropdown(event)">
+                        <a class="nav-link px-3" href="#layanan" onclick="toggleDropdown(event)">
                             Layanan <i class="fa fa-caret-down dropdown-icon"></i>
                         </a>
 
@@ -147,10 +147,13 @@ include 'config/functions.php';
                         </ul>
                     </li>
 
-                    <li class="nav-item"><a class="nav-link" href="#legalitas">Legalitas</a></li>
-                    <button class="btn btn-danger nav-item" onclick="window.location.href='#footer'">Hubungi
-                        Kami</button>
-
+                    <li class="nav-item px-3"><a class="nav-link" href="#legalitas">Legalitas</a></li>
+                    <div class="khusus ms-5">
+                        <button class="btn btn-danger nav-item ms-5" onclick="window.location.href='#footer'">Hubungi
+                            Kami</button>
+                        <button class="btn btn-danger nav-item ms-1"
+                            onclick="window.location.href='#footer'">Login</button>
+                    </div>
                 </ul>
 
 
@@ -649,6 +652,8 @@ echo "</div>";
             </section>
 
             <section class="notary-section">
+                <h2 id="judul-produk-kami">Kantor Notaris</h2>
+                <div class="line"></div>
                 <div class="notary-grid">
                     <div class="carousel-container">
                         <div id="notaryCarousel" class="carousel slide" data-bs-ride="carousel">

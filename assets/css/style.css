@@ -113,15 +113,6 @@ nav ul li a {
    
 }
 
-.nav-link {
-    text-decoration: none !important;
-    color: #FEF5EA !important;
-    font-weight: bold!important;
-    transition: color 0.3s !important;
-    vertical-align: middle !important;
-    padding: 6px 12px !important;
-    
-}
 
 .dropdown-item {
     color: var(--base-dark) !important;
@@ -179,6 +170,7 @@ nav li a .logo {
     padding: 10px 20px;
     text-decoration: none;
     color: #000;
+    
 }
 
 .dropdown-menu {
