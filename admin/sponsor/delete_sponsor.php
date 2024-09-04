@@ -13,5 +13,5 @@ $resultMessage = deleteSponsor($id);
 echo $resultMessage;
 
 // Redirect to sponsor list page or another relevant page
-header("Location: sponsor.php");
+header("Location: ../Dashboard/HalamanSponsor.php");
 exit();
