@@ -2,6 +2,11 @@
 include '../../config/functions.php';
 session_start();
 
+if (!isset($_SESSION['admin_id']) || !isset($_SESSION['status'])) {
+    header("Location: ../login.php");
+    exit();
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Periksa apakah 'id' dan 'deskripsi_dashboard' ada dalam POST
     if (isset($_POST['id']) && isset($_POST['deskripsi_dashboard'])) {

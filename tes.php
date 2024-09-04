@@ -11,12 +11,31 @@ include 'config/functions.php';
     <meta charset="UTF-8">
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1, minimum-scale=1">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" href="assets/favicon_io/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="assets/favicon_io/site.webmanifest">
     <title>CV Ghaffar Farm Bersaudara - Baru setiap hari</title>
     <meta name="description"
         content="CV Ghaffar Farm Bersaudara adalah perusahaan yang bergerak dalam penggemukan sapi dan pemasok daging untuk kebutuhan hotel, restoran, swalayan, dan lainnya. Kami menyediakan sapi qurban berkualitas super.">
     <meta name="keywords"
         content="CV Ghaffar Farm Bersaudara, penggemukan sapi, pemasok daging, sapi qurban, daging sapi lokal">
     <meta name="author" content="CV Ghaffar Farm Bersaudara">
+    <meta property="og:title" content="CV Ghaffar Farm Bersaudara - Baru setiap hari">
+    <meta property="og:description"
+        content="CV Ghaffar Farm Bersaudara adalah perusahaan yang bergerak dalam penggemukan sapi dan pemasok daging untuk kebutuhan hotel, restoran, swalayan, dan lainnya. Kami menyediakan sapi qurban berkualitas super.">
+    <meta property="og:image"
+        content="https://www.ghaffarfarmbersaudara.com/assets/favicon_io/android-chrome-512x512.png">
+    <meta property="og:url" content="https://www.ghaffarfarmbersaudara.com/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="CV Ghaffar Farm Bersaudara - Baru setiap hari">
+    <meta name="twitter:description"
+        content="CV Ghaffar Farm Bersaudara adalah perusahaan yang bergerak dalam penggemukan sapi dan pemasok daging untuk kebutuhan hotel, restoran, swalayan, dan lainnya. Kami menyediakan sapi qurban berkualitas super.">
+    <meta name="twitter:image"
+        content="https://www.ghaffarfarmbersaudara.com/assets/favicon_io/android-chrome-512x512.png">
     <link rel="canonical" href="https://www.ghaffarfarmbersaudara.com/">
     <link rel="stylesheet" href="assets/css/tes.css?v=1.0.1">
     <link rel="stylesheet" href="bootstrap-5.3.3-dist/css/bootstrap.min.css">
@@ -25,13 +44,8 @@ include 'config/functions.php';
         href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
-    <!-- Tambahkan ini di dalam tag <head> di file HTML kamu -->
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
-
-
-
 </head>
 
 <body>
@@ -99,7 +113,7 @@ include 'config/functions.php';
                         <?= nl2br(htmlspecialchars($home['deskripsi_dashboard'])); ?>
                     <?php endforeach; ?>
                 </p>
-                <button class="btn-jumbotron"><a href="#produk-kami">Lihat Produk</a></button>
+                <a href="#produk-kami" class="btn-jumbotron">Lihat Produk</a>
             </div>
 
         </div>
@@ -146,14 +160,16 @@ include 'config/functions.php';
 
                         </ul>
                     </li>
+                    <li class="nav-item px-3"><a class="nav-link" href="#faq">FAQ</a></li>
 
                     <li class="nav-item px-3"><a class="nav-link" href="#legalitas">Legalitas</a></li>
-                    <div class="khusus ms-5">
-                        <button class="btn btn-danger nav-item ms-5" onclick="window.location.href='#footer'">Hubungi
-                            Kami</button>
-                        <button class="btn btn-danger nav-item ms-1"
-                            onclick="window.location.href='#footer'">Login</button>
+                    <div class="d-flex flex-lg-row flex-column ms-lg-5">
+                        <button class="btn btn-danger nav-item mb-2 mb-lg-0"
+                            onclick="window.location.href='#footer'">Hubungi Kami</button>
+                        <button class="btn btn-danger nav-item ms-lg-2"
+                            onclick="window.location.href='admin/login.php'">Login</button>
                     </div>
+
                 </ul>
 
 
@@ -185,7 +201,7 @@ include 'config/functions.php';
                         </div>
 
                         <div class="col-lg-6">
-                            <div class="bg-light h-100 p-4 p-lg-5">
+                            <div class="bg-light rounded h-100 p-4 p-lg-5">
                                 <h3 class="mb-4" style="color: #951c11;">Selamat Datang..</h3>
                                 <p class="lead">
                                     <?= nl2br(htmlspecialchars($tentang_kami['deskripsi_tentang'])); ?>
@@ -207,7 +223,7 @@ include 'config/functions.php';
                     <div class="left-visimisi">
                         <div class="left-visimisi-content">
                             <h2 style="color: #951c11; text-align: center">Visi Misi</h2>
-                            <div class="card" style="background-color: #FEF5EA!important;">
+                            <div class="card rounded-2" style="background-color: #FEF5EA!important;">
                                 <h3 style="color: #951c11;">VISI</h3>
                                 <p name="deskripsi-visi">
                                     <?php $getAllData = getAllData('visi_misi');
@@ -230,7 +246,8 @@ include 'config/functions.php';
                     <br>
                     <div class="right-visimisi mx-sm-5 my-auto">
                         <img src="assets/images/visi_misi/<?= htmlspecialchars(basename($visi_misi['foto'])); ?>"
-                            class="gambar-visimisi rounded" alt="gambar tentang CV Ghaffar Farm Bersaudara">
+                            class="img-fluid w-100 h-100 object-fit-cover rounded"
+                            alt="gambar tentang CV Ghaffar Farm Bersaudara">
                     </div>
                 </div>
             </section>
@@ -249,26 +266,26 @@ include 'config/functions.php';
                             <?php $uniqueId = uniqid(); ?>
                             <div class="card" style="width: 20rem; height: auto; position: relative;">
 
-                                <h1 style="text-align: center; font-size: x-large;">
-                                    <?= htmlspecialchars($produk['jenis_sapi']); ?>
-                                </h1>
-                                <img src="assets/images/produk/<?= htmlspecialchars(basename($produk['foto'])); ?>"
-                                    class="card-img-top" alt="<?= htmlspecialchars($produk['jenis_sapi']); ?>"
-                                    style="height: 200px; object-fit: cover;">
-                                <div class="card-body">
-                                    <div id="textContainer<?= $uniqueId ?>" style="max-height: 0; overflow: hidden;">
-                                        <p class="card-text"><?= htmlspecialchars($produk['deskripsi_produk']); ?></p>
-                                    </div>
-                                    <div class="toggle-container">
-                                        <span class="toggle-text" id="toggleText<?= $uniqueId ?>">Lihat Teks</span>
-                                        <button class="btn toggle-btn" type="button"
-                                            onclick="toggleText('<?= $uniqueId ?>')"
-                                            style="background-color: #951C11; color: white;">
-                                            <i class="fas fa-eye"></i>
-                                        </button>
-                                    </div>
+                            <h2 style="text-align: center; font-size: x-large;">
+                                <?= htmlspecialchars($produk['jenis_sapi']); ?>
+                            </h2>
+                            <img src="assets/images/produk/<?= htmlspecialchars(basename($produk['foto'])); ?>"
+                                class="card-img-top" alt="<?= htmlspecialchars($produk['jenis_sapi']); ?>"
+                                style="height: 200px; object-fit: cover;">
+                            <div class="card-body">
+                                <div id="textContainer<?= $uniqueId ?>" style="max-height: 0; overflow: hidden;">
+                                    <p class="card-text"><?= htmlspecialchars($produk['deskripsi_produk']); ?></p>
+                                </div>
+                                <div class="toggle-container">
+                                    <span class="toggle-text" id="toggleText<?= $uniqueId ?>">Lihat Teks</span>
+                                    <button class="btn toggle-btn" type="button"
+                                        onclick="toggleText('<?= $uniqueId ?>')"
+                                        style="background-color: #951C11; color: white;">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
                                 </div>
                             </div>
+                        </div>
                         <?php endforeach; ?>
                     </div>
                 </div>
@@ -654,6 +671,7 @@ include 'config/functions.php';
             <section class="notary-section">
                 <h2 id="judul-produk-kami">Kantor Notaris</h2>
                 <div class="line"></div>
+                <br>
                 <div class="notary-grid">
                     <div class="carousel-container">
                         <div id="notaryCarousel" class="carousel slide" data-bs-ride="carousel">
@@ -762,7 +780,7 @@ include 'config/functions.php';
 
                 <div class="popup-container">
                     <div class="whatsapp-icon" id="whatsappIcon">
-                        <i class="fa fa-whatsapp" aria-hidden="true" style="font-size: 30px;"></i>
+                        <i class="fab fa-whatsapp icon" aria-hidden="true" style="font-size: 30px;"></i>
                     </div>
                     <div class="whatsapp-popup" id="whatsappPopup">
                         <textarea id="whatsappMessage" placeholder="Ketik pesan anda disini..."></textarea>
@@ -777,7 +795,7 @@ include 'config/functions.php';
 
 
 
-            <section class="qa-section h-auto py-5">
+            <section class="qa-section h-auto py-5" id="faq">
                 <div class="container">
                     <h2 class="qa-header">Frequently Asked Questions (FAQ)</h2>
                     <div class="accordion" id="qaAccordion">

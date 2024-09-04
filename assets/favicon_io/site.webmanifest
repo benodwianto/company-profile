@@ -1,0 +1,19 @@
+{
+  "name": "CV Ghaffar Farm Bersaudara",
+  "short_name": "Ghaffar Farm",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#951C11",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}
