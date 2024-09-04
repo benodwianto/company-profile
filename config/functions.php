@@ -122,36 +122,47 @@ function insertSponsor($sponsor, $fileInputName)
 
 function updateSponsor($id, $sponsor, $fotoFileInputName)
 {
+    session_start();
     global $conn;
     $targetDirectory = __DIR__ . "/../assets/images/sponsor/";
     $oldFotoPath = null;
 
-    // Ambil path foto lama dari database
+    // Ambil path foto lama dari database (hanya nama file)
     $sql = "SELECT foto FROM sponsor WHERE id=?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('i', $id);
     $stmt->execute();
-    $stmt->bind_result($oldFotoPath);
+    $stmt->bind_result($oldFotoName);
     $stmt->fetch();
     $stmt->close();
 
-    // Handle file upload jika ada file
-    $newFotoPath = $oldFotoPath; // Gunakan path foto lama secara default
+    // Gabungkan nama file dengan direktori target untuk mendapatkan path lengkap
+    $oldFotoPath = $targetDirectory . $oldFotoName;
+
+    // Handle file upload jika ada file baru
+    $newFotoPath = $oldFotoName; // Gunakan nama file lama secara default
     if (isset($_FILES[$fotoFileInputName]) && $_FILES[$fotoFileInputName]['error'] === UPLOAD_ERR_OK) {
-        $uploadResult = uploadImage($fotoFileInputName, $targetDirectory, $oldFotoPath);
+        // Unggah file baru dan dapatkan path file yang baru
+        $uploadResult = uploadImage($fotoFileInputName, $targetDirectory);
 
         if ($uploadResult === false) {
+            // Jika upload gagal, kembalikan ke halaman update
             header("Location: update_sponsor.php?id=$id");
             exit();
         } else {
             $newFotoPath = $uploadResult;
+
+            // Hapus foto lama dari server
+            if ($oldFotoName && file_exists($oldFotoPath)) {
+                unlink($oldFotoPath);
+            }
         }
     }
 
-    // Update data di database
-    $sql = "UPDATE sponsor SET sponsor=?, foto=? WHERE id=?";
+    // Update data di database dengan nama file baru (atau lama jika tidak ada yang diunggah)
+    $sql = "UPDATE sponsor SET sponsor=? , foto=? WHERE id=?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('ssi', $sponsor, $newFotoPath, $id);
+    $stmt->bind_param('ssi', $sponsor, basename($newFotoPath), $id);
     if ($stmt->execute()) {
         $_SESSION['message'] = "Berhasil memperbarui sponsor";
         $_SESSION['message_type'] = 'success';
@@ -161,10 +172,9 @@ function updateSponsor($id, $sponsor, $fotoFileInputName)
     }
     $stmt->close();
 
-    header("Location: ../dashboard/HalamanSponsor.php?id=$id");
+    header("Location: ../dashboard/Halamansponsor.php?id=$id");
     exit();
 }
-
 
 function deleteSponsor($id)
 {
@@ -462,6 +472,7 @@ function updateLayanan($id, $kelebihan, $mengapa_ghaffar, $fotoFileInputName)
     $stmt->fetch();
     $stmt->close();
 
+    $oldFotoPath = $targetDirectory . $oldFotoPath;
     // Handle file upload jika ada file
     $newFotoPath = $oldFotoPath; // Gunakan path foto lama secara default
     if (isset($_FILES[$fotoFileInputName]) && $_FILES[$fotoFileInputName]['error'] === UPLOAD_ERR_OK) {
@@ -472,6 +483,10 @@ function updateLayanan($id, $kelebihan, $mengapa_ghaffar, $fotoFileInputName)
             exit();
         } else {
             $newFotoPath = $uploadResult;
+
+            if ($oldFotoPath && file_exists($oldFotoPath)) {
+                unlink($oldFotoPath);
+            }
         }
     }
 
@@ -508,6 +523,9 @@ function updateInvestasi($id, $jangka_investasi, $jlh_investasi, $fotoFileInputN
     $stmt->fetch();
     $stmt->close();
 
+    // Gabungkan nama file dengan direktori target untuk mendapatkan path lengkap
+    $oldFotoPath = $targetDirectory . $oldFotoPath;
+
     // Handle file upload jika ada file
     $newFotoPath = $oldFotoPath; // Gunakan path foto lama secara default
     if (isset($_FILES[$fotoFileInputName]) && $_FILES[$fotoFileInputName]['error'] === UPLOAD_ERR_OK) {
@@ -518,6 +536,11 @@ function updateInvestasi($id, $jangka_investasi, $jlh_investasi, $fotoFileInputN
             exit();
         } else {
             $newFotoPath = $uploadResult;
+
+            // Hapus foto lama dari server
+            if ($oldFotoPath && file_exists($oldFotoPath)) {
+                unlink($oldFotoPath);
+            }
         }
     }
 
@@ -780,32 +803,42 @@ function updateProduk($id, $jenis_sapi, $deskripsi_produk, $fotoFileInputName)
     $targetDirectory = __DIR__ . "/../assets/images/produk/";
     $oldFotoPath = null;
 
-    // Ambil path foto lama dari database
+    // Ambil path foto lama dari database (hanya nama file)
     $sql = "SELECT foto FROM produk WHERE id=?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('i', $id);
     $stmt->execute();
-    $stmt->bind_result($oldFotoPath);
+    $stmt->bind_result($oldFotoName);
     $stmt->fetch();
     $stmt->close();
 
-    // Handle file upload jika ada file
-    $newFotoPath = $oldFotoPath; // Gunakan path foto lama secara default
+    // Gabungkan nama file dengan direktori target untuk mendapatkan path lengkap
+    $oldFotoPath = $targetDirectory . $oldFotoName;
+
+    // Handle file upload jika ada file baru
+    $newFotoPath = $oldFotoName; // Gunakan nama file lama secara default
     if (isset($_FILES[$fotoFileInputName]) && $_FILES[$fotoFileInputName]['error'] === UPLOAD_ERR_OK) {
-        $uploadResult = uploadImage($fotoFileInputName, $targetDirectory, $oldFotoPath);
+        // Unggah file baru dan dapatkan path file yang baru
+        $uploadResult = uploadImage($fotoFileInputName, $targetDirectory);
 
         if ($uploadResult === false) {
+            // Jika upload gagal, kembalikan ke halaman update
             header("Location: update_produk.php?id=$id");
             exit();
         } else {
             $newFotoPath = $uploadResult;
+
+            // Hapus foto lama dari server
+            if ($oldFotoName && file_exists($oldFotoPath)) {
+                unlink($oldFotoPath);
+            }
         }
     }
 
-    // Update data di database
+    // Update data di database dengan nama file baru (atau lama jika tidak ada yang diunggah)
     $sql = "UPDATE produk SET jenis_sapi=?, deskripsi_produk=?, foto=? WHERE id=?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('sssi', $jenis_sapi, $deskripsi_produk, $newFotoPath, $id);
+    $stmt->bind_param('sssi', $jenis_sapi, $deskripsi_produk, basename($newFotoPath), $id);
     if ($stmt->execute()) {
         $_SESSION['message'] = "Berhasil memperbarui produk";
         $_SESSION['message_type'] = 'success';
@@ -858,8 +891,6 @@ function deleteProduk($id)
     exit();
 }
 
-
-
 function updateTentang($id, $deskripsi_tentang, $fotoFileInputName)
 {
     session_start();
@@ -876,6 +907,7 @@ function updateTentang($id, $deskripsi_tentang, $fotoFileInputName)
     $stmt->fetch();
     $stmt->close();
 
+    $oldFotoPath = $targetDirectory . $oldFotoPath;
     // Handle file upload jika ada file
     $newFotoPath = $oldFotoPath; // Gunakan path foto lama secara default
     if (isset($_FILES[$fotoFileInputName]) && $_FILES[$fotoFileInputName]['error'] === UPLOAD_ERR_OK) {
@@ -886,6 +918,11 @@ function updateTentang($id, $deskripsi_tentang, $fotoFileInputName)
             exit();
         } else {
             $newFotoPath = $uploadResult;
+
+            // Hapus foto lama dari server
+            if ($oldFotoPath && file_exists($oldFotoPath)) {
+                unlink($oldFotoPath);
+            }
         }
     }
 
@@ -922,6 +959,8 @@ function updateVisiMisi($id, $visi, $misi, $fotoFileInputName)
     $stmt->fetch();
     $stmt->close();
 
+    $oldFotoPath = $targetDirectory . $oldFotoPath;
+
     // Handle file upload jika ada file
     $newFotoPath = $oldFotoPath; // Gunakan path foto lama secara default
     if (isset($_FILES[$fotoFileInputName]) && $_FILES[$fotoFileInputName]['error'] === UPLOAD_ERR_OK) {
@@ -932,6 +971,10 @@ function updateVisiMisi($id, $visi, $misi, $fotoFileInputName)
             exit();
         } else {
             $newFotoPath = $uploadResult;
+            // Hapus foto lama dari server
+            if ($oldFotoPath && file_exists($oldFotoPath)) {
+                unlink($oldFotoPath);
+            }
         }
     }
 
@@ -1017,6 +1060,133 @@ function deletePesan($id)
     }
     $stmt->close();
     header('Location: dashboard');
+    exit();
+}
+
+function insertKerjasama($judul, $deskripsi, $fotoFileInputName)
+{
+    global $conn;
+    $targetDirectory = __DIR__ . "/../assets/images/kerjasama/";
+
+    // Handle file upload
+    $uploadResult = uploadImage($fotoFileInputName, $targetDirectory);
+
+    if (!$uploadResult) {
+        return;
+    } else {
+        $fotoPath = $uploadResult;
+    }
+
+    // Insert data into database
+    $sql = "INSERT INTO kerjasama (judul, deskripsi, foto) VALUES (?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('sss', $judul, $deskripsi, $fotoPath);
+
+    if ($stmt->execute()) {
+        $_SESSION['message'] = "Berhasil menambahkan kerjasama";
+        $_SESSION['message_type'] = 'success';
+    } else {
+        $_SESSION['message'] = "Gagal menambahkan kerjasama: " . $stmt->error;
+        $_SESSION['message_type'] = 'error';
+    }
+    $stmt->close();
+
+    header("Location: index.php");
+    exit();
+}
+
+function updateKerjasama($id, $judul, $deskripsi, $fotoFileInputName)
+{
+    global $conn;
+    $targetDirectory = __DIR__ . "/../assets/images/kerjasama/";
+    $oldFotoPath = null;
+
+    // Ambil path foto lama dari database (hanya nama file)
+    $sql = "SELECT foto FROM kerjasama WHERE id=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i', $id);
+    $stmt->execute();
+    $stmt->bind_result($oldFotoName);
+    $stmt->fetch();
+    $stmt->close();
+
+    // Gabungkan nama file dengan direktori target untuk mendapatkan path lengkap
+    $oldFotoPath = $targetDirectory . $oldFotoName;
+
+    // Handle file upload jika ada file baru
+    $newFotoPath = $oldFotoName; // Gunakan nama file lama secara default
+    if (isset($_FILES[$fotoFileInputName]) && $_FILES[$fotoFileInputName]['error'] === UPLOAD_ERR_OK) {
+        // Unggah file baru dan dapatkan path file yang baru
+        $uploadResult = uploadImage($fotoFileInputName, $targetDirectory);
+
+        if ($uploadResult === false) {
+            // Jika upload gagal, kembalikan ke halaman update
+            header("Location: update.php?id=$id");
+            exit();
+        } else {
+            $newFotoPath = $uploadResult;
+
+            // Hapus foto lama dari server
+            if ($oldFotoName && file_exists($oldFotoPath)) {
+                unlink($oldFotoPath);
+            }
+        }
+    }
+
+    // Update data di database dengan nama file baru (atau lama jika tidak ada yang diunggah)
+    $sql = "UPDATE kerjasama SET judul=?, deskripsi=?, foto=? WHERE id=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('sssi', $judul, $deskripsi, basename($newFotoPath), $id);
+    if ($stmt->execute()) {
+        $_SESSION['message'] = "Berhasil memperbarui kerjasama";
+        $_SESSION['message_type'] = 'success';
+    } else {
+        $_SESSION['message'] = "Gagal memperbarui kerjasama " . $stmt->error;
+        $_SESSION['message_type'] = 'error';
+    }
+    $stmt->close();
+
+    header("Location: index.php");
+    exit();
+}
+
+
+function deleteKerjasama($id)
+{
+    global $conn;
+    $oldFotoPath = null;
+
+    // Ambil path foto lama dari database
+    $sql = "SELECT foto FROM kerjasama WHERE id=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i', $id);
+    $stmt->execute();
+    $stmt->bind_result($oldFotoPath);
+    $stmt->fetch();
+    $stmt->close();
+
+    // Jika foto ada, hapus file dari server
+    if ($oldFotoPath) {
+        $filePath = '../../assets/images/kerjasama/' . $oldFotoPath;
+        if (file_exists($filePath)) {
+            unlink($filePath);
+        }
+    }
+
+    // Hapus data dari database
+    $sql = "DELETE FROM kerjasama WHERE id=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i', $id);
+    if ($stmt->execute()) {
+        $_SESSION['message'] = "Kerjasama berhasil dihapus";
+        $_SESSION['message_type'] = 'success';
+    } else {
+        $_SESSION['message'] = "Kerjasama gagal dihapus: " . $conn->error;
+        $_SESSION['message_type'] = 'error';
+    }
+    $stmt->close();
+
+    header("Location: index.php");
     exit();
 }
 
