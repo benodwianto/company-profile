@@ -116,6 +116,8 @@ function insertSponsor($sponsor, $fileInputName)
 
         return false; // Indicate failure
     }
+    header("Location: ../dashboard/HalamanSponsor.php");
+    exit();
 }
 
 
