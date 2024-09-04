@@ -2,6 +2,11 @@
 include '../../config/functions.php';
 session_start();
 
+if (!isset($_SESSION['admin_id']) || !isset($_SESSION['status'])) {
+    header("Location: ../login.php");
+    exit();
+}
+
 if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
     $resultMessage = deleteProduk($id);
@@ -49,9 +54,10 @@ $totalPages = getTotalProdukPages($recordsPerPage, $searchQuery);
                         <div class="mb-4">
                             <form action="" method="get" class="d-flex align-items-center w-50">
                                 <div class="input-group me-2">
-                                    <span class="input-group-text" style="height: 50px;"><i class="fas fa-search"></i></span>
-                                    <input type="text" name="search" class="form-control" class="form-control" placeholder="Cari produk..."
-                                        value="<?= $searchQuery; ?>">
+                                    <span class="input-group-text" style="height: 50px;"><i
+                                            class="fas fa-search"></i></span>
+                                    <input type="text" name="search" class="form-control" class="form-control"
+                                        placeholder="Cari produk..." value="<?= $searchQuery; ?>">
                                 </div>
                                 <button type="submit" style="height: 50px;" class="btn btn-primary">Cari</button>
                             </form>
@@ -59,30 +65,29 @@ $totalPages = getTotalProdukPages($recordsPerPage, $searchQuery);
                         <!-- Menampilkan data produk -->
                         <div class="product-container">
                             <?php if (count($produk) > 0) : ?>
-                                <?php foreach ($produk as $row) : ?>
-                                    <div class="product-card">
-                                        <img src="../../assets/images/produk/<?= htmlspecialchars(basename($row['foto'])); ?>"
-                                            alt="<?= htmlspecialchars($row['jenis_sapi']); ?>" class="product-image">
-                                        <p class="nama-sponsordanproduk"><?= htmlspecialchars($row['jenis_sapi']); ?></p>
-                                        <div class="product-icons">
-                                            <a href="../produk/update_produk.php?id=<?= htmlspecialchars($row['id']); ?>"
-                                                class="icon-link"><i class="fa fa-edit"></i></a>
-                                            <a href="../produk/delete_produk.php?id=<?= htmlspecialchars($row['id']); ?>"
-                                                class="icon-link"><i
-                                                    class="fa fa-trash delete-button"></i></a>
-                                        </div>
-                                    </div>
-                                <?php endforeach; ?>
-                                <div class="product-card add-product">
-                                    <a href="../produk/add_produk.php" class="add-product-link">
-                                        <i class="fa fa-plus"></i>
-                                        <p>Tambah Produk</p>
-                                    </a>
+                            <?php foreach ($produk as $row) : ?>
+                            <div class="product-card">
+                                <img src="../../assets/images/produk/<?= htmlspecialchars(basename($row['foto'])); ?>"
+                                    alt="<?= htmlspecialchars($row['jenis_sapi']); ?>" class="product-image">
+                                <p class="nama-sponsordanproduk"><?= htmlspecialchars($row['jenis_sapi']); ?></p>
+                                <div class="product-icons">
+                                    <a href="../produk/update_produk.php?id=<?= htmlspecialchars($row['id']); ?>"
+                                        class="icon-link"><i class="fa fa-edit"></i></a>
+                                    <a href="../produk/delete_produk.php?id=<?= htmlspecialchars($row['id']); ?>"
+                                        class="icon-link"><i class="fa fa-trash delete-button"></i></a>
                                 </div>
+                            </div>
+                            <?php endforeach; ?>
+                            <div class="product-card add-product">
+                                <a href="../produk/add_produk.php" class="add-product-link">
+                                    <i class="fa fa-plus"></i>
+                                    <p>Tambah Produk</p>
+                                </a>
+                            </div>
                             <?php else : ?>
-                                <div class="no-data text-center mt-5">
-                                    <h6>Tidak ada data produk ditemukan</h6>
-                                </div>
+                            <div class="no-data text-center mt-5">
+                                <h6>Tidak ada data produk ditemukan</h6>
+                            </div>
                             <?php endif; ?>
                         </div>
                         <!-- Menampilkan pagination -->
@@ -100,27 +105,28 @@ $totalPages = getTotalProdukPages($recordsPerPage, $searchQuery);
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../../bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $('body').on('click', '.delete-button', function(e) {
-                e.preventDefault();
-                var link = $(this).closest('a').attr('href'); // Pastikan mengambil href dari elemen <a>
+    $(document).ready(function() {
+        $('body').on('click', '.delete-button', function(e) {
+            e.preventDefault();
+            var link = $(this).closest('a').attr('href'); // Pastikan mengambil href dari elemen <a>
 
-                Swal.fire({
-                    title: 'Apakah Anda Yakin?',
-                    text: "Anda tidak akan dapat memulihkan item ini",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Ya, tetap hapus!',
-                    cancelButtonText: 'Batal'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = link; // Redirect ke URL penghapusan jika dikonfirmasi
-                    }
-                });
+            Swal.fire({
+                title: 'Apakah Anda Yakin?',
+                text: "Anda tidak akan dapat memulihkan item ini",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, tetap hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href =
+                    link; // Redirect ke URL penghapusan jika dikonfirmasi
+                }
             });
         });
+    });
     </script>
 </body>
 
