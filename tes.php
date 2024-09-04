@@ -11,13 +11,13 @@ include 'config/functions.php';
     <meta charset="UTF-8">
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1, minimum-scale=1">
-    <title>CV Ghaffar Farm Bersaudara - Sentra Pemasok Daging Sapi</title>
+    <title>CV Ghaffar Farm Bersaudara - Baru setiap hari</title>
     <meta name="description"
         content="CV Ghaffar Farm Bersaudara adalah perusahaan yang bergerak dalam penggemukan sapi dan pemasok daging untuk kebutuhan hotel, restoran, swalayan, dan lainnya. Kami menyediakan sapi qurban berkualitas super.">
     <meta name="keywords"
         content="CV Ghaffar Farm Bersaudara, penggemukan sapi, pemasok daging, sapi qurban, daging sapi lokal">
     <meta name="author" content="CV Ghaffar Farm Bersaudara">
-    <link rel="canonical" href="https://www.ghaffarfarm.com/">
+    <link rel="canonical" href="https://www.ghaffarfarmbersaudara.com/">
     <link rel="stylesheet" href="assets/css/tes.css?v=1.0.1">
     <link rel="stylesheet" href="bootstrap-5.3.3-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -48,7 +48,7 @@ include 'config/functions.php';
     <!-- ini bagian konten header -->
 
     <div id="content">
-        <div class="jumbotron">
+        <div class="jumbotron" id="header">
             <div id="jumbotronCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000"
                 data-bs-wrap="true">
                 <!-- Indicators (Optional) -->
@@ -89,7 +89,7 @@ include 'config/functions.php';
 
             <!-- Jumbotron Content -->
             <div class="jumbotron-content d-flex flex-column justify-content-start align-items-center align-items-sm-start justify-content-sm-center p-1"
-                id="header">
+                id="">
                 <h1>CV Ghaffar Farm Bersaudara</h1>
                 <p>BARU SETIAP HARI</p>
                 <p>
@@ -119,22 +119,41 @@ include 'config/functions.php';
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
 
-                <ul class="navbar-nav m-auto">
-                    <li class="nav-item"><a class="nav-link" href="#header">Home</a></li>
+                <ul class="navbar-nav m-auto flex-wrap">
+                    <li class="nav-item px-3"><a class="nav-link" href="#header">Home</a></li>
                     <li class="nav-item dropdown">
                         <a class="nav-link" href="#tentang-kami" onclick="toggleDropdown(event)">
-                            Tentang Kami <span class="dropdown-icon">&#10095;</span>
+                            Tentang Kami <i class="fa fa-caret-down dropdown-icon"></i>
                         </a>
+
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#tentang-kami">Tentang Kami</a></li>
                             <li><a class="dropdown-item" href="#visi-misi">Visi & Misi</a></li>
 
                         </ul>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="#produk-kami">Produk</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#layanan">Layanan</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#legalitas">Legalitas</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#footer">Hubungi Kami</a></li>
+                    <li class="nav-item px-3"><a class="nav-link" href="#produk-kami">Produk</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link px-3" href="#layanan" onclick="toggleDropdown(event)">
+                            Layanan <i class="fa fa-caret-down dropdown-icon"></i>
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#layanan">Layanan</a></li>
+                            <li><a class="dropdown-item" href="#investasi">investasi</a></li>
+                            <li><a class="dropdown-item" href="#cara-investasi">alur kemitraan investasi</a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                    <li class="nav-item px-3"><a class="nav-link" href="#legalitas">Legalitas</a></li>
+                    <div class="khusus ms-5">
+                        <button class="btn btn-danger nav-item ms-5" onclick="window.location.href='#footer'">Hubungi
+                            Kami</button>
+                        <button class="btn btn-danger nav-item ms-1"
+                            onclick="window.location.href='#footer'">Login</button>
+                    </div>
                 </ul>
 
 
@@ -142,24 +161,45 @@ include 'config/functions.php';
         </nav>
 
         <main>
-            <section class="tentangkami active" id="tentang-kami">
-                <h2 class="hello p-1">Tentang Kami<span class="line tentangkamii"></span></h2>
-                <div class="card d-flex flex-column flex-lg-row" style="width: 98%;">
-                    <div class="left-tentangkami">
-                        <?php
-            $dataTentangKami = getAllData('tentang');
-            foreach ($dataTentangKami as $tentang_kami) : ?>
-                        <img src="assets/images/tentang/<?= htmlspecialchars(basename($tentang_kami['foto'])); ?>"
-                            class="gambar-tentangkami rounded-circle img-fluid mb-3"
-                            alt="gambar tentang CV Ghaffar Farm Bersaudara">
-                        <?php endforeach; ?>
-                    </div>
-                    <div class="right-tentangkami d-flex align-items-center" style="height: 100%;">
-                        <p class="text-left" style="width: 100%; text-align: left;">
-                            <?= nl2br(htmlspecialchars($tentang_kami['deskripsi_tentang'])); ?>
-                        </p>
-                    </div>
+            <section class="tentangkami active" id="tentang-kami"><br><br>
+                <h2 class="hello p-2">Tentang Kami</h2>
+                <div class="line"></div>
+                <div class="container-fluid px-4 mt-4">
+                    <div class="row align-items-stretch">
+                        <div class="col-lg-6 mb-4 mb-lg-0">
+                            <div class="h-100 position-relative overflow-hidden">
+                                <?php
+                    $dataTentangKami = getAllData('tentang');
+                    foreach ($dataTentangKami as $tentang_kami) : ?>
+                                <img src="assets/images/tentang/<?= htmlspecialchars(basename($tentang_kami['foto'])); ?>"
+                                    class="img-fluid w-100 h-100 object-fit-cover" alt="CV Ghaffar Farm Bersaudara"
+                                    style="object-position: center;">
+                                <?php endforeach; ?>
+                                <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50"></div>
+                                <div
+                                    class="position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center text-white text-center p-4">
+                                    <h4 class="h2 mb-3">CV Ghaffar Farm Bersaudara</h4>
+                                    <p class="mb-0">Keunggulan dalam Peternakan</p>
+                                </div>
+                            </div>
+                        </div>
 
+                        <div class="col-lg-6">
+                            <div class="bg-light h-100 p-4 p-lg-5">
+                                <h3 class="mb-4" style="color: #951c11;">Selamat Datang..</h3>
+                                <p class="lead">
+                                    <?= nl2br(htmlspecialchars($tentang_kami['deskripsi_tentang'])); ?>
+                                </p>
+                                <div
+                                    class="d-flex flex-column flex-md-row justify-content-center align-items-center mt-4">
+                                    <a href="#layanan" class="btn btn-outline-danger me-md-2 mb-3 mb-md-0">Pelajari
+                                        Lebih
+                                        Lanjut</a>
+                                    <a href="#footer" class="btn btn-danger">Hubungi Kami</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <br>
@@ -188,9 +228,9 @@ include 'config/functions.php';
                         </div>
                     </div>
                     <br>
-                    <div class="right-visimisi">
+                    <div class="right-visimisi mx-sm-5 my-auto">
                         <img src="assets/images/visi_misi/<?= htmlspecialchars(basename($visi_misi['foto'])); ?>"
-                            class="gambar-visimisi" alt="gambar tentang CV Ghaffar Farm Bersaudara">
+                            class="gambar-visimisi rounded" alt="gambar tentang CV Ghaffar Farm Bersaudara">
                     </div>
                 </div>
             </section>
@@ -208,6 +248,7 @@ include 'config/functions.php';
                     foreach ($produks as $produk) : ?>
                         <?php $uniqueId = uniqid(); ?>
                         <div class="card" style="width: 20rem; height: auto; position: relative;">
+
                             <h1 style="text-align: center; font-size: x-large;">
                                 <?= htmlspecialchars($produk['jenis_sapi']); ?>
                             </h1>
@@ -239,6 +280,8 @@ include 'config/functions.php';
                 <div class="content-section-layanan">
                     <h2 id="judul-produk-kami">Layanan</h2>
                     <div class="line"></div>
+
+
                     <br><br>
                     <?php
     $layanans = getAllData('layanan');
@@ -305,8 +348,7 @@ echo "</div>";
 
             echo "<li class='list-item'>
                     <div class='list-content'>
-                        $icon
-                        <span class='list-text'>$poin</span>
+                        <span class='list-text'> $icon $poin</span>
                     </div>
                   </li>";
         }
@@ -321,7 +363,7 @@ echo "</div>";
                     </div>
 
                 </div>
-                <div class="content-section-jangka-investasi">
+                <div class="content-section-jangka-investasi" id="investasi">
                     <div class="left-jangka-investasi">
                         <div class="left-jangka-investasi-content">
                             <h2 style="color: #FEF5EA; width: 100%;">INVESTASI</h2>
@@ -345,13 +387,13 @@ echo "</div>";
                     </div>
                     <?php endforeach; ?>
                 </div>
-                <div class="container my-5">
+                <div class="container my-5" id="Penjualan Produk">
                     <div class="row">
                         <div class="col-lg-6 col-12 mb-4">
                             <div class="card w-100 h-100">
                                 <div class="card-body">
                                     <h1 class="card-title h4 h-sm-3">Penjualan Daging Segar dan Beku</h1>
-                                    <p class="card-text">
+                                    <p class="flow-description">
                                         Kami menyediakan berbagai jenis daging segar dan beku dengan kualitas terbaik,
                                         langsung dari peternak ke konsumen.
                                     </p>
@@ -365,7 +407,7 @@ echo "</div>";
                             <div class="card w-100 h-100">
                                 <div class="card-body">
                                     <h1 class="card-title h4 h-sm-3">Penjualan Daging Qurban</h1>
-                                    <p class="card-text">
+                                    <p class="flow-description">
                                         Dapatkan daging qurban yang telah diproses sesuai syariah dengan harga yang
                                         terjangkau dan kualitas terjamin.
                                     </p>
@@ -377,62 +419,215 @@ echo "</div>";
                         </div>
                     </div>
                 </div>
-                <section class="container my-5">
-                    <h2 class="section-heading">Kenapa Harus di PT. Ghaffar Farm Bersaudara?</h2>
-                    <p class="section-content">
+                <div id="cara-investasi" name="legalitas" class="ghaffar-investment-flow">
+                    <div class="content-section-legalitas container">
+                        <h2 id="judul-produk-kami" class="text-center">Kemitraan</h2>
+                        <div class="line"></div>
+                        <p style="opacity: 0.5;">Investasi</p>
+                        <div class="flow-container">
+                            <div class="flow-card">
+                                <i class="flow-icon fas fa-handshake"></i>
+                                <h3 class="flow-title">Pendaftaran</h3>
+                                <p class="flow-description">Daftar sebagai mitra investor kami</p>
+                            </div>
+                            <div class="flow-card">
+                                <i class="flow-icon fas fa-coins"></i>
+                                <h3 class="flow-title">Investasi</h3>
+                                <p class="flow-description">Pilih paket investasi yang sesuai</p>
+                            </div>
+                            <div class="flow-card">
+                                <i class="flow-icon fas fa-chart-line"></i>
+                                <h3 class="flow-title">Pertumbuhan</h3>
+                                <p class="flow-description">Pantau perkembangan investasi Anda</p>
+                            </div>
+                            <div class="flow-card">
+                                <i class="flow-icon fas fa-hand-holding-usd"></i>
+                                <h3 class="flow-title">Keuntungan</h3>
+                                <p class="flow-description">Terima bagi hasil dari investasi</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <img src="assets/images/tabungan.gif" class="gambar-layanan m-auto"
+                    alt="gambar layanan CV Ghaffar Farm Bersaudara">
+                <section class="ghaffar-farm-section container my-4 py-5 h-auto">
+                    <h2 class="text-center mb-3 fs-3">Kenapa Harus di PT. Ghaffar Farm Bersaudara?</h2>
+                    <p class="text-center mx-auto mb-4 small" style="max-width: 700px;">
                         PT. GHAFFAR FARM BERSAUDARA menyiapkan sapi di Farm Balung Kab. Lima Puluh Kota atau kandang
-                        mitra
-                        kami. Kami memastikan bahwa hewan qurban yang disediakan:
+                        mitra kami. Kami memastikan bahwa hewan qurban yang disediakan:
                     </p>
-                    <ul class="section-content">
-                        <li>Di bawah pengawasan dokter hewan.</li>
-                        <li>Aqad jual-beli melewati akta notaris sesuai syariat Islam.</li>
-                        <li>Dapat diantarkan ke alamat konsumen sesuai permintaan.</li>
-                        <li>Garansi sapi (mati, sakit, patah, cacat) sebelum serah terima hari-H.</li>
-                        <li>Meliputi wilayah Sumatera Barat dan Riau (sesuai permintaan).</li>
-                        <li>Jenis sapi: Sapi Bali, dapat disalurkan sesuai permintaan jamaah ke seluruh wilayah
-                            Indonesia,
-                            daerah pengembangan Islam, dll.</li>
-                    </ul>
+                    <div class="row g-3 justify-content-center">
+                        <div class="col-xl-4 col-lg-3 col-md-4 col-sm-6">
+                            <div class="gf-card h-100 text-center">
+                                <div class="card-body d-flex flex-column align-items-center p-2">
+                                    <div class="icon-wrapper bg-success bg-opacity-10">
+                                        <i class="fas fa-user-md text-success"></i>
+                                    </div>
+                                    <h5 class="card-title mb-2">Pengawasan Profesional</h5>
+                                    <p class="flow-description">Di bawah pengawasan dokter hewan.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-3 col-md-4 col-sm-6">
+                            <div class="gf-card h-100 text-center">
+                                <div class="card-body d-flex flex-column align-items-center p-2">
+                                    <div class="icon-wrapper bg-info bg-opacity-10">
+                                        <i class="fas fa-gavel text-info"></i>
+                                    </div>
+                                    <h5 class="card-title mb-2">Aqad Syar'i</h5>
+                                    <p class="flow-description">Aqad jual-beli sesuai syariat Islam.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-3 col-md-4 col-sm-6">
+                            <div class="gf-card h-100 text-center">
+                                <div class="card-body d-flex flex-column align-items-center p-2">
+                                    <div class="icon-wrapper bg-warning bg-opacity-10">
+                                        <i class="fas fa-truck text-warning"></i>
+                                    </div>
+                                    <h5 class="card-title mb-2">Layanan Antar</h5>
+                                    <p class="flow-description">Diantarkan ke alamat konsumen.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-3 col-md-4 col-sm-6">
+                            <div class="gf-card h-100 text-center">
+                                <div class="card-body d-flex flex-column align-items-center p-2">
+                                    <div class="icon-wrapper bg-danger bg-opacity-10">
+                                        <i class="fas fa-shield-alt text-danger"></i>
+                                    </div>
+                                    <h5 class="card-title mb-2">Garansi Penuh</h5>
+                                    <p class="flow-description">Garansi sapi sebelum serah terima.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-3 col-md-4 col-sm-6">
+                            <div class="gf-card h-100 text-center">
+                                <div class="card-body d-flex flex-column align-items-center p-2">
+                                    <div class="icon-wrapper bg-primary bg-opacity-10">
+                                        <i class="fas fa-map-marker-alt text-primary"></i>
+                                    </div>
+                                    <h5 class="card-title mb-2">Jangkauan Luas</h5>
+                                    <p class="card-text">Meliputi Sumatera Barat dan Riau.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pricingTable mt-5">
+                        <h2 class="text-center mb-3 fs-3">Sapi Qurban Yang Kami Sediakan</h2>
+                        <ul class="pricingTable-firstTable">
+                            <li class="pricingTable-firstTable_table">
+                                <h1 class="pricingTable-firstTable_table__header">Grade A</h1>
+                                <p class="pricingTable-firstTable_table__pricing">
+                                    <span>Rp</span><span>21jt</span><span>Iuran 3jt / Orang</span>
+                                </p>
+                                <ul class="pricingTable-firstTable_table__options">
+                                    <li>Bobot 300Kg</li>
+                                    <li>Pengawasan Dokter Hewan</li>
+                                    <li>Aqad jual-beli sesuai syariat Islam.</li>
+                                    <li>Garansi sapi sebelum serah terima.</li>
+                                </ul>
+                                <button class="pricingTable-firstTable_table__getstart" data-grade="A"
+                                    data-price="21jt">Pilih Sapi</button>
+                            </li>
+                            <li class="pricingTable-firstTable_table">
+                                <h1 class="pricingTable-firstTable_table__header">Grade B</h1>
+                                <p class="pricingTable-firstTable_table__pricing">
+                                    <span>Rp</span><span>19,25jt</span><span>Iuran 2.75jt / Orang</span>
+                                </p>
+                                <ul class="pricingTable-firstTable_table__options">
+                                    <li>Bobot 275Kg</li>
+                                    <li>Pengawasan Dokter Hewan</li>
+                                    <li>Aqad jual-beli sesuai syariat Islam.</li>
+                                    <li>Garansi sapi sebelum serah terima.</li>
+                                </ul>
+                                <button class="pricingTable-firstTable_table__getstart" data-grade="B"
+                                    data-price="19,25jt">Pilih Sapi</button>
+                            </li>
+                            <li class="pricingTable-firstTable_table">
+                                <h1 class="pricingTable-firstTable_table__header">Grade C</h1>
+                                <p class="pricingTable-firstTable_table__pricing">
+                                    <span>Rp</span><span>17,5jt</span><span>Iuran 2,5jt / Orang</span>
+                                </p>
+                                <ul class="pricingTable-firstTable_table__options">
+                                    <li>Bobot 250Kg</li>
+                                    <li>Pengawasan Dokter Hewan</li>
+                                    <li>Aqad jual-beli sesuai syariat Islam.</li>
+                                    <li>Garansi sapi sebelum serah terima.</li>
+                                </ul>
+                                <button class="pricingTable-firstTable_table__getstart" data-grade="C"
+                                    data-price="17,5jt">Pilih Sapi</button>
+                            </li>
+                        </ul>
+                    </div>
                 </section>
 
-                <!-- Work Flow Section -->
-                <section class="container my-5">
-                    <h2 class="section-heading">Alur Kerja</h2>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h3>Alur Kerja Perusahaan</h3>
-                            <p class="section-content">
-                                PT. GHAFFAR FARM BERSAUDARA menyediakan pelatihan 1 kali tahun tentang pemotongan dan
-                                pengelolaan daging qurban yang ASUH (Aman, Sehat, Utuh, Halal) dan bersertifikat. Free
-                                plastik dan deterjen.
-                            </p>
+                <section id="w" name="workflow" class="workflow ghaffar-investment-flow h-auto">
+                    <div class="content-section-workflow container">
+                        <h2 id="judul-alur-kerja" class="text-center">Alur Kerja Perusahaan</h2>
+                        <span class="line"></span>
+                        <p style="opacity: 0.5;">Tabungan</p>
+                        <div class="flow-container">
+                            <div class="flow-card">
+                                <i class="flow-icon fas fa-user-edit"></i>
+                                <h3 class="flow-title">Pendaftaran</h3>
+                                <p class="flow-description">Nasabah mendaftar dan mengisi formulir</p>
+                            </div>
+                            <div class="flow-card">
+                                <i class="flow-icon fas fa-file-signature"></i>
+                                <h3 class="flow-title">Aqad</h3>
+                                <p class="flow-description">Penandatanganan aqad jual beli di notaris</p>
+                            </div>
+                            <div class="flow-card">
+                                <i class="flow-icon fas fa-piggy-bank"></i>
+                                <h3 class="flow-title">Tabungan</h3>
+                                <p class="flow-description">Nasabah menabung hingga 80% pada bulan ke-8</p>
+                            </div>
+                            <div class="flow-card">
+                                <i class="flow-icon fas fa-check-circle"></i>
+                                <h3 class="flow-title">Pelunasan</h3>
+                                <p class="flow-description">Nasabah melunasi 100% tabungan pada bulan ke-10</p>
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <h3>Alur Kerja Nasabah</h3>
-                            <ul class="section-content">
-                                <li>Nasabah mendatangki kantor dan mengisi formulir/ melalui agen marketing.</li>
-                                <li>Nasabah menandatangani aqad jual beli di notaris.</li>
-                                <li>Nasabah membuka buku tabungan dan menyetorkan kesanggupan dana melalui Bank Nagari,
-                                    BSI
-                                    / BRI / Melalui rekening PT. GHAFFAR FARM BERSAUDARA.</li>
-                                <li>Nasabah mencukupkan tabungan sampai 100% pada bulan ke-10.</li>
-                            </ul>
+                    </div>
+                    <br><br>
+                    <div class="content-section-workflow container">
+                        <h2 id="judul-alur-kerja" class="text-center">Alur Kerja Nasabah</h2>
+                        <div class="line"></div>
+                        <p style="opacity: 0.5;">Tabungan</p>
+                        <div class="flow-container">
+                            <div class="flow-card">
+                                <i class="flow-icon fas fa-user-edit"></i>
+                                <h3 class="flow-title">Pendaftaran</h3>
+                                <p class="flow-description">Nasabah mendatangi kantor dan mengisi formulir/ melalui agen
+                                    marketing.</p>
+                            </div>
+                            <div class="flow-card">
+                                <i class="flow-icon fas fa-file-signature"></i>
+                                <h3 class="flow-title">Cek Tabungan</h3>
+                                <p class="flow-description">Jika tabungan nasabah belum mencukupi sampai waktu yang
+                                    ditentukan, maka tabungan akan diakomodasikan ke tahun berikutnya.</p>
+                            </div>
+                            <div class="flow-card">
+                                <i class="flow-icon fas fa-piggy-bank"></i>
+                                <h3 class="flow-title">Persiapan</h3>
+                                <p class="flow-description">PT. GHAFFAR FARM BERSAUDARA menyiapkan sapi di Farm Balung
+                                    Kab.
+                                    Lima Puluh Kota atau kandang mitra PT. Ghaffar Farm Bersaudara.</p>
+                            </div>
+                            <div class="flow-card">
+                                <i class="flow-icon fas fa-check-circle"></i>
+                                <h3 class="flow-title">Pelunasan</h3>
+                                <p class="flow-description">Nasabah melunasi 100% tabungan pada bulan ke-10</p>
+                            </div>
                         </div>
                     </div>
                 </section>
             </section>
 
 
-            <section id="l" name="legalitas" class="legalitas">
-                <div class="content-section-legalitas">
-                    <h2 id="judul-produk-kami">Kemitraan</h2>
-                    <div class="line"></div>
 
-                </div>
-            </section>
-
-            <section id="legalitas" name="legalitas" class="legalitas">
+            <section id="legalitas" name="legalitas" class="legalitas h-auto">
                 <div class="content-section-legalitas">
                     <h2 id="judul-produk-kami">Legalitas</h2>
                     <div class="line"></div>
@@ -446,8 +641,9 @@ echo "</div>";
                         foreach ($dataLegalitas as $legalitas) : ?>
                             <a href="assets/pdf/legalitas/<?= $legalitas['legalitas']; ?>"
                                 class="list-group-item list-group-item-action btn-download" download>
-                                <i class="fas fa-download"></i> <span style="opacity: 0.5;">Sertifikat Standar Perizinan
-                                    Ambulatori</span>
+                                <i class="fas fa-download"></i> <span style="opacity: 0.5;">
+                                    <?= htmlspecialchars($legalitas['sertifikat']); ?></span>
+
                             </a>
                             <?php endforeach; ?>
                         </div>
@@ -455,20 +651,99 @@ echo "</div>";
                 </div>
             </section>
 
+            <section class="notary-section">
+                <h2 id="judul-produk-kami">Kantor Notaris</h2>
+                <div class="line"></div>
+                <div class="notary-grid">
+                    <div class="carousel-container">
+                        <div id="notaryCarousel" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="assets/images/notaris (1).jpeg" class="d-block w-100"
+                                        alt="Kantor Notaris 1">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="assets/images/notaris (2).jpeg" class="d-block w-100"
+                                        alt="Kantor Notaris 2">
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#notaryCarousel"
+                                data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#notaryCarousel"
+                                data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="notary-info">
+                        <div class="notary-details">
+                            <h2 class="notary-name">Mulyana, S.H., M.Kn.</h2>
+                            <p class="notary-title">Notaris & PPAT</p>
+                            <p><strong>Alamat:</strong> Jl. Pahlawan No. 123, Surabaya 60275</p>
+                            <p><strong>Telepon:</strong> (031) 5678-9012</p>
+                            <p><strong>Email:</strong> info@notarisbudisantoso.com</p>
+                            <p><strong>Jam Kerja:</strong> Senin - Jumat, 08.00 - 17.00 WIB</p>
+                        </div>
+                        <div class="notary-map">
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d27982.845262240306!2d100.63043014027394!3d-0.2141079465196692!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e2ab4a5989949c1%3A0xa506bdec24680d13!2sMulyana%2C%20SH.%2C%20M.Kn!5e0!3m2!1sid!2sid!4v1725100275843!5m2!1sid!2sid"
+                                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="partnership-section">
+                <h2 class="partnership-title">Kerjasama Kami</h2>
 
+                <div class="partnership-item">
+                    <div class="partnership-image">
+                        <img src="assets/images/Kerjasama/Universitas Andalas.jpeg" alt="Kerjasama 1">
+                    </div>
+                    <div class="partnership-content">
+                        <h3>Kerjasama dengan Universitas Andalas</h3>
+                        <p>Kami menjalin kerjasama dengan Peternakan A untuk menyediakan sapi berkualitas tinggi.
+                            Peternakan A dikenal dengan standar perawatan hewan yang sangat baik dan menghasilkan sapi
+                            dengan daging berkualitas premium.</p>
+                    </div>
+                </div>
 
-            <section id="kerjasama" name="kerjasama" class="kerjasama">
+                <div class="partnership-item">
+                    <div class="partnership-image">
+                        <img src="assets/images/Kerjasama/PT.Bukit Asam Palembang.jpeg" alt="Kerjasama 2">
+                    </div>
+                    <div class="partnership-content">
+                        <h3>Kerjasama dengan PT. Bukit Asam Palembang</h3>
+                        <p>Lembaga B adalah mitra kami dalam mendistribusikan daging qurban ke daerah-daerah yang
+                            membutuhkan. Dengan jaringan yang luas, kami dapat memastikan bahwa daging qurban sampai ke
+                            penerima yang tepat.</p>
+                    </div>
+                </div>
+
+                <div class="partnership-item">
+                    <div class="partnership-image">
+                        <img src="assets/images/Kerjasama/Primer Koperasi YUSTISIA BABINKUM TNI.jpeg" alt="Kerjasama 3">
+                    </div>
+                    <div class="partnership-content">
+                        <h3>Kerjasama dengan Primer Koperasi YUSTISIA BABINKUM TNI</h3>
+                        <p>Institusi C memberikan dukungan dalam bentuk pemeriksaan kesehatan hewan dan sertifikasi. Hal
+                            ini memastikan bahwa setiap sapi qurban yang kami sediakan memenuhi standar kesehatan dan
+                            kehalalan yang ketat.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="kerjasama" name="kerjasama" class="kerjasama h-auto py-5">
                 <div class="content-section-kerjasama">
                     <h2>Support Partner</h2>
                     <div class="line"></div>
-                    <h6 name="deskripsi-kerjasama" style="opacity: 0.6;">Kami Telah Bekerjasama dengan Berbagai
+                    <p name="deskripsi-kerjasama" style="opacity: 0.6;">Kami Telah Bekerjasama dengan Berbagai
                         Perusahaan
-                        dan Brand.</h6>
-                    <p>Kami melayani bisnis penggemukan sapi oleh perusahaan kami dengan sistim kemitraan dengan
-                        berbagai
-                        usaha peternakan lainnya yang berada di pulau Sumatera, Riau, Jawa dan bahkan daerah Nusa
-                        Tenggara
-                        Timur dan Barat.</p>
+                        dan Brand.</p>
+                    <p style="width: 80%; margin: auto;"></p>
                     <div class="marquee-wrapper">
                         <div class="marquee">
                             <div class="marquee-content">
@@ -489,16 +764,25 @@ echo "</div>";
                         </div>
                     </div>
                 </div>
-                <div class="whatsapp-icon" id="whatsappIcon">
-                    <i class="fa fa-whatsapp" aria-hidden="true" style="font-size: 30px;"></i>
-                </div>
 
-                <div class="whatsapp-popup" id="whatsappPopup">
-                    <textarea id="whatsappMessage" placeholder="Ketik pesan anda disini..."></textarea>
-                    <button onclick="sendMessage()">Send</button>
+                <div class="popup-container">
+                    <div class="whatsapp-icon" id="whatsappIcon">
+                        <i class="fa fa-whatsapp" aria-hidden="true" style="font-size: 30px;"></i>
+                    </div>
+                    <div class="whatsapp-popup" id="whatsappPopup">
+                        <textarea id="whatsappMessage" placeholder="Ketik pesan anda disini..."></textarea>
+                        <button onclick="sendMessage()">Send</button>
+                    </div>
+
+                    <a href="#header" id="back-to-top" class="back-to-top">
+                        <i class="fas fa-chevron-up"></i>
+                    </a>
                 </div>
             </section>
-            <section class="qa-section h-auto">
+
+
+
+            <section class="qa-section h-auto py-5">
                 <div class="container">
                     <h2 class="qa-header">Frequently Asked Questions (FAQ)</h2>
                     <div class="accordion" id="qaAccordion">
@@ -506,15 +790,13 @@ echo "</div>";
                             <h2 class="accordion-header" id="headingOne">
                                 <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                    What services does your company offer?
+                                    Berapa Nilai Minimal dan Maksimal Investasi?
                                 </button>
                             </h2>
                             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                                 data-bs-parent="#qaAccordion">
                                 <div class="accordion-body">
-                                    Our company provides a wide range of services including web development, mobile app
-                                    development, digital marketing, and IT consulting. We aim to deliver high-quality
-                                    solutions tailored to meet our clients' specific needs.
+                                    Minimal 50 juta rupiah Maksimal 16 Miliar Rupiah
                                 </div>
                             </div>
                         </div>
@@ -574,6 +856,7 @@ echo "</div>";
                     </div>
                 </div>
             </section>
+
         </main>
         <footer id="footer">
             <div class="footer">
@@ -608,7 +891,7 @@ echo "</div>";
 
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.796557337123!2d100.65034387435526!3d-0.18924338540971586!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e2ab31ac2dc3b05%3A0x23c5173ad15bb109!2sCV.GHAFFAR%20FARM%20BERSAUDARA!5e0!3m2!1sid!2sid!4v1721993524153!5m2!1sid!2sid"
-                            width="100%" height="295" style="border:0;" allowfullscreen="" loading="lazy"
+                            width="100%" height="295" style="border:0;" allowfullscreen=""
                             referrerpolicy="no-referrer-when-downgrade"></iframe>
                         <p style="text-align: left;"><?= $kontak['alamat'] ?></p>
                     </div>
@@ -654,6 +937,20 @@ echo "</div>";
     <script src="bootstrap-5.3.3-dist/js/popper.min.js"></script>
     <script src="bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
     <script>
+    document.querySelectorAll('.pricingTable-firstTable_table__getstart').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const grade = this.getAttribute('data-grade');
+            const price = this.getAttribute('data-price');
+            const phoneNumber = '6283167961562'; // Ganti dengan nomor WhatsApp Anda
+            const message =
+                `Saya tertarik dengan sapi qurban Grade ${grade} seharga Rp ${price}. Mohon informasi lebih lanjut.`;
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        });
+    });
+
+
     window.addEventListener('load', function() {
         // Menyembunyikan overlay setelah halaman selesai dimuat
         document.getElementById('overlay').classList.add('hide-overlay');
