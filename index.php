@@ -190,10 +190,11 @@ include 'config/functions.php';
                                 $dataTentangKami = getAllData('tentang');
                                 foreach ($dataTentangKami as $tentang_kami) : ?>
                                 <img src="assets/images/tentang/<?= htmlspecialchars(basename($tentang_kami['foto'])); ?>"
-                                    class="img-fluid w-100 h-100 object-fit-cover" alt="CV Ghaffar Farm Bersaudara"
-                                    style="object-position: center;">
+                                    class="img-fluid w-100 h-100 object-fit-cover rounded-2xl"
+                                    alt="CV Ghaffar Farm Bersaudara" style="object-position: center;">
                                 <?php endforeach; ?>
-                                <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50"></div>
+                                <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50 rounded-3">
+                                </div>
                                 <div
                                     class="position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center text-white text-center p-4">
                                     <h4 class="h2 mb-3">CV Ghaffar Farm Bersaudara</h4>
@@ -203,7 +204,7 @@ include 'config/functions.php';
                         </div>
 
                         <div class="col-lg-6">
-                            <div class="bg-light rounded h-100 p-4 p-lg-5">
+                            <div class="bg-light rounded-3 h-100 p-4 p-lg-5">
                                 <h3 class="mb-4" style="color: #951c11;">Selamat Datang..</h3>
                                 <p class="lead">
                                     <?= nl2br(htmlspecialchars($tentang_kami['deskripsi_tentang'])); ?>
@@ -717,12 +718,14 @@ include 'config/functions.php';
                     </div>
                 </div>
             </section>
-            <section class="partnership-section" id="kerjasama">
+            <section class="partnership-section " id="kerjasama">
                 <h2 class="partnership-title">Kerjasama Kami</h2>
+                <div class="line"></div>
+                <br>
                 <?php $kerjasamaData = getAllData('kerjasama');?>
                 <?php if (!empty($kerjasamaData)): ?>
                 <?php foreach ($kerjasamaData as $kerjasama): ?>
-                <div class="partnership-item">
+                <div class="partnership-item w-75 w-sm-100 m-auto">
                     <div class="partnership-image">
                         <img src="assets/images/Kerjasama/<?php echo $kerjasama['foto']; ?>"
                             alt="Kerjasama <?php echo $kerjasama['judul']; ?>">
@@ -896,24 +899,34 @@ include 'config/functions.php';
                             <caption>Hubungi Kami</caption>
                             <tbody>
                                 <?php $datakontak = getAllData('kontak');
-                                foreach ($datakontak as $kontak) : ?>
+    foreach ($datakontak as $kontak) : ?>
                                 <tr>
-                                    <td><i class="fas fa-phone icon"></i></td>
+                                    <!-- Salin nomor HP ke clipboard -->
+                                    <td><i class="fas fa-phone icon"
+                                            onclick="copyToClipboard('<?= $kontak['no_hp'] ?>')"
+                                            style="cursor: pointer;"></i></td>
                                     <td><?= $kontak['no_hp'] ?></td>
                                 </tr>
                                 <tr>
-                                    <td><i class="fab fa-whatsapp icon"></i></td>
+                                    <!-- Buka chat WhatsApp -->
+                                    <td><i class="fab fa-whatsapp icon" onclick="sendMessage('<?= $kontak['no_wa'] ?>')"
+                                            style="cursor: pointer;"></i></td>
                                     <td><?= $kontak['no_wa'] ?></td>
                                 </tr>
                                 <tr>
-                                    <td><i class="fab fa-instagram icon"></i></td>
+                                    <!-- Buka Instagram -->
+                                    <td><i class="fab fa-instagram icon" onclick="openInstagram('<?= $kontak['ig'] ?>')"
+                                            style="cursor: pointer;"></i></td>
                                     <td><?= $kontak['ig'] ?></td>
                                 </tr>
                                 <tr>
-                                    <td><i class="fab fa-facebook icon"></i></td>
+                                    <!-- Buka Facebook -->
+                                    <td><i class="fab fa-facebook icon" onclick="openFacebook('<?= $kontak['fb'] ?>')"
+                                            style="cursor: pointer;"></i></td>
                                     <td><?= $kontak['fb'] ?></td>
                                 </tr>
                             </tbody>
+
                         </table>
 
                     </div>
@@ -1038,6 +1051,30 @@ include 'config/functions.php';
                 }
             }, intervalTime);
         }
+    }
+
+    // Fungsi untuk menyalin nomor telepon ke clipboard
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(
+            function() {
+                alert("Nomor HP berhasil disalin: " + text);
+            },
+            function(err) {
+                alert("Gagal menyalin teks", err);
+            }
+        );
+    }
+
+    // Fungsi untuk membuka profil Instagram
+    function openInstagram(username) {
+        const igLink = `https://www.instagram.com/${username}`;
+        window.open(igLink, "_blank");
+    }
+
+    // Fungsi untuk membuka profil Facebook
+    function openFacebook(username) {
+        const fbLink = `https://www.facebook.com/${username}`;
+        window.open(fbLink, "_blank");
     }
     </script>
 
