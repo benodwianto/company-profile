@@ -1,6 +1,6 @@
 <?php
-include '../../config/functions.php';
 session_start();
+include '../../config/functions.php';
 
 if (!isset($_SESSION['admin_id']) || !isset($_SESSION['status'])) {
     header("Location: ../login.php");
@@ -23,6 +23,8 @@ $recordsPerPage = 9;
 $sponsors = getSponsorWithPagination($page, $recordsPerPage, $searchQuery);
 $totalPages = getTotalSponsorPages($recordsPerPage, $searchQuery);
 ?>
+
+
 <!DOCTYPE html>
 <html lang="id">
 

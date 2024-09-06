@@ -23,7 +23,7 @@ include 'config/functions.php';
     <meta name="keywords"
         content="CV Ghaffar Farm Bersaudara, penggemukan sapi, pemasok daging, sapi qurban, daging sapi lokal">
     <meta name="author" content="CV Ghaffar Farm Bersaudara">
-    <meta property="og:title" content="CV Ghaffar Farm Bersaudara - Baru setiap hari">
+    <meta property="og:title" content="CV Ghaffar Farm Bersaudara - Baru Setiap Hari">
     <meta property="og:description"
         content="CV Ghaffar Farm Bersaudara adalah perusahaan yang bergerak dalam penggemukan sapi dan pemasok daging untuk kebutuhan hotel, restoran, swalayan, dan lainnya. Kami menyediakan sapi qurban berkualitas super.">
     <meta property="og:image"
@@ -92,11 +92,11 @@ include 'config/functions.php';
 
                 <!-- Controls (Optional) -->
                 <a class="carousel-control-prev" href="#jumbotronCarousel" role="button" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="carousel-control-prev-icon" style="display: none;" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
                 </a>
                 <a class="carousel-control-next" href="#jumbotronCarousel" role="button" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="carousel-control-next-icon" style="display: none;" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </a>
             </div>

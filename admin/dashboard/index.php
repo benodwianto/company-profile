@@ -35,8 +35,8 @@ include 'aside.php'; ?>
                             <!-- Menggunakan mx-auto untuk memposisikan kolom di tengah -->
                             <h5 class="card-title text-center mt-4 text-light">Profile</h5>
                             <div class="admin-info text-center p-2 text-light">
-                                <img src="../../assets/images/profile.png" alt="Admin Photo" class="profile-img"
-                                    width="70" height="100">
+                                <img src="/assets/images/Profile.png" alt="Admin Photo" class="profile-img" width="70"
+                                    height="100">
                                 <p>Username <span>:</span>
                                     <strong> <?= htmlspecialchars($adminData['username']) ?>
                                 </p></strong>

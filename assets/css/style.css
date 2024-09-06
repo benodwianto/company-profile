@@ -72,6 +72,7 @@ nav {
     z-index: 100;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 
                 0 6px 20px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10dvh;
 }
 h1,
 h2,
@@ -1771,6 +1772,7 @@ footer p {
 
 /* Responsif */
 @media (max-width: 768px) {
+    
     .pricingTable-firstTable {
         flex-direction: column;
         align-items: center;
@@ -1937,14 +1939,12 @@ footer p {
         width: 100%;
         display: flex;
         justify-content: space-between;
-        padding: 20px 20px;
+        padding: 30px 30px;
         margin-bottom: 0px;
         position: fixed;
-        height: 10dvh;
         list-style: none;
         margin: 0;
-        padding: 0;
-        z-index: 100;
+        z-index: 200;
     }
     navbar {
         position: relative;
@@ -2280,7 +2280,6 @@ footer p {
 /* awal section tentang kami */
 .tentangkami {
     height: fit-content;
-   
         display: -webkit-flex; /* Safari */
         display: -moz-flex; /* Firefox */
         display: -ms-flex; /* IE 10 */

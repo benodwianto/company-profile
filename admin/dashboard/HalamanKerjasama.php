@@ -60,7 +60,7 @@ if (!isset($_SESSION['admin_id']) || !isset($_SESSION['status'])) {
                                         <td><?= htmlspecialchars($row['judul']) ?></td>
                                         <td><?= htmlspecialchars($row['deskripsi']) ?></td>
                                         <td>
-                                            <img src="../../assets/images/kerjasama/<?= htmlspecialchars(basename($row['foto'])) ?>"
+                                            <img src="../../assets/images/Kerjasama/<?= htmlspecialchars(basename($row['foto'])) ?>"
                                                 alt="Foto" width="100" class="img-thumbnail">
                                         </td>
                                         <td>

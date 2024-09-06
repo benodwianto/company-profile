@@ -36,7 +36,7 @@
             <li class="menu" id="Kontak-btn"><a href="HalamanKontak.php" class="menu-link"><i
                         class="bi bi-telephone"></i><span>Kontak</span></a></li>
             <li class="menu" id="Kerjasama-btn"><a href="HalamanKerjasama.php" class="menu-link"><i
-                        class="bi bi-telephone"></i><span>Kerjasama</span></a></li>
+                        class="fas fa-handshake"></i><span>Kerjasama</span></a></li>
             <li class="menu" id="Sponsor-btn"><a href="HalamanSponsor.php" class="menu-link"><i
                         class="bi bi-people"></i><span>Sponsor</span></a></li>
 

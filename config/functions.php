@@ -1,8 +1,8 @@
 <?php
 $servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "ghaffar-farm";
+$username = "u390498945_ghaffarfarm";
+$password = "Ghaffar.F412m.*";
+$dbname = "u390498945_Ghaffar_db";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -1476,7 +1476,7 @@ function getSponsorWithPagination($page = 1, $recordsPerPage = 10, $searchQuery 
     $offset = ($page - 1) * $recordsPerPage;
 
     // Build the query with optional search filtering
-    $sql = "SELECT * FROM Sponsor WHERE 1=1";
+    $sql = "SELECT * FROM sponsor WHERE 1=1";
 
     if ($searchQuery) {
         $sql .= " AND sponsor LIKE ?";
