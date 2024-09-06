@@ -365,56 +365,78 @@ function recordLoginTime($admin_id)
 {
     global $conn;
 
-    // Periksa apakah sudah ada login untuk admin ini
-    $sql_check = "SELECT COUNT(*) FROM login WHERE admin_id = ?";
-    $stmt_check = $conn->prepare($sql_check);
-    $stmt_check->bind_param('i', $admin_id);
-    $stmt_check->execute();
-    $stmt_check->bind_result($count);
-    $stmt_check->fetch();
-    $stmt_check->close();
+    try {
+        // Mulai transaksi
+        $conn->begin_transaction();
 
-    if ($count > 0) {
-        // Jika sudah ada, update waktu login
-        $sql_update = "UPDATE login SET waktu = NOW() WHERE admin_id = ?";
-        $stmt_update = $conn->prepare($sql_update);
-        $stmt_update->bind_param('i', $admin_id);
+        // Periksa apakah sudah ada login untuk admin ini
+        $sql_check = "SELECT COUNT(*) FROM login WHERE admin_id = ?";
+        $stmt_check = $conn->prepare($sql_check);
+        $stmt_check->bind_param('i', $admin_id);
+        $stmt_check->execute();
+        $stmt_check->bind_result($count);
+        $stmt_check->fetch();
+        $stmt_check->close();
 
-        if ($stmt_update->execute()) {
-            $stmt_update->close();
+        if ($count > 0) {
+            // Jika sudah ada, update waktu login
+            $sql_update = "UPDATE login SET waktu = NOW() WHERE admin_id = ?";
+            $stmt_update = $conn->prepare($sql_update);
+            $stmt_update->bind_param('i', $admin_id);
 
-            // Set session message for successful update
-            $_SESSION['message'] = 'Login time updated successfully';
-            $_SESSION['message_type'] = 'success';
+            if ($stmt_update->execute()) {
+                $stmt_update->close();
 
-            return true;
+                // Commit transaksi
+                $conn->commit();
+
+                // Set session message for successful update
+                $_SESSION['message'] = 'Login time updated successfully';
+                $_SESSION['message_type'] = 'success';
+
+                return true;
+            } else {
+                $stmt_update->close();
+
+                // Rollback transaksi jika ada kegagalan
+                $conn->rollback();
+
+                // Set session message for error during update
+                $_SESSION['message'] = 'Error updating login time: ' . $conn->error;
+                $_SESSION['message_type'] = 'error';
+
+                return false;
+            }
         } else {
-            $stmt_update->close();
+            // Jika belum ada, insert data login baru
+            $sql_insert = "INSERT INTO login (admin_id, waktu) VALUES (?, NOW())";
+            $stmt_insert = $conn->prepare($sql_insert);
+            $stmt_insert->bind_param('i', $admin_id);
 
-            // Set session message for error during update
-            $_SESSION['message'] = 'Error updating login time: ' . $conn->error;
-            $_SESSION['message_type'] = 'error';
+            if ($stmt_insert->execute()) {
+                $stmt_insert->close();
 
-            return false;
+                // Commit transaksi
+                $conn->commit();
+
+                // Set session message for successful insert
+                $_SESSION['message'] = 'Login time recorded successfully';
+                $_SESSION['message_type'] = 'success';
+                return true;
+            } else {
+                $stmt_insert->close();
+
+                // Rollback transaksi jika ada kegagalan
+                $conn->rollback();
+
+                // Set session message for error during insert
+                $_SESSION['message'] = 'Error recording login time: ' . $conn->error;
+                $_SESSION['message_type'] = 'error';
+                return false;
+            }
         }
-    } else {
-        // Jika belum ada, insert data login baru
-        $sql_insert = "INSERT INTO login (admin_id, waktu) VALUES (?, NOW())";
-        $stmt_insert = $conn->prepare($sql_insert);
-        $stmt_insert->bind_param('i', $admin_id);
-
-        if ($stmt_insert->execute()) {
-            $stmt_insert->close();
-        }
-
-        // Commit transaksi
-        $conn->commit();
-        $_SESSION['message'] = 'Login time recorded successfully';
-        $_SESSION['message_type'] = 'success';
-        return true;
-
     } catch (Exception $e) {
-        // Rollback transaksi jika ada kegagalan
+        // Rollback transaksi jika ada exception
         $conn->rollback();
         $_SESSION['message'] = 'Error recording login time: ' . $e->getMessage();
         $_SESSION['message_type'] = 'error';
