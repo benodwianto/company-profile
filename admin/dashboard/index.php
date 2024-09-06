@@ -45,27 +45,27 @@ include 'aside.php'; ?>
                             </div>
                         </div>
                         <?php if ($_SESSION['status'] === 'Admin') : ?>
-                            <div class="tebel ms-4 col-6">
-                                <h6 class="mt-4 ms-1 font-bold opacity-50">Daftar Admin</h6>
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Username</th>
-                                            <th>Terakhir Login</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
+                        <div class="tebel ms-4 col-6">
+                            <h6 class="mt-4 ms-1 font-bold opacity-50">Daftar Admin</h6>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Username</th>
+                                        <th>Terakhir Login</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
                                         foreach ($data_admin as $admin) : ?>
-                                            <tr>
-                                                <td><?= htmlspecialchars($admin['username']) ?></td>
-                                                <td><i class=""></i> <?= timeAgo($admin['lastLoginTime']) ?></td>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table>
+                                    <tr>
+                                        <td><?= htmlspecialchars($admin['username']) ?></td>
+                                        <td><i class=""></i> <?= timeAgo($admin['lastLoginTime']) ?></td>
+                                    </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
                             <?php endif; ?>
-                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- Card Baru untuk Pesan Pengunjung -->
@@ -76,8 +76,12 @@ include 'aside.php'; ?>
                     <form action="" method="get" class="d-flex align-items-center w-50">
                         <div class="input-group me-2">
                             <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                            <input type="date" name="start_date" value="<?php echo isset($_GET['start_date']) ? $_GET['start_date'] : ''; ?>" class="form-control">
-                            <input type="date" name="end_date" value="<?php echo isset($_GET['end_date']) ? $_GET['end_date'] : ''; ?>" class="form-control ms-2">
+                            <input type="date" name="start_date"
+                                value="<?php echo isset($_GET['start_date']) ? $_GET['start_date'] : ''; ?>"
+                                class="form-control">
+                            <input type="date" name="end_date"
+                                value="<?php echo isset($_GET['end_date']) ? $_GET['end_date'] : ''; ?>"
+                                class="form-control ms-2">
                         </div>
                         <button type="submit" class="btn btn-primary">Filter</button>
                     </form>
@@ -86,41 +90,44 @@ include 'aside.php'; ?>
                 <div class="card ms-4 m-4 shadow-sm border-0 rounded-3">
                     <div class="card-body">
                         <?php if (empty($data)) : ?>
-                            <div class="alert alert-info" role="alert">
-                                Tidak ada pesan yang ditemukan untuk tanggal yang dipilih.
-                            </div>
+                        <div class="alert alert-info" role="alert">
+                            Tidak ada pesan yang ditemukan untuk tanggal yang dipilih.
+                        </div>
                         <?php else : ?>
-                            <?php foreach ($data as $pesan) : ?>
-                                <div
-                                    class="visitor-message d-flex justify-content-between align-items-center border p-3 rounded-3 bg-light">
-                                    <div class="message-content">
-                                        <p class="mb-1"><strong>Email:</strong> <?= htmlspecialchars($pesan['email']) ?></p>
-                                        <p class="mb-0"><strong>Pesan:</strong>
-                                            <?php
+                        <?php foreach ($data as $pesan) : ?>
+                        <div
+                            class="visitor-message d-flex justify-content-between align-items-center border p-3 rounded-3 bg-light">
+                            <div class="message-content">
+                                <p class="mb-1"><strong>Email:</strong> <?= htmlspecialchars($pesan['email']) ?></p>
+                                <p class="mb-0"><strong>Pesan:</strong>
+                                    <?php
                                             $pesan_panjang = strlen($pesan['pesan_pengunjung']);
                                             if ($pesan_panjang > 100): ?>
-                                                <span class="teks-singkat">
-                                                    <?= htmlspecialchars(substr($pesan['pesan_pengunjung'], 0, 100)); ?>...
-                                                </span>
-                                                <span class="teks-lengkap d-none">
-                                                    <?= htmlspecialchars($pesan['pesan_pengunjung']); ?>
-                                                </span>
-                                                <a href="javascript:void(0);" class="baca-selengkapnya text-decoration-none">Selengkapnya</a>
-                                            <?php else: ?>
-                                                <span>
-                                                    <?= htmlspecialchars($pesan['pesan_pengunjung']); ?>
-                                                </span>
-                                            <?php endif; ?>
-                                        </p>
+                                    <span class="teks-singkat">
+                                        <?= htmlspecialchars(substr($pesan['pesan_pengunjung'], 0, 100)); ?>...
+                                    </span>
+                                    <span class="teks-lengkap d-none">
+                                        <?= htmlspecialchars($pesan['pesan_pengunjung']); ?>
+                                    </span>
+                                    <a href="javascript:void(0);"
+                                        class="baca-selengkapnya text-decoration-none">Selengkapnya</a>
+                                    <?php else: ?>
+                                    <span>
+                                        <?= htmlspecialchars($pesan['pesan_pengunjung']); ?>
+                                    </span>
+                                    <?php endif; ?>
+                                </p>
 
-                                    </div>
-                                    <div class="message-time text-muted fs-6">
-                                        <?= timeAgo($pesan['tanggal']) ?> | <a href="../delete_pesan.php?id=<?= htmlspecialchars($pesan['id']); ?>"
-                                            class="icon-link"><i class="fa fa-trash delete-button" style="font-size:15px"></i></a>
-                                    </div>
+                            </div>
+                            <div class="message-time text-muted fs-6">
+                                <?= timeAgo($pesan['tanggal']) ?> | <a
+                                    href="../delete_pesan.php?id=<?= htmlspecialchars($pesan['id']); ?>"
+                                    class="icon-link"><i class="fa fa-trash delete-button"
+                                        style="font-size:15px"></i></a>
+                            </div>
 
-                                </div>
-                            <?php endforeach; ?>
+                        </div>
+                        <?php endforeach; ?>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -139,45 +146,45 @@ include 'aside.php'; ?>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="../../bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    $(document).ready(function() {
-        $('body').on('click', '.delete-button', function(e) {
-            e.preventDefault();
-            var link = $(this).closest('a').attr('href'); // Pastikan mengambil href dari elemen <a>
+$(document).ready(function() {
+    $('body').on('click', '.delete-button', function(e) {
+        e.preventDefault();
+        var link = $(this).closest('a').attr('href'); // Pastikan mengambil href dari elemen <a>
 
-            Swal.fire({
-                title: 'Apakah Anda Yakin?',
-                text: "Anda tidak akan dapat memulihkan item ini",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, tetap hapus!',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = link; // Redirect ke URL penghapusan jika dikonfirmasi
-                }
-            });
-        });
-    });
-
-    document.querySelectorAll('.baca-selengkapnya').forEach(function(link) {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            var teksSingkat = this.previousElementSibling.previousElementSibling;
-            var teksLengkap = this.previousElementSibling;
-
-            if (teksLengkap.classList.contains('d-none')) {
-                teksSingkat.classList.add('d-none');
-                teksLengkap.classList.remove('d-none');
-                this.textContent = 'Tampilkan lebih sedikit';
-            } else {
-                teksSingkat.classList.remove('d-none');
-                teksLengkap.classList.add('d-none');
-                this.textContent = 'Selengkapnya';
+        Swal.fire({
+            title: 'Apakah Anda Yakin?',
+            text: "Anda tidak akan dapat memulihkan item ini",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, tetap hapus!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = link; // Redirect ke URL penghapusan jika dikonfirmasi
             }
         });
     });
+});
+
+document.querySelectorAll('.baca-selengkapnya').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        var teksSingkat = this.previousElementSibling.previousElementSibling;
+        var teksLengkap = this.previousElementSibling;
+
+        if (teksLengkap.classList.contains('d-none')) {
+            teksSingkat.classList.add('d-none');
+            teksLengkap.classList.remove('d-none');
+            this.textContent = 'Tampilkan lebih sedikit';
+        } else {
+            teksSingkat.classList.remove('d-none');
+            teksLengkap.classList.add('d-none');
+            this.textContent = 'Selengkapnya';
+        }
+    });
+});
 </script>
 </body>
 

@@ -405,23 +405,23 @@ function recordLoginTime($admin_id)
 
         if ($stmt_insert->execute()) {
             $stmt_insert->close();
-
-            // Set session message for successful insert
-            $_SESSION['message'] = 'Login time recorded successfully';
-            $_SESSION['message_type'] = 'success';
-
-            return true;
-        } else {
-            $stmt_insert->close();
-
-            // Set session message for error during insert
-            $_SESSION['message'] = 'Error recording login time: ' . $conn->error;
-            $_SESSION['message_type'] = 'error';
-
-            return false;
         }
+
+        // Commit transaksi
+        $conn->commit();
+        $_SESSION['message'] = 'Login time recorded successfully';
+        $_SESSION['message_type'] = 'success';
+        return true;
+
+    } catch (Exception $e) {
+        // Rollback transaksi jika ada kegagalan
+        $conn->rollback();
+        $_SESSION['message'] = 'Error recording login time: ' . $e->getMessage();
+        $_SESSION['message_type'] = 'error';
+        return false;
     }
 }
+
 
 
 function login($username, $password)
@@ -1101,7 +1101,7 @@ function insertKerjasama($judul, $deskripsi, $fotoFileInputName)
     }
     $stmt->close();
 
-    header("Location: index.php");
+    header("Location: ../dashboard/HalamanKerjasama.php");
     exit();
 }
 
@@ -1156,7 +1156,7 @@ function updateKerjasama($id, $judul, $deskripsi, $fotoFileInputName)
     }
     $stmt->close();
 
-    header("Location: index.php");
+    header("Location: ../dashboard/HalamanKerjasama.php");
     exit();
 }
 
@@ -1196,7 +1196,7 @@ function deleteKerjasama($id)
     }
     $stmt->close();
 
-    header("Location: index.php");
+    header("Location: ../dashboard/HalamanKerjasama.php");
     exit();
 }
 

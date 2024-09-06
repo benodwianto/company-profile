@@ -65,7 +65,7 @@ aside {
     background-color: var(--base-light);
     box-shadow: 0 4px 8px var(--shadow-color, rgba(0, 0, 0, 0.2));
     position: fixed; /* Posisi fixed jika diperlukan */
-    top: 104px;
+    top: 100px;
     transition: left 1s ease; /* Transisi halus untuk posisi aside */
     z-index: 999;
 }
@@ -76,9 +76,6 @@ aside ul {
    
     height: 100%;
     padding: 0;
-    padding-top: 30px;
- 
-
 }
 aside ul li {
     margin: 10px;
@@ -466,7 +463,9 @@ article .content {
 
 
 input[type="file"] {
-    display: none;
+    display: block;
+    visibility: visible;
+    width: 100%;
 }
 
 .btn-file {

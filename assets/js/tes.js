@@ -1,26 +1,3 @@
-// document.addEventListener("DOMContentLoaded", function () {
-//   const lineElements = document.querySelectorAll(".line");
-
-//   const observer = new IntersectionObserver(
-//     (entries) => {
-//       entries.forEach((entry) => {
-//         if (entry.isIntersecting) {
-//           entry.target.classList.add("animate");
-//         } else {
-//           entry.target.classList.remove("animate");
-//         }
-//       });
-//     },
-//     {
-//       threshold: 0.5,
-//     }
-//   );
-
-//   lineElements.forEach((line) => {
-//     observer.observe(line);
-//   });
-// });
-
 // animasi gambar tentang kami
 document.addEventListener("DOMContentLoaded", function () {
   const image = document.querySelector(".gambar-tentangkami");
@@ -235,44 +212,3 @@ window.onclick = function (event) {
     });
   }
 };
-
-// text expandable card pada produk kami
-// document.addEventListener('DOMContentLoaded', function() {
-//   const toggleButtons = document.querySelectorAll(".toggle-btn");
-//   const collapseElements = document.querySelectorAll(".collapse");
-
-//   // Function to close all collapse elements except the clicked one
-//   function closeAllCollapses(exceptElement = null) {
-//     collapseElements.forEach((collapse) => {
-//       if (collapse !== exceptElement) {
-//         const collapseInstance =
-//           bootstrap.Collapse.getOrCreateInstance(collapse);
-//         collapseInstance.hide();
-//       }
-//     });
-//   }
-
-//   // Event listener for toggle buttons
-//   toggleButtons.forEach((button) => {
-//     button.addEventListener("click", function () {
-//       const target = this.getAttribute("data-bs-target");
-//       const targetElement = document.querySelector(target);
-
-//       // Close all collapse elements except the target
-//       closeAllCollapses(targetElement);
-
-//       // Toggle the target collapse
-//       const targetCollapse =
-//         bootstrap.Collapse.getOrCreateInstance(targetElement);
-//       targetCollapse.toggle();
-
-//       // Update the icon
-//       const icon = this.querySelector("i");
-//       if (targetCollapse._isShown()) {
-//         icon.classList.replace("fa-eye", "fa-eye-slash");
-//       } else {
-//         icon.classList.replace("fa-eye-slash", "fa-eye");
-//       }
-//     });
-//   });
-// });
