@@ -361,14 +361,14 @@ function getAdminDataBySessionId()
     }
 }
 
-function recordLoginTime($id_admin)
+function recordLoginTime($admin_id)
 {
     global $conn;
 
     // Periksa apakah sudah ada login untuk admin ini
-    $sql_check = "SELECT COUNT(*) FROM login WHERE id_admin = ?";
+    $sql_check = "SELECT COUNT(*) FROM login WHERE admin_id = ?";
     $stmt_check = $conn->prepare($sql_check);
-    $stmt_check->bind_param('i', $id_admin);
+    $stmt_check->bind_param('i', $admin_id);
     $stmt_check->execute();
     $stmt_check->bind_result($count);
     $stmt_check->fetch();
@@ -376,9 +376,9 @@ function recordLoginTime($id_admin)
 
     if ($count > 0) {
         // Jika sudah ada, update waktu login
-        $sql_update = "UPDATE login SET waktu = NOW() WHERE id_admin = ?";
+        $sql_update = "UPDATE login SET waktu = NOW() WHERE admin_id = ?";
         $stmt_update = $conn->prepare($sql_update);
-        $stmt_update->bind_param('i', $id_admin);
+        $stmt_update->bind_param('i', $admin_id);
 
         if ($stmt_update->execute()) {
             $stmt_update->close();
@@ -399,9 +399,9 @@ function recordLoginTime($id_admin)
         }
     } else {
         // Jika belum ada, insert data login baru
-        $sql_insert = "INSERT INTO login (id_admin, waktu) VALUES (?, NOW())";
+        $sql_insert = "INSERT INTO login (admin_id, waktu) VALUES (?, NOW())";
         $stmt_insert = $conn->prepare($sql_insert);
-        $stmt_insert->bind_param('i', $id_admin);
+        $stmt_insert->bind_param('i', $admin_id);
 
         if ($stmt_insert->execute()) {
             $stmt_insert->close();
@@ -725,46 +725,54 @@ function deleteLegalitas($id)
     exit();
 }
 
-function deleteAdmin($username)
+function deleteAdminWithLogin($id)
 {
     global $conn;
 
-    // Siapkan pernyataan SQL untuk menghapus data
-    $sql = "DELETE FROM admin WHERE username = ?";
+    // Hapus data yang berelasi di tabel 'login'
+    $sql = "DELETE FROM login WHERE admin_id = ?";
     $stmt = $conn->prepare($sql);
 
-    // Cek apakah pernyataan berhasil disiapkan
-    if ($stmt === false) {
-        // Set session message for error preparing statement
-        $_SESSION['message'] = 'Terjadi kesalahan saat menyiapkan pernyataan' . $conn->error;
+    // Cek jika SQL statement gagal dipersiapkan
+    if (!$stmt) {
+        $_SESSION['message'] = "Terjadi kesalahan saat menyiapkan pernyataan login: " . $conn->error;
         $_SESSION['message_type'] = 'error';
-
         return false;
     }
 
-    // Bind parameter ke pernyataan SQL
-    $stmt->bind_param('s', $username);
-
-    // Eksekusi pernyataan SQL
+    $stmt->bind_param('i', $id);
     if ($stmt->execute()) {
         $stmt->close();
 
-        // Set session message for successful deletion
-        $_SESSION['message'] = 'Data admin berhasil dihapus';
-        $_SESSION['message_type'] = 'success';
+        // Setelah menghapus data login, hapus data admin
+        $sql = "DELETE FROM admin WHERE id = ?";
+        $stmt = $conn->prepare($sql);
 
-        return true;
+        if (!$stmt) {
+            $_SESSION['message'] = "Terjadi kesalahan saat menyiapkan pernyataan admin: " . $conn->error;
+            $_SESSION['message_type'] = 'error';
+            return false;
+        }
+
+        $stmt->bind_param('i', $id);
+        if ($stmt->execute()) {
+            $_SESSION['message'] = "Data admin dan login berhasil dihapus";
+            $_SESSION['message_type'] = 'success';
+            $stmt->close();
+            return true;
+        } else {
+            $_SESSION['message'] = "Terjadi kesalahan saat menghapus data admin: " . $stmt->error;
+            $_SESSION['message_type'] = 'error';
+            $stmt->close();
+            return false;
+        }
     } else {
-        $stmt->close();
-
-        // Set session message for error during deletion
-        $_SESSION['message'] = 'Terjadi kesalahan saat menghapus data admin: ' . $conn->error;
+        $_SESSION['message'] = "Terjadi kesalahan saat menghapus data login: " . $stmt->error;
         $_SESSION['message_type'] = 'error';
-
+        $stmt->close();
         return false;
     }
 }
-
 
 function insertProduk($jenis_sapi, $deskripsi_produk, $fotoFileInputName)
 {
@@ -1197,14 +1205,14 @@ function getAllAdminsWithLastLoginTime()
 {
     global $conn;
 
-    // Query untuk menggabungkan tabel admin dan login berdasarkan id_admin
+    // Query untuk menggabungkan tabel admin dan login berdasarkan admin_id
     $sql = "
         SELECT 
             a.id, a.username, a.status, MAX(l.waktu) as lastLoginTime
         FROM 
             admin a
         LEFT JOIN 
-            login l ON a.id = l.id_admin
+            login l ON a.id = l.admin_id
         GROUP BY 
             a.id, a.username, a.status
         ORDER BY 
