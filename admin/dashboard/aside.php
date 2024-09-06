@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1, minimum-scale=1">
-    <title>PT Ghaffar Farm Bersaudara - Dashboard</title>
+    <title>CV Ghaffar Farm Bersaudara - Dashboard</title>
     <link rel="stylesheet" href="../../assets/css/dashboard.css">
     <link rel="stylesheet" href="../../bootstrap-5.3.3-dist/css/bootstrap.min.css">
     <link rel="stylesheet"
@@ -35,6 +35,8 @@
             </li>
             <li class="menu" id="Kontak-btn"><a href="HalamanKontak.php" class="menu-link"><i
                         class="bi bi-telephone"></i><span>Kontak</span></a></li>
+            <li class="menu" id="Kerjasama-btn"><a href="HalamanKerjasama.php" class="menu-link"><i
+                        class="bi bi-telephone"></i><span>Kerjasama</span></a></li>
             <li class="menu" id="Sponsor-btn"><a href="HalamanSponsor.php" class="menu-link"><i
                         class="bi bi-people"></i><span>Sponsor</span></a></li>
 

@@ -1093,7 +1093,7 @@ function insertKerjasama($judul, $deskripsi, $fotoFileInputName)
     }
     $stmt->close();
 
-    header("Location: index.php");
+    header("Location: ../dashboard/HalamanKerjasama.php");
     exit();
 }
 
@@ -1148,7 +1148,7 @@ function updateKerjasama($id, $judul, $deskripsi, $fotoFileInputName)
     }
     $stmt->close();
 
-    header("Location: index.php");
+    header("Location: ../dashboard/HalamanKerjasama.php");
     exit();
 }
 
@@ -1188,7 +1188,7 @@ function deleteKerjasama($id)
     }
     $stmt->close();
 
-    header("Location: index.php");
+    header("Location: ../dashboard/HalamanKerjasama.php");
     exit();
 }
 
