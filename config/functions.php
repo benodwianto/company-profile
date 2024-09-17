@@ -1,8 +1,8 @@
 <?php
 $servername = "localhost";
-$username = "u390498945_ghaffarfarm";
-$password = "Ghaffar.F412m.*";
-$dbname = "u390498945_Ghaffar_db";
+$username = "root";
+$password = "";
+$dbname = "ghaffar-farm";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -1222,6 +1222,43 @@ function deleteKerjasama($id)
     exit();
 }
 
+function updateJenisSapi($id, $grade, $harga, $iuran, $bobot, $pengawasan, $aqad, $garansi)
+{
+    session_start();
+    global $conn;
+
+    // Prepare SQL statement to update the jenis_sapi table
+    $sql = "UPDATE jenis_sapi 
+            SET grade = ?, harga = ?, iuran = ?, bobot = ?, pengawasan = ?, aqad = ?, garansi = ?
+            WHERE id = ?";
+
+    $stmt = $conn->prepare($sql);
+
+    // Check if the statement is prepared successfully
+    if ($stmt === false) {
+        $_SESSION['message'] = 'Terjadi kesalahan saat menyiapkan pernyataan: ' . $conn->error;
+        $_SESSION['message_type'] = 'error';
+        return false;
+    }
+
+    // Bind parameters to the SQL query
+    $stmt->bind_param('sssssssi', $grade, $harga, $iuran, $bobot, $pengawasan, $aqad, $garansi, $id);
+
+    // Execute the SQL query
+    if ($stmt->execute()) {
+        $_SESSION['message'] = "Berhasil memperbarui data jenis sapi";
+        $_SESSION['message_type'] = 'success';
+    } else {
+        $_SESSION['message'] = "Gagal memperbarui data jenis sapi: " . $stmt->error;
+        $_SESSION['message_type'] = 'error';
+    }
+
+    $stmt->close();
+
+    // Redirect back to a page after update
+    header("Location: HalamanJenisSapi.php?id=$id");
+    exit();
+}
 
 function getAllAdminsWithLastLoginTime()
 {

@@ -110,7 +110,7 @@ include 'config/functions.php';
                     <?php
                     $dataHome = getAllData('home');
                     foreach ($dataHome as $home) : ?>
-                    <?= nl2br(htmlspecialchars($home['deskripsi_dashboard'])); ?>
+                        <?= nl2br(htmlspecialchars($home['deskripsi_dashboard'])); ?>
                     <?php endforeach; ?>
                 </p>
                 <a href="#produk-kami" class="btn-jumbotron">Lihat Produk</a>
@@ -189,9 +189,9 @@ include 'config/functions.php';
                                 <?php
                                 $dataTentangKami = getAllData('tentang');
                                 foreach ($dataTentangKami as $tentang_kami) : ?>
-                                <img src="assets/images/tentang/<?= htmlspecialchars(basename($tentang_kami['foto'])); ?>"
-                                    class="img-fluid w-100 h-100 object-fit-cover rounded-2xl"
-                                    alt="CV Ghaffar Farm Bersaudara" style="object-position: center;">
+                                    <img src="assets/images/tentang/<?= htmlspecialchars(basename($tentang_kami['foto'])); ?>"
+                                        class="img-fluid w-100 h-100 object-fit-cover rounded-2xl"
+                                        alt="CV Ghaffar Farm Bersaudara" style="object-position: center;">
                                 <?php endforeach; ?>
                                 <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50 rounded-3">
                                 </div>
@@ -240,7 +240,7 @@ include 'config/functions.php';
 
                                 <h3 style="color: #951c11;">MISI</h3>
                                 <p name="deskripsi-misi">
-                                    <?php echo $visi_misi['misi'];
+                                <?php echo $visi_misi['misi'];
                                     endforeach; ?>
                                 </p>
                             </div>
@@ -266,29 +266,29 @@ include 'config/functions.php';
                         <?php
                         $produks = getAllData('produk');
                         foreach ($produks as $produk) : ?>
-                        <?php $uniqueId = uniqid(); ?>
-                        <div class="card" style="width: 20rem; height: auto; position: relative;">
+                            <?php $uniqueId = uniqid(); ?>
+                            <div class="card" style="width: 20rem; height: auto; position: relative;">
 
-                            <h2 style="text-align: center; font-size: x-large;">
-                                <?= htmlspecialchars($produk['jenis_sapi']); ?>
-                            </h2>
-                            <img src="assets/images/produk/<?= htmlspecialchars(basename($produk['foto'])); ?>"
-                                class="card-img-top" alt="<?= htmlspecialchars($produk['jenis_sapi']); ?>"
-                                style="height: 200px; object-fit: cover;">
-                            <div class="card-body">
-                                <div id="textContainer<?= $uniqueId ?>" style="max-height: 0; overflow: hidden;">
-                                    <p class="card-text"><?= htmlspecialchars($produk['deskripsi_produk']); ?></p>
-                                </div>
-                                <div class="toggle-container">
-                                    <span class="toggle-text" id="toggleText<?= $uniqueId ?>">Lihat Teks</span>
-                                    <button class="btn toggle-btn" type="button"
-                                        onclick="toggleText('<?= $uniqueId ?>')"
-                                        style="background-color: #951C11; color: white;">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
+                                <h2 style="text-align: center; font-size: x-large;">
+                                    <?= htmlspecialchars($produk['jenis_sapi']); ?>
+                                </h2>
+                                <img src="assets/images/produk/<?= htmlspecialchars(basename($produk['foto'])); ?>"
+                                    class="card-img-top" alt="<?= htmlspecialchars($produk['jenis_sapi']); ?>"
+                                    style="height: 200px; object-fit: cover;">
+                                <div class="card-body">
+                                    <div id="textContainer<?= $uniqueId ?>" style="max-height: 0; overflow: hidden;">
+                                        <p class="card-text"><?= htmlspecialchars($produk['deskripsi_produk']); ?></p>
+                                    </div>
+                                    <div class="toggle-container">
+                                        <span class="toggle-text" id="toggleText<?= $uniqueId ?>">Lihat Teks</span>
+                                        <button class="btn toggle-btn" type="button"
+                                            onclick="toggleText('<?= $uniqueId ?>')"
+                                            style="background-color: #951C11; color: white;">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         <?php endforeach; ?>
                     </div>
                 </div>
@@ -307,17 +307,17 @@ include 'config/functions.php';
                     $layanans = getAllData('layanan');
                     foreach ($layanans as $layanan) : ?>
 
-                    <img src="assets/images/layanan/<?= htmlspecialchars(basename($layanan['foto'])); ?>"
-                        class="gambar-layanan" alt="gambar layanan CV Ghaffar Farm Bersaudara">
+                        <img src="assets/images/layanan/<?= htmlspecialchars(basename($layanan['foto'])); ?>"
+                            class="gambar-layanan" alt="gambar layanan CV Ghaffar Farm Bersaudara">
 
 
 
-                    <div class="content-section-layanan-kami">
+                        <div class="content-section-layanan-kami">
 
-                        <div class="left-layanan">
-                            <h3>Mengapa Investasi di Ghaffar Farm Bersaudara?</h3>
-                            <div class='card w-100 m-auto'>
-                                <?php
+                            <div class="left-layanan">
+                                <h3>Mengapa Investasi di Ghaffar Farm Bersaudara?</h3>
+                                <div class='card w-100 m-auto'>
+                                    <?php
                                     // Simpan teks di database dengan pemisah khusus, seperti #judul
                                     $raw_text = $layanan['mengapa_ghaffar'];
 
@@ -343,15 +343,15 @@ include 'config/functions.php';
                                     // Akhiri output HTML
                                     echo "</div>";
                                     ?>
+                                </div>
+
                             </div>
+                            <div class="right-layanan">
 
-                        </div>
-                        <div class="right-layanan">
-
-                            <h3>Kelebihan Investasi di Ghaffar Farm Bersaudara</h3>
-                            <div class='card w-100 m-auto'>
-                                <ul>
-                                    <?php
+                                <h3>Kelebihan Investasi di Ghaffar Farm Bersaudara</h3>
+                                <div class='card w-100 m-auto'>
+                                    <ul>
+                                        <?php
                                         $kelebihan = nl2br(htmlspecialchars($layanan['kelebihan']));
                                         $kelebihan_poin = explode("\n", $kelebihan);
 
@@ -373,14 +373,14 @@ include 'config/functions.php';
                   </li>";
                                         }
                                         ?>
-                                </ul>
+                                    </ul>
+                                </div>
+
+
+
                             </div>
-
-
-
-                        </div>
                         <?php endforeach; ?>
-                    </div>
+                        </div>
 
                 </div>
                 <div class="content-section-jangka-investasi" id="investasi">
@@ -390,14 +390,14 @@ include 'config/functions.php';
                             <h3 style="color: #FEF5EA;">Jangka Investasi:</h3>
                             <?php $investasian = getAllData('investasi');
                             foreach ($investasian as $investasi) : ?>
-                            <p name="deskripsi-investasi">
-                                <?= $investasi['jangka_investasi']; ?>
-                            </p>
+                                <p name="deskripsi-investasi">
+                                    <?= $investasi['jangka_investasi']; ?>
+                                </p>
 
-                            <h3 style="color: #FEF5EA;">Nilai Investasi:</h3>
-                            <p name="deskripsi-nilai">
-                                <?= $investasi['jlh_investasi']; ?>
-                            </p>
+                                <h3 style="color: #FEF5EA;">Nilai Investasi:</h3>
+                                <p name="deskripsi-nilai">
+                                    <?= $investasi['jlh_investasi']; ?>
+                                </p>
                         </div>
                     </div>
                     <div class="right-jangka-investasi">
@@ -405,7 +405,7 @@ include 'config/functions.php';
                             class="gambar-jangka-investasi" alt="gambar tentang CV Ghaffar Farm Bersaudara"
                             width="100%">
                     </div>
-                    <?php endforeach; ?>
+                <?php endforeach; ?>
                 </div>
                 <div class="container my-5" id="Penjualan Produk">
                     <div class="row">
@@ -537,48 +537,24 @@ include 'config/functions.php';
                     <div class="pricingTable mt-5">
                         <h2 class="text-center mb-3 fs-3">Sapi Qurban Yang Kami Sediakan</h2>
                         <ul class="pricingTable-firstTable">
-                            <li class="pricingTable-firstTable_table">
-                                <h1 class="pricingTable-firstTable_table__header">Grade A</h1>
-                                <p class="pricingTable-firstTable_table__pricing">
-                                    <span>Rp</span><span>21jt</span><span>Iuran 3jt / Orang</span>
-                                </p>
-                                <ul class="pricingTable-firstTable_table__options">
-                                    <li>Bobot 300Kg</li>
-                                    <li>Pengawasan Dokter Hewan</li>
-                                    <li>Aqad jual-beli sesuai syariat Islam.</li>
-                                    <li>Garansi sapi sebelum serah terima.</li>
-                                </ul>
-                                <button class="pricingTable-firstTable_table__getstart" data-grade="A"
-                                    data-price="21jt">Pilih Sapi</button>
-                            </li>
-                            <li class="pricingTable-firstTable_table">
-                                <h1 class="pricingTable-firstTable_table__header">Grade B</h1>
-                                <p class="pricingTable-firstTable_table__pricing">
-                                    <span>Rp</span><span>19,25jt</span><span>Iuran 2.75jt / Orang</span>
-                                </p>
-                                <ul class="pricingTable-firstTable_table__options">
-                                    <li>Bobot 275Kg</li>
-                                    <li>Pengawasan Dokter Hewan</li>
-                                    <li>Aqad jual-beli sesuai syariat Islam.</li>
-                                    <li>Garansi sapi sebelum serah terima.</li>
-                                </ul>
-                                <button class="pricingTable-firstTable_table__getstart" data-grade="B"
-                                    data-price="19,25jt">Pilih Sapi</button>
-                            </li>
-                            <li class="pricingTable-firstTable_table">
-                                <h1 class="pricingTable-firstTable_table__header">Grade C</h1>
-                                <p class="pricingTable-firstTable_table__pricing">
-                                    <span>Rp</span><span>17,5jt</span><span>Iuran 2,5jt / Orang</span>
-                                </p>
-                                <ul class="pricingTable-firstTable_table__options">
-                                    <li>Bobot 250Kg</li>
-                                    <li>Pengawasan Dokter Hewan</li>
-                                    <li>Aqad jual-beli sesuai syariat Islam.</li>
-                                    <li>Garansi sapi sebelum serah terima.</li>
-                                </ul>
-                                <button class="pricingTable-firstTable_table__getstart" data-grade="C"
-                                    data-price="17,5jt">Pilih Sapi</button>
-                            </li>
+                            <?php
+                            $data_jenis_sapi = getAllData('jenis_sapi');
+                            foreach ($data_jenis_sapi as $sapi) :  ?>
+                                <li class="pricingTable-firstTable_table">
+                                    <h1 class="pricingTable-firstTable_table__header"><?= $sapi['grade'] ?></h1>
+                                    <p class="pricingTable-firstTable_table__pricing">
+                                        <span>Rp</span><span><?= $sapi['harga'] ?>jt</span><span> <?= $sapi['iuran'] ?> jt / Orang</span>
+                                    </p>
+                                    <ul class="pricingTable-firstTable_table__options">
+                                        <li><?= $sapi['bobot'] ?>Kg</li>
+                                        <li><?= $sapi['pengawasan'] ?></li>
+                                        <li><?= $sapi['aqad'] ?></li>
+                                        <li><?= $sapi['garansi'] ?></li>
+                                    </ul>
+                                    <button class="pricingTable-firstTable_table__getstart" data-grade="B"
+                                        data-price="19,25jt">Pilih Sapi</button>
+                                </li>
+                            <?php endforeach; ?>
                         </ul>
                     </div>
                 </section>
@@ -660,12 +636,12 @@ include 'config/functions.php';
                             <?php
                             $dataLegalitas = getAllData('legalitas');
                             foreach ($dataLegalitas as $legalitas) : ?>
-                            <a href="assets/pdf/legalitas/<?= $legalitas['legalitas']; ?>"
-                                class="list-group-item list-group-item-action btn-download" download>
-                                <i class="fas fa-download"></i> <span style="opacity: 0.5;">
-                                    <?= htmlspecialchars($legalitas['sertifikat']); ?></span>
+                                <a href="assets/pdf/legalitas/<?= $legalitas['legalitas']; ?>"
+                                    class="list-group-item list-group-item-action btn-download" download>
+                                    <i class="fas fa-download"></i> <span style="opacity: 0.5;">
+                                        <?= htmlspecialchars($legalitas['sertifikat']); ?></span>
 
-                            </a>
+                                </a>
                             <?php endforeach; ?>
                         </div>
                     </div>
@@ -722,22 +698,22 @@ include 'config/functions.php';
                 <h2 class="partnership-title">Kerjasama Kami</h2>
                 <div class="line"></div>
                 <br>
-                <?php $kerjasamaData = getAllData('kerjasama');?>
+                <?php $kerjasamaData = getAllData('kerjasama'); ?>
                 <?php if (!empty($kerjasamaData)): ?>
-                <?php foreach ($kerjasamaData as $kerjasama): ?>
-                <div class="partnership-item w-75 w-sm-100 m-auto">
-                    <div class="partnership-image">
-                        <img src="assets/images/Kerjasama/<?php echo $kerjasama['foto']; ?>"
-                            alt="Kerjasama <?php echo $kerjasama['judul']; ?>">
-                    </div>
-                    <div class="partnership-content">
-                        <h3>Kerjasama dengan <?php echo $kerjasama['judul']; ?></h3>
-                        <p><?php echo $kerjasama['deskripsi']; ?></p>
-                    </div>
-                </div>
-                <?php endforeach; ?>
+                    <?php foreach ($kerjasamaData as $kerjasama): ?>
+                        <div class="partnership-item w-75 w-sm-100 m-auto">
+                            <div class="partnership-image">
+                                <img src="assets/images/Kerjasama/<?php echo $kerjasama['foto']; ?>"
+                                    alt="Kerjasama <?php echo $kerjasama['judul']; ?>">
+                            </div>
+                            <div class="partnership-content">
+                                <h3>Kerjasama dengan <?php echo $kerjasama['judul']; ?></h3>
+                                <p><?php echo $kerjasama['deskripsi']; ?></p>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
                 <?php else: ?>
-                <p>Tidak ada data kerjasama yang tersedia.</p>
+                    <p>Tidak ada data kerjasama yang tersedia.</p>
                 <?php endif; ?>
             </section>
 
@@ -756,8 +732,8 @@ include 'config/functions.php';
                                 <?php
                                 $dataSponsor = getAllData('sponsor');
                                 foreach ($dataSponsor as $sponsor) : ?>
-                                <img src="assets/images/sponsor/<?= htmlspecialchars(basename($sponsor['foto'])); ?>"
-                                    class="marquee-image" alt="<?= htmlspecialchars($sponsor['sponsor']); ?>">
+                                    <img src="assets/images/sponsor/<?= htmlspecialchars(basename($sponsor['foto'])); ?>"
+                                        class="marquee-image" alt="<?= htmlspecialchars($sponsor['sponsor']); ?>">
                                 <?php endforeach; ?>
 
                             </div>
@@ -899,32 +875,32 @@ include 'config/functions.php';
                             <caption>Hubungi Kami</caption>
                             <tbody>
                                 <?php $datakontak = getAllData('kontak');
-    foreach ($datakontak as $kontak) : ?>
-                                <tr>
-                                    <!-- Salin nomor HP ke clipboard -->
-                                    <td><i class="fas fa-phone icon"
-                                            onclick="copyToClipboard('<?= $kontak['no_hp'] ?>')"
-                                            style="cursor: pointer;"></i></td>
-                                    <td><?= $kontak['no_hp'] ?></td>
-                                </tr>
-                                <tr>
-                                    <!-- Buka chat WhatsApp -->
-                                    <td><i class="fab fa-whatsapp icon" onclick="sendMessage('<?= $kontak['no_wa'] ?>')"
-                                            style="cursor: pointer;"></i></td>
-                                    <td><?= $kontak['no_wa'] ?></td>
-                                </tr>
-                                <tr>
-                                    <!-- Buka Instagram -->
-                                    <td><i class="fab fa-instagram icon" onclick="openInstagram('<?= $kontak['ig'] ?>')"
-                                            style="cursor: pointer;"></i></td>
-                                    <td><?= $kontak['ig'] ?></td>
-                                </tr>
-                                <tr>
-                                    <!-- Buka Facebook -->
-                                    <td><i class="fab fa-facebook icon" onclick="openFacebook('<?= $kontak['fb'] ?>')"
-                                            style="cursor: pointer;"></i></td>
-                                    <td><?= $kontak['fb'] ?></td>
-                                </tr>
+                                foreach ($datakontak as $kontak) : ?>
+                                    <tr>
+                                        <!-- Salin nomor HP ke clipboard -->
+                                        <td><i class="fas fa-phone icon"
+                                                onclick="copyToClipboard('<?= $kontak['no_hp'] ?>')"
+                                                style="cursor: pointer;"></i></td>
+                                        <td><?= $kontak['no_hp'] ?></td>
+                                    </tr>
+                                    <tr>
+                                        <!-- Buka chat WhatsApp -->
+                                        <td><i class="fab fa-whatsapp icon" onclick="sendMessage('<?= $kontak['no_wa'] ?>')"
+                                                style="cursor: pointer;"></i></td>
+                                        <td><?= $kontak['no_wa'] ?></td>
+                                    </tr>
+                                    <tr>
+                                        <!-- Buka Instagram -->
+                                        <td><i class="fab fa-instagram icon" onclick="openInstagram('<?= $kontak['ig'] ?>')"
+                                                style="cursor: pointer;"></i></td>
+                                        <td><?= $kontak['ig'] ?></td>
+                                    </tr>
+                                    <tr>
+                                        <!-- Buka Facebook -->
+                                        <td><i class="fab fa-facebook icon" onclick="openFacebook('<?= $kontak['fb'] ?>')"
+                                                style="cursor: pointer;"></i></td>
+                                        <td><?= $kontak['fb'] ?></td>
+                                    </tr>
                             </tbody>
 
                         </table>
@@ -938,7 +914,7 @@ include 'config/functions.php';
                             referrerpolicy="no-referrer-when-downgrade"></iframe>
                         <p style="text-align: left;"><?= $kontak['alamat'] ?></p>
                     </div>
-                    <?php endforeach; ?>
+                <?php endforeach; ?>
                 </div>
                 <div class="right-footer">
                     <h2 style="text-align: left; padding: 28px; margin: 20px auto; padding-bottom: 5px !important;">
@@ -980,102 +956,102 @@ include 'config/functions.php';
     <script src="bootstrap-5.3.3-dist/js/popper.min.js"></script>
     <script src="bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
     <script>
-    document.querySelectorAll('.pricingTable-firstTable_table__getstart').forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            const grade = this.getAttribute('data-grade');
-            const price = this.getAttribute('data-price');
-            const phoneNumber = '6283167961562'; // Ganti dengan nomor WhatsApp Anda
-            const message =
-                `Saya tertarik dengan sapi qurban Grade ${grade} seharga Rp ${price}. Mohon informasi lebih lanjut.`;
-            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-            window.open(whatsappUrl, '_blank');
+        document.querySelectorAll('.pricingTable-firstTable_table__getstart').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const grade = this.getAttribute('data-grade');
+                const price = this.getAttribute('data-price');
+                const phoneNumber = '6283167961562'; // Ganti dengan nomor WhatsApp Anda
+                const message =
+                    `Saya tertarik dengan sapi qurban Grade ${grade} seharga Rp ${price}. Mohon informasi lebih lanjut.`;
+                const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, '_blank');
+            });
         });
-    });
 
 
-    window.addEventListener('load', function() {
-        // Menyembunyikan overlay setelah halaman selesai dimuat
-        document.getElementById('overlay').classList.add('hide-overlay');
-    });
+        window.addEventListener('load', function() {
+            // Menyembunyikan overlay setelah halaman selesai dimuat
+            document.getElementById('overlay').classList.add('hide-overlay');
+        });
 
-    document.getElementById('whatsappIcon').addEventListener('click', function() {
-        var popup = document.getElementById('whatsappPopup');
-        if (popup.style.display === 'none' || popup.style.display === '') {
-            popup.style.display = 'block';
-        } else {
-            popup.style.display = 'none';
-        }
-    });
-
-    function sendMessage() {
-        var message = document.getElementById('whatsappMessage').value;
-        var url = 'https://wa.me/6283167961562?text=' + encodeURIComponent(message);
-        window.open(url, '_blank');
-    }
-
-
-    function toggleText(id) {
-        const textContainer = document.getElementById('textContainer' + id);
-        const toggleText = document.getElementById('toggleText' + id);
-        const icon = toggleText.nextElementSibling.querySelector('i'); // Menemukan ikon di dalam tombol
-        const maxHeight = textContainer.scrollHeight; // tinggi konten sebenarnya
-        let currentHeight = textContainer.style.maxHeight === '0px' ? 0 : maxHeight;
-        const increment = 30; // perubahan height per tick
-        const intervalTime = 30; // interval waktu per tick
-
-        if (currentHeight === 0) {
-            // Expand
-            textContainer.style.display = 'block';
-            const expandInterval = setInterval(() => {
-                if (currentHeight >= maxHeight) {
-                    clearInterval(expandInterval);
-                    toggleText.innerText = 'Tutup Teks';
-                    icon.classList.replace("fa-eye", "fa-eye-slash");
-                } else {
-                    currentHeight += increment;
-                    textContainer.style.maxHeight = currentHeight + 'px';
-                }
-            }, intervalTime);
-        } else {
-            // Collapse
-            const collapseInterval = setInterval(() => {
-                if (currentHeight <= 0) {
-                    clearInterval(collapseInterval);
-                    textContainer.style.maxHeight = '0px';
-                    toggleText.innerText = 'Lihat Teks';
-                    icon.classList.replace("fa-eye-slash", "fa-eye");
-                } else {
-                    currentHeight -= increment;
-                    textContainer.style.maxHeight = currentHeight + 'px';
-                }
-            }, intervalTime);
-        }
-    }
-
-    // Fungsi untuk menyalin nomor telepon ke clipboard
-    function copyToClipboard(text) {
-        navigator.clipboard.writeText(text).then(
-            function() {
-                alert("Nomor HP berhasil disalin: " + text);
-            },
-            function(err) {
-                alert("Gagal menyalin teks", err);
+        document.getElementById('whatsappIcon').addEventListener('click', function() {
+            var popup = document.getElementById('whatsappPopup');
+            if (popup.style.display === 'none' || popup.style.display === '') {
+                popup.style.display = 'block';
+            } else {
+                popup.style.display = 'none';
             }
-        );
-    }
+        });
 
-    // Fungsi untuk membuka profil Instagram
-    function openInstagram(username) {
-        const igLink = `https://www.instagram.com/${username}`;
-        window.open(igLink, "_blank");
-    }
+        function sendMessage() {
+            var message = document.getElementById('whatsappMessage').value;
+            var url = 'https://wa.me/6283167961562?text=' + encodeURIComponent(message);
+            window.open(url, '_blank');
+        }
 
-    // Fungsi untuk membuka profil Facebook
-    function openFacebook(username) {
-        const fbLink = `https://www.facebook.com/${username}`;
-        window.open(fbLink, "_blank");
-    }
+
+        function toggleText(id) {
+            const textContainer = document.getElementById('textContainer' + id);
+            const toggleText = document.getElementById('toggleText' + id);
+            const icon = toggleText.nextElementSibling.querySelector('i'); // Menemukan ikon di dalam tombol
+            const maxHeight = textContainer.scrollHeight; // tinggi konten sebenarnya
+            let currentHeight = textContainer.style.maxHeight === '0px' ? 0 : maxHeight;
+            const increment = 30; // perubahan height per tick
+            const intervalTime = 30; // interval waktu per tick
+
+            if (currentHeight === 0) {
+                // Expand
+                textContainer.style.display = 'block';
+                const expandInterval = setInterval(() => {
+                    if (currentHeight >= maxHeight) {
+                        clearInterval(expandInterval);
+                        toggleText.innerText = 'Tutup Teks';
+                        icon.classList.replace("fa-eye", "fa-eye-slash");
+                    } else {
+                        currentHeight += increment;
+                        textContainer.style.maxHeight = currentHeight + 'px';
+                    }
+                }, intervalTime);
+            } else {
+                // Collapse
+                const collapseInterval = setInterval(() => {
+                    if (currentHeight <= 0) {
+                        clearInterval(collapseInterval);
+                        textContainer.style.maxHeight = '0px';
+                        toggleText.innerText = 'Lihat Teks';
+                        icon.classList.replace("fa-eye-slash", "fa-eye");
+                    } else {
+                        currentHeight -= increment;
+                        textContainer.style.maxHeight = currentHeight + 'px';
+                    }
+                }, intervalTime);
+            }
+        }
+
+        // Fungsi untuk menyalin nomor telepon ke clipboard
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(
+                function() {
+                    alert("Nomor HP berhasil disalin: " + text);
+                },
+                function(err) {
+                    alert("Gagal menyalin teks", err);
+                }
+            );
+        }
+
+        // Fungsi untuk membuka profil Instagram
+        function openInstagram(username) {
+            const igLink = `https://www.instagram.com/${username}`;
+            window.open(igLink, "_blank");
+        }
+
+        // Fungsi untuk membuka profil Facebook
+        function openFacebook(username) {
+            const fbLink = `https://www.facebook.com/${username}`;
+            window.open(fbLink, "_blank");
+        }
     </script>
 
 
